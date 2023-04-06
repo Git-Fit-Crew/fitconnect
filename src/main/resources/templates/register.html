@@ -9,7 +9,20 @@
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
 
-Register
+<form th:action="@{/sign-up}" method="POST" th:object="${user}">
+    <div class="form d-flex flex-column justify-content-center align-items-center">
+        <label for="username" style="color:white;">Username</label>
+        <input id="username" th:field="*{username}" />
+
+        <label for="email" style="color:white;">Email</label>
+        <input id="email" th:field="*{email}" />
+
+        <label for="password" style="color:white;">Password</label>
+        <input id="password" type="password" th:field="*{password}" />
+
+        <input value="Sign me up!" type="submit" class="btn btn-primary mt-2 border border-0"/>
+    </div>
+</form>
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
