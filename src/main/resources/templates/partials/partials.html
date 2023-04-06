@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
-    <th:block th:replace="~{partials :: head}"></th:block>
-    <meta charset="UTF-8">
-    <title>FitConnect</title>
+<head th:fragment="head">
+
+    <meta charset="UTF-8" />
+    <title>Home</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/b652bf3f58.js" crossorigin="anonymous"></script>
+
+    <!-- CSS Sheet-->
+    <link rel="stylesheet" href="/css/fitStyle.css.css" type="text/css" media="screen">
+
 </head>
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
