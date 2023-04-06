@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:fragment="head">
+<th:block th:fragment="head">
 
     <meta charset="UTF-8" />
     <title>Home</title>
@@ -15,11 +15,22 @@
     <!-- CSS Sheet-->
     <link rel="stylesheet" href="/css/fitStyle.css.css" type="text/css" media="screen">
 
-</head>
-<body class="h-100 d-flex flex-column">
-<nav th:replace="~{partials :: nav}"></nav>
+</th:block>
 
-<footer th:replace="~{partials :: footer}"></footer>
-<th:block th:replace="~{partials :: scripts}"></th:block>
-</body>
+<th:block th:fragment="nav">
+
+</th:block>
+
+
+<th:block th:fragment="footer">
+
+</th:block>
+
+<th:block th:fragment="scripts">
+
+</th:block>
+
+
+
+
 </html>
