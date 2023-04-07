@@ -9,7 +9,13 @@
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
 
-Login Page
+<form th:action="@{/login}" method="post">
+    <label for="username">Username</label>
+    <input id="username" name="username" type="text" />
+    <label for="password">Password</label>
+    <input id="password" name="password" type="password" />
+    <input type="submit" value="Log In" />
+</form>
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>

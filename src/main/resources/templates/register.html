@@ -9,7 +9,26 @@
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
 
-Register
+<h1>Register to connect with other exercise enthusiasts!</h1>
+
+<form th:action="@{/register}" method="POST" th:object="${user}">
+    <div class="form">
+        <label for="username">Username</label>
+        <input id="username" th:field="*{username}" />
+
+        <label for="email">Email</label>
+        <input id="email" th:field="*{email}" />
+
+        <label for="password">Password</label>
+        <input id="password" type="password" th:field="*{password}" />
+
+        <label for="zipcode">Zip Code</label>
+        <input id="zipcode" th:field="*{zipcode}" />
+        
+
+        <input value="Sign me up!" type="submit" class="btn"/>
+    </div>
+</form>
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
