@@ -19,7 +19,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length=255, nullable = false)
+    @Column(length=255, nullable = true)
     private String name;
 
     @Column(length=50, nullable = false, unique = true)
@@ -31,17 +31,23 @@ public class User {
     @Column(length=50, nullable = false)
     private String password;
 
-    @Column(length=200)
+    @Column(length=200, nullable = true)
     private String photo;
 
-    @Column(length=11)
+    @Column(length=11, nullable = false)
     private int zipcode;
 
-    @Column(length=1)
+    @Column(length=1, nullable = true)
     private String gender;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String bio;
+
+    @Column(nullable = true)
+    private int level_id;
+
+    @Column(nullable = true)
+    private int gym_id;
 
 
 
