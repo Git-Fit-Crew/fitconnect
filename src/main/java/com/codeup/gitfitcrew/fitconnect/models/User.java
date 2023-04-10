@@ -59,11 +59,19 @@ public class User {
     @JoinTable(name = "user_achievement", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "achievement_id", referencedColumnName = "id"))
     private Collection<Achievements> achievements;
 
-
-
-
-
-
-
-
+    public User(User copy) {
+        copy.id = id;
+        copy.name = name;
+        copy.username = username;
+        copy.email = email;
+        copy.password = password;
+        copy.photo = photo;
+        copy.zipcode = zipcode;
+        copy.gender = gender;
+        copy.bio = bio;
+        copy.level = level;
+        copy.gym = gym;
+        copy.preferences = preferences;
+        copy.achievements = achievements;
+    }
 }
