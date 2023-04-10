@@ -26,11 +26,11 @@ public class UserController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String sendToProfile(){
-
-        return "profile";
-    }
+//    @PostMapping("/login")
+//    public String sendToProfile(){
+//
+//        return "profile";
+//    }
 
 
     @GetMapping("/register")
@@ -43,8 +43,8 @@ public class UserController {
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         System.out.println(user);
-        user.setGym();
-        user.setLevel_id(1);
+//        user.setGym();
+//        user.setLevel_id(1);
         userDao.save(user);
         return "redirect:/login";
     }
