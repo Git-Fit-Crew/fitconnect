@@ -44,8 +44,7 @@ public class User {
     @Column(nullable = true)
     private String bio;
 
-    @ManyToOne
-    @JoinColumn (name = "level_id")
+    @Enumerated(EnumType.STRING)
     private Level level;
 
     @ManyToOne

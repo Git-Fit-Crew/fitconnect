@@ -1,5 +1,8 @@
 package com.codeup.gitfitcrew.fitconnect.controllers;
 
+import com.codeup.gitfitcrew.fitconnect.models.Gender;
+import com.codeup.gitfitcrew.fitconnect.models.Gym;
+import com.codeup.gitfitcrew.fitconnect.models.Level;
 import com.codeup.gitfitcrew.fitconnect.models.User;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -48,5 +51,20 @@ public class UserController {
         userDao.save(user);
         return "redirect:/login";
     }
+
+
+    public static void main(String[] args) {
+        User user = new User();
+
+        Gym gym = new Gym();
+        gym.setName("my gym");
+        gym.setAddress("9999 gym street");
+        user.setGym(gym);
+        user.setGender(Gender.FEMALE);
+        user.setLevel(Level.EXPERT);
+        System.out.println(user);
+    }
 }
+
+
 
