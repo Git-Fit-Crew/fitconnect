@@ -19,7 +19,7 @@
 
 <th:block th:fragment="nav">
 
-    <a class="nav-link active" href="/home">FitConnect</a>
+    <a class="nav-link active" href="/">FitConnect</a>
     <a class="nav-link active" href="/search">Connect page</a>
     <a class="nav-link active" href="/profile">Profile</a>
     <a class="nav-link active" href="/messages">Messages</a>
@@ -27,7 +27,11 @@
 
     <a class="nav-link active" href="/register">Register</a>
     <a class="nav-link active" href="/login">Login</a>
-    <a class="nav-link active" href="/logout">Logout</a>
+    <th:block sec:authorize="isAuthenticated()">
+        <form th:action="@{/logout}" th:method="post">
+            <button type="submit" class="btn-link btn nav-link">logout</button>
+        </form>
+    </th:block>
 
 </th:block>
 
