@@ -1,3 +1,38 @@
+<!--<!DOCTYPE html>-->
+<!--<html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
+<!--<head>-->
+<!--    <th:block th:replace="~{partials :: head}"></th:block>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Join FitConnect!</title>-->
+<!--</head>-->
+<!--<body class="h-100 d-flex flex-column">-->
+<!--<nav th:replace="~{partials :: nav}"></nav>-->
+
+<!--Home Page-->
+<!--<br>-->
+<!--<br>-->
+
+<!--3 cards w images promoting site features-->
+<!--<br>-->
+<!--<form action="/register">-->
+<!--    <button type="submit">Register now!</button>-->
+<!--</form>-->
+
+<!--OR-->
+<!--<form action="/login">-->
+<!--    <button type="submit">Login!</button>-->
+<!--</form>-->
+
+
+<!--<footer th:replace="~{partials :: footer}"></footer>-->
+<!--<th:block th:replace="~{partials :: scripts}"></th:block>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
 <!DOCTYPE html>
 <html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
@@ -8,24 +43,27 @@
 </head>
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
-
 Home Page
 <br>
 <br>
 
 3 cards w images promoting site features
 <br>
+
 <form action="/register">
     <button type="submit">Register now!</button>
 </form>
-
 OR
+
 <form action="/login">
     <button type="submit">Login!</button>
 </form>
-
-
+<div id="map" style="height: 500px; width: 100%;"></div>
+<div class="controls">
+    <input id="search-box" type="text" class="search-box" placeholder="Enter a location">
+</div>
 <footer th:replace="~{partials :: footer}"></footer>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNeUyQ-XRWgF0FRL4tXw9aqFZ0eW3kEC8&libraries=places&callback=initMap"></script>
 <th:block th:replace="~{partials :: scripts}"></th:block>
 </body>
 </html>
