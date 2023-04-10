@@ -8,7 +8,13 @@
 </head>
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
-
+<h1>Log In</h1>
+<div th:if="${param.error}" class="text-danger">
+    Invalid Username and Password.
+</div>
+<div th:if="${param.logout}" class="text-info">
+    You have been logged out.
+</div>
 <form th:action="@{/login}" method="post">
     <label for="username">Username</label>
     <input id="username" name="username" type="text" />
