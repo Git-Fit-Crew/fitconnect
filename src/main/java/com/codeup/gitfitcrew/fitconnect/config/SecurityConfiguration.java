@@ -34,7 +34,7 @@ public class SecurityConfiguration {
                 /* Login configuration */
                 .formLogin()
                 .loginPage("/login")
-                .defaultSuccessUrl("/profile")
+                .defaultSuccessUrl("/")
                 .permitAll()
                 /* Logout configuration */
                 .and()
