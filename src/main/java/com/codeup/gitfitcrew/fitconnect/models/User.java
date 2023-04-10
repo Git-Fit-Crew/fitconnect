@@ -47,23 +47,31 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Level level;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn (name = "gym_id")
     private Gym gym;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "users_preferences", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "preferences_id", referencedColumnName = "id"))
     private Collection<Preferences> preferences;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_achievement", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "achievement_id", referencedColumnName = "id"))
     private Collection<Achievements> achievements;
 
-
-
-
-
-
-
-
+    public User(User copy) {
+        id = copy.id;
+        name = copy.name;
+        username = copy.username;
+        email = copy.email;
+        password = copy.password;
+        photo = copy.photo;
+        zipcode = copy.zipcode;
+        gender = copy.gender;
+        bio = copy.bio;
+        level = copy.level;
+        gym = copy.gym;
+        preferences = copy.preferences;
+        achievements = copy.achievements;
+    }
 }

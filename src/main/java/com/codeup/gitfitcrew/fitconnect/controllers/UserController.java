@@ -5,6 +5,8 @@ import com.codeup.gitfitcrew.fitconnect.models.Gym;
 import com.codeup.gitfitcrew.fitconnect.models.Level;
 import com.codeup.gitfitcrew.fitconnect.models.User;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,16 +14,11 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
+@RequiredArgsConstructor
 public class UserController {
 
-    private UserRepository userDao;
-    //private PasswordEncoder passwordEncoder;
-
-    public UserController(UserRepository userDao) {
-        this.userDao = userDao;
-        //, PasswordEncoder passwordEncoder
-        //this.passwordEncoder = passwordEncoder;
-    }
+    private final UserRepository userDao;
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/login")
     public String showLoginForm(){
@@ -29,11 +26,11 @@ public class UserController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String sendToProfile(){
-
-        return "profile";
-    }
+//    @PostMapping("/login")
+//    public String sendToProfile(){
+//
+//        return "profile";
+//    }
 
 
     @GetMapping("/register")
@@ -43,11 +40,11 @@ public class UserController {
     }
     @PostMapping("/register")
     public String saveUser(@ModelAttribute User user){
-        //String hash = passwordEncoder.encode(user.getPassword());
-        //user.setPassword(hash);
+        String hash = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hash);
         System.out.println(user);
-        user.setGym();
-        user.setLevel_id(1);
+//        user.setGym();
+//        user.setLevel_id(1);
         userDao.save(user);
         return "redirect:/login";
     }
