@@ -1,5 +1,6 @@
 package com.codeup.gitfitcrew.fitconnect.config;
 
+import com.codeup.gitfitcrew.fitconnect.services.UserDetailsLoader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
