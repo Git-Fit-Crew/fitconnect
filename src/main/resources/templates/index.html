@@ -1,31 +1,61 @@
-<!DOCTYPE html>
-<html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<!--<!DOCTYPE html>-->
+<!--<html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org"-->
+<!--      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">-->
+<!--<head>-->
+<!--    <th:block th:replace="~{partials :: head}"></th:block>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Join FitConnect!</title>-->
+<!--</head>-->
+<!--<body class="h-100 d-flex flex-column">-->
+<!--<nav th:replace="~{partials :: nav}"></nav>-->
+
+<!--Home Page-->
+<!--<br>-->
+<!--<br>-->
+
+<!--3 cards w images promoting site features-->
+<!--<br>-->
+<!--<form action="/register">-->
+<!--    <button type="submit">Register now!</button>-->
+<!--</form>-->
+
+<!--OR-->
+<!--<form action="/login">-->
+<!--    <button type="submit">Login!</button>-->
+<!--</form>-->
+
+
+<!--<footer th:replace="~{partials :: footer}"></footer>-->
+<!--<th:block th:replace="~{partials :: scripts}"></th:block>-->
+<!--</body>-->
+<!--</html>-->
+
+
+
+
+<html>
 <head>
-    <th:block th:replace="~{partials :: head}"></th:block>
-    <meta charset="UTF-8">
-    <title>Join FitConnect!</title>
+    <title>Place Searches</title>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
+    <script type="module" src="../static/js/index.js"></script>
 </head>
-<body class="h-100 d-flex flex-column">
-<nav th:replace="~{partials :: nav}"></nav>
-
-Home Page
-<br>
-<br>
-
-3 cards w images promoting site features
-<br>
-<form action="/register">
-    <button type="submit">Register now!</button>
-</form>
-
-OR
-<form action="/login">
-    <button type="submit">Login!</button>
-</form>
-
-
-<footer th:replace="~{partials :: footer}"></footer>
-<th:block th:replace="~{partials :: scripts}"></th:block>
+<body>
+<div id="map"></div>
+<!--
+  The `defer` attribute causes the callback to execute after the full HTML
+  document has been parsed. For non-blocking uses, avoiding race conditions,
+  and consistent behavior across browsers, consider loading using Promises.
+  See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+  for more information.
+  -->
+<script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNeUyQ-XRWgF0FRL4tXw9aqFZ0eW3kEC8&callback=initMap&libraries=places&v=weekly"
+        defer
+></script>
 </body>
 </html>
+
+
+
+
