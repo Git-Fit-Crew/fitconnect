@@ -43,7 +43,7 @@ public class UserController {
         //String hash = passwordEncoder.encode(user.getPassword());
         //user.setPassword(hash);
         System.out.println(user);
-        user.setGym_id(1);
+        user.setGym(1);
         user.setLevel_id(1);
         userDao.save(user);
         return "redirect:/login";

@@ -4,6 +4,7 @@ package com.codeup.gitfitcrew.fitconnect.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor
@@ -37,17 +38,27 @@ public class User {
     @Column(length=11, nullable = false)
     private int zipcode;
 
-    @Column(length=1, nullable = true)
-    private String gender;
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
 
     @Column(nullable = true)
     private String bio;
 
-    @Column(nullable = true)
-    private int level_id;
+    @ManyToOne
+    @JoinColumn (name = "level_id")
+    private Level level;
 
-    @Column(nullable = true)
-    private int gym_id;
+    @ManyToOne
+    @JoinColumn (name = "gym_id")
+    private Gym gym;
+
+    @ManyToMany
+    @JoinTable(name = "users_preferences", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "preferences_id", referencedColumnName = "id"))
+    private Collection<Preferences> preferences;
+
+    @ManyToMany
+    @JoinTable(name = "user_achievement", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "achievement_id", referencedColumnName = "id"))
+    private Collection<Achievements> achievements;
 
 
 
