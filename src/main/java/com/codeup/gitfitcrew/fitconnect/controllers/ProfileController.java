@@ -3,6 +3,7 @@ package com.codeup.gitfitcrew.fitconnect.controllers;
 import com.codeup.gitfitcrew.fitconnect.models.User;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +17,7 @@ public class ProfileController {
 
     @GetMapping("/profile")
     public String profile(Model model) {
-        User user = userDao.getReferenceById(11L);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         model.addAttribute("user", user);
 
         return "profile";
