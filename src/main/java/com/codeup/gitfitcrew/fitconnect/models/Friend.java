@@ -26,7 +26,7 @@ public class Friend {
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "friend_id", referencedColumnName = "id")
-    User friendUser;
+    User secondUser;
 
 
 }
