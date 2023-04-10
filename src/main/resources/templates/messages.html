@@ -24,43 +24,10 @@ Messages Page
     <i>Loading chat...</i>
 </div>
 
-<br>
-<script>
-    Talk.ready.then(function () {
-        var me = new Talk.User({
-            id: '123456',
-            name: 'Alice',
-            email: 'alice@example.com',
-            photoUrl: 'https://talkjs.com/images/avatar-1.jpg',
-            welcomeMessage: 'Hey there! How are you? :-)',
-        });
-        window.talkSession = new Talk.Session({
-            appId: 'tBIxRH8i',
-            me: me,
-        });
-        var other = new Talk.User({
-            id: '11',
-            name: 'Tig',
-            email: 'tigthabig@gmail.com',
-            photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
-            welcomeMessage: 'Meowdy pawtner!',
-        });
-
-        var conversation = talkSession.getOrCreateConversation(
-            Talk.oneOnOneId(me, other)
-        );
-        conversation.setParticipant(me);
-        conversation.setParticipant(other);
-
-        var inbox = talkSession.createInbox({ selected: conversation });
-        inbox.mount(document.getElementById('talkjs-container'));
-    });
-
-</script>
-
 
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
+<script th:type="module" th:src="@{/js/talkJS.js}"></script>
 </body>
 </html>
