@@ -1,9 +1,13 @@
 package com.codeup.gitfitcrew.fitconnect.services;
 
+import com.codeup.gitfitcrew.fitconnect.config.SecurityConfiguration;
 import com.codeup.gitfitcrew.fitconnect.models.Friend;
+import com.codeup.gitfitcrew.fitconnect.models.Status;
 import com.codeup.gitfitcrew.fitconnect.models.User;
+import com.codeup.gitfitcrew.fitconnect.models.UserDto;
 import com.codeup.gitfitcrew.fitconnect.repositories.FriendRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +27,7 @@ public class FriendService {
     ModelMapper modelMapper;
 
     @Autowired
-    SecurityService securityService;
+    SecurityConfiguration securityConfiguration;
 
     public void saveFriend(UserDto userDto1, long id) throws NullPointerException{
 
@@ -31,8 +35,8 @@ public class FriendService {
         UserDto userDto2 = modelMapper.map(user,UserDto.class);
 
         Friend friend = new Friend();
-        User user1 = userRepository.findUserByUsername(userDto1.getUsername());
-        User user2 = userRepository.findUserByUsername(userDto2.getEmail());
+        User user1 = userRepository.findByUsername(userDto1.getUsername());
+        User user2 = userRepository.findByUsername(userDto2.getUsername());
         User firstuser = user1;
         User seconduser = user2;
         if(user1.getId() > user2.getId()){
@@ -40,7 +44,7 @@ public class FriendService {
             seconduser = user1;
         }
         if( !(friendRepository.existsByFirstUserAndSecondUser(firstuser,seconduser)) ){
-            friend.setCreatedDate(new Date());
+            friend.setStatus(Status.accepted);
             friend.setFirstUser(firstuser);
             friend.setSecondUser(seconduser);
             friendRepository.save(friend);
@@ -49,8 +53,7 @@ public class FriendService {
 
     public List<User> getFriends(){
 
-        UserDto currentUserDto = securityService.getUser();
-        User currentUser = userRepository.findUserByEmail(currentUserDto.getEmail());
+        User currentUser = SecurityConfiguration.getUser();
         List<Friend> friendsByFirstUser = friendRepository.findByFirstUser(currentUser);
         List<Friend> friendsBySecondUser = friendRepository.findBySecondUser(currentUser);
         List<User> friendUsers = new ArrayList<>();
@@ -63,10 +66,10 @@ public class FriendService {
             while calling get friends of user 2 we need to check as a both first user and the second user
          */
         for (Friend friend : friendsByFirstUser) {
-            friendUsers.add(userRepository.findUserById(friend.getSecondUser().getId()));
+            friendUsers.add(userRepository.findById(friend.getSecondUser().getId()));
         }
         for (Friend friend : friendsBySecondUser) {
-            friendUsers.add(userRepository.findUserById(friend.getFirstUser().getId()));
+            friendUsers.add(userRepository.findById(friend.getFirstUser().getId()));
         }
         return friendUsers;
 

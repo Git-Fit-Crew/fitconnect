@@ -11,6 +11,19 @@
 
 Friends page
 
+<!--friends list-->
+<div class="col-8 p-0">
+    <div class = "d-flex flex-column justify-content-center align-items-center">
+        <div class="card m-2 p-2 bg-secondary opacity-75" style="width: 90%;" th:each="friend : ${friends}">
+            <div class="card-body">
+                <!--<a th:href="@{/profile/{id}(id=${friend.id})}"><h4 class="card-title" th:text="${friend.username}">(insert title here)</h4></a>-->
+                <h4 class="card-title" th:text="${friend.username}">
+
+            </div>
+        </div>
+    </div>
+</div>
+
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
 </body>

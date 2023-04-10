@@ -19,7 +19,6 @@ public class Friend {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id", referencedColumnName = "id")
     User firstUser;
@@ -27,6 +26,9 @@ public class Friend {
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "friend_id", referencedColumnName = "id")
     User secondUser;
+
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
 
 }
