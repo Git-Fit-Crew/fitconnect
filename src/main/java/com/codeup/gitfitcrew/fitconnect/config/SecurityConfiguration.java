@@ -54,6 +54,8 @@ public class SecurityConfiguration {
                         "/messages",
                         "/search",
                         "/profile",
+                        "/keys",
+                        "/messages/user",
                         "/edit",
                         "/profile/showFormForUpdate/{id}"
                 )
