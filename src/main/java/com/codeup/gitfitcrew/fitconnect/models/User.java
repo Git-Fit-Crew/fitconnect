@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Collection;
-import java.util.List;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -74,4 +74,5 @@ public class User {
         preferences = copy.preferences;
         achievements = copy.achievements;
     }
+
 }

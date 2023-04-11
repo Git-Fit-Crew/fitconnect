@@ -56,10 +56,15 @@ public class SecurityConfiguration {
                         "/profile",
                         "/profile/{id}",
                         "/profile/{id}/remove",
-                        "profile/removed",
+                        "/profile/removed",
                         "/profile/{id}/request",
                         "/friends/{id}/accept",
-                        "/friends/{id}/deny"
+                        "/friends/{id}/deny",
+                        "/keys",
+                        "/loggedInUser",
+                        "/loggedInUserFriends",
+                        "/edit",
+                        "/profile/showFormForUpdate/{id}"
                 )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
