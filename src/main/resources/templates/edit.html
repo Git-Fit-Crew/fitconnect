@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>edit</title>
+  <th:block th:replace="~{partials :: head}"></th:block>
+</head>
+<body>
+<nav th:replace="~{partials :: nav}"></nav>
+
+<form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}">
+  <div class="form">
+    <label for="name">Name</label>
+    <input id="name" th:field="*{name}" />
+
+    <label for="username">Username</label>
+    <input id="username" th:field="*{username}" />
+
+    <label for="email">Email</label>
+    <input id="email" th:field="*{email}" />
+
+    <label for="zipcode">Zip Code</label>
+    <input id="zipcode" th:field="*{zipcode}" />
+
+    <label for="gender">Gender</label>
+    <select id="gender" name="gender">
+      <option th:each="gender : ${T(com.codeup.gitfitcrew.fitconnect.models.Gender).values()}"
+              th:value="${gender}" th:text="${gender}"></option>
+    </select>
+
+    <label for="level">Experience Level</label>
+    <select id="level" name="gender">
+      <option th:each="level : ${T(com.codeup.gitfitcrew.fitconnect.models.Level).values()}"
+              th:value="${level}" th:text="${level}"></option>
+    </select>
+
+    <br>
+
+    <label for="bio">Bio</label>
+    <input id="bio" th:field="*{bio}" />
+
+
+    <input value="Update" type="submit" class="btn"/>
+  </div>
+</form>
+
+<footer th:replace="~{partials :: footer}"></footer>
+<th:block th:replace="~{partials :: scripts}"></th:block>
+</body>
+</html>

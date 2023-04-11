@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <th:block th:replace="~{partials :: head}"></th:block>
     <meta charset="UTF-8">
@@ -13,7 +12,7 @@ Profile Page
 
 
 
-<img th:src="@{{path}(path=${user.photo})}" class="userImg" alt="...">
+<img src="/" th:src="@{{path}(path=${user.photo})}" class="userImg" alt="...">
 
 <h5  th:text="${user.username}">(insert username here)</h5>
 <h5  th:text="${user.name}">(insert username here)</h5>
@@ -21,9 +20,9 @@ Profile Page
 <p th:text="${user.zipcode}">(insert zipcode here)</p>
 <p th:text="${user.gender}">(insert gender here)</p>
 <p th:text="${user.bio}">(insert bio here)</p>
-
-
-
+<form th:action="@{|/profile/showFormForUpdate/${user.id}|}">
+    <button type="submit">edit!</button>
+</form>
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
 </body>
