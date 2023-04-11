@@ -53,7 +53,13 @@ public class SecurityConfiguration {
                         "/friends",
                         "/messages",
                         "/search",
-                        "/profile"
+                        "/profile",
+                        "/profile/{id}",
+                        "/profile/{id}/remove",
+                        "profile/removed",
+                        "/profile/{id}/request",
+                        "/friends/{id}/accept",
+                        "/friends/{id}/deny"
                 )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
