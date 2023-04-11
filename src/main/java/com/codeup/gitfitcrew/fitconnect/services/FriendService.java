@@ -29,24 +29,17 @@ public class FriendService {
     @Autowired
     SecurityConfiguration securityConfiguration;
 
-    public void saveFriend(UserDto userDto1, long id) throws NullPointerException{
+    public void saveFriend(User currentUser, long id) throws NullPointerException{
 
-        User user = userRepository.getReferenceById(id);
-        UserDto userDto2 = modelMapper.map(user,UserDto.class);
+        User firstUser = currentUser;
+        User secondUser = userRepository.getReferenceById(id);
 
         Friend friend = new Friend();
-        User user1 = userRepository.findByUsername(userDto1.getUsername());
-        User user2 = userRepository.findByUsername(userDto2.getUsername());
-        User firstuser = user1;
-        User seconduser = user2;
-        if(user1.getId() > user2.getId()){
-            firstuser = user2;
-            seconduser = user1;
-        }
-        if( !(friendRepository.existsByFirstUserAndSecondUser(firstuser,seconduser)) ){
+
+        if( !(friendRepository.existsByFirstUserAndSecondUser(firstUser,secondUser)) ){
             friend.setStatus(Status.accepted);
-            friend.setFirstUser(firstuser);
-            friend.setSecondUser(seconduser);
+            friend.setFirstUser(firstUser);
+            friend.setSecondUser(secondUser);
             friendRepository.save(friend);
         }
     }
@@ -55,22 +48,15 @@ public class FriendService {
 
         User currentUser = SecurityConfiguration.getUser();
         List<Friend> friendsByFirstUser = friendRepository.findByFirstUser(currentUser);
-        List<Friend> friendsBySecondUser = friendRepository.findBySecondUser(currentUser);
+        /*List<Friend> friendsBySecondUser = friendRepository.findBySecondUser(currentUser);*/
         List<User> friendUsers = new ArrayList<>();
 
-        /*
-            suppose there are 3 users with id 1,2,3.
-            if user1 add user2 as friend database record will be first user = user1 second user = user2
-            if user3 add user2 as friend database record will be first user = user2 second user = user3
-            it is because of lexicographical order
-            while calling get friends of user 2 we need to check as a both first user and the second user
-         */
         for (Friend friend : friendsByFirstUser) {
             friendUsers.add(userRepository.findById(friend.getSecondUser().getId()));
         }
-        for (Friend friend : friendsBySecondUser) {
+        /*for (Friend friend : friendsBySecondUser) {
             friendUsers.add(userRepository.findById(friend.getFirstUser().getId()));
-        }
+        }*/
         return friendUsers;
 
     }
