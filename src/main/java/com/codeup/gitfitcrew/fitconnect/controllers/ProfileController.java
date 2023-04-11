@@ -94,4 +94,11 @@ public class ProfileController {
         userDao.save(originalUser);
         return "redirect:/profile";
     }
+
+    @PostMapping("/profile/workout")
+    public void logWorkout() {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getUserById(loggedInUser.getId());
+        System.out.println("user.getWorkouts() = " + user.getWorkouts());
+    }
 }

@@ -13,29 +13,29 @@ import java.util.Collection;
 @Setter
 @ToString
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(length=255, nullable = true)
+    @Column(length = 255, nullable = true)
     private String name;
 
-    @Column(length=50, nullable = false, unique = true)
+    @Column(length = 50, nullable = false, unique = true)
     private String username;
 
-    @Column(length=100, nullable = false, unique = true)
+    @Column(length = 100, nullable = false, unique = true)
     private String email;
 
-    @Column(length=255, nullable = false)
+    @Column(length = 255, nullable = false)
     private String password;
 
-    @Column(length=200, nullable = true)
+    @Column(length = 200, nullable = true)
     private String photo;
 
-    @Column(length=11, nullable = false)
+    @Column(length = 11, nullable = false)
     private int zipcode;
 
     @Enumerated(EnumType.STRING)
@@ -48,7 +48,7 @@ public class User {
     private Level level;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn (name = "gym_id")
+    @JoinColumn(name = "gym_id")
     private Gym gym;
 
     @ManyToMany(fetch = FetchType.EAGER)
@@ -58,6 +58,14 @@ public class User {
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_achievement", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "achievement_id", referencedColumnName = "id"))
     private Collection<Achievements> achievements;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "users_workouts",
+            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
+            inverseJoinColumns = @JoinColumn(name = "workout_id", referencedColumnName = "id")
+    )
+    private Collection<Workout> workouts;
 
     public User(User copy) {
         id = copy.id;
@@ -73,6 +81,7 @@ public class User {
         gym = copy.gym;
         preferences = copy.preferences;
         achievements = copy.achievements;
+        workouts = copy.workouts;
     }
 
 }

@@ -10,7 +10,13 @@
 
 Profile Page
 
-
+<div>
+    <form th:action="@{/profile/workout}" th:method="post">
+    <p>Did you workout today?</p>
+        <button type="submit">Yes</button>
+    </form>
+    <button id="dismiss-workout">Dismiss</button>
+</div>
 
 <img src="/" th:src="@{{path}(path=${user.photo})}" class="userImg" alt="...">
 

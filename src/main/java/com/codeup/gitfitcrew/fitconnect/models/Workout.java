@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.List;
 
 @NoArgsConstructor
@@ -18,10 +19,9 @@ public class Workout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JoinColumn (name = "user_id")
-    private User user;
-
     @Temporal(TemporalType.DATE)
     private Calendar utilCalendar;
+
+    @ManyToMany(mappedBy = "workouts")
+    private List<User> users;
 }
