@@ -4,7 +4,6 @@ import com.codeup.gitfitcrew.fitconnect.config.SecurityConfiguration;
 import com.codeup.gitfitcrew.fitconnect.models.Friend;
 import com.codeup.gitfitcrew.fitconnect.models.Status;
 import com.codeup.gitfitcrew.fitconnect.models.User;
-import com.codeup.gitfitcrew.fitconnect.models.UserDto;
 import com.codeup.gitfitcrew.fitconnect.repositories.FriendRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
 import org.modelmapper.ModelMapper;
@@ -29,6 +28,7 @@ public class FriendService {
     @Autowired
     SecurityConfiguration securityConfiguration;
 
+
     public void saveFriend(User currentUser, long id) throws NullPointerException{
 
         User firstUser = currentUser;
@@ -41,7 +41,19 @@ public class FriendService {
             friend.setFirstUser(firstUser);
             friend.setSecondUser(secondUser);
             friendRepository.save(friend);
+
+            friend.setStatus(Status.accepted);
+            friend.setFirstUser(secondUser);
+            friend.setSecondUser(firstUser);
+            friendRepository.save(friend);
         }
+    }
+
+    public void deleteFriend(int id1, int id2) {
+
+        friendRepository.deleteById(id1);
+        friendRepository.deleteById(id2);
+
     }
 
     public List<User> getFriends(){

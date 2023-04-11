@@ -13,6 +13,7 @@ import java.util.List;
 public class FriendsController {
     private final FriendService friendService;
 
+
     public FriendsController(FriendService friendService) {
         this.friendService = friendService;
     }
