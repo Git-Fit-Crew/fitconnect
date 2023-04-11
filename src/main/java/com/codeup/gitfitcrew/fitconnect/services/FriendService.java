@@ -28,48 +28,79 @@ public class FriendService {
     @Autowired
     SecurityConfiguration securityConfiguration;
 
+    public void requestFriend(User firstUser, User secondUser) throws NullPointerException{
 
-    public void saveFriend(User currentUser, long id) throws NullPointerException{
+            Friend friend1 = new Friend();
+            friend1.setFirstUser(firstUser);
+            friend1.setSecondUser(secondUser);
+            friend1.setStatus(Status.sent);
+            friendRepository.save(friend1);
 
-        User firstUser = currentUser;
-        User secondUser = userRepository.getReferenceById(id);
+            Friend friend2 = new Friend();
+            friend2.setFirstUser(secondUser);
+            friend2.setSecondUser(firstUser);
+            friend2.setStatus(Status.pending);
+            friendRepository.save(friend2);
 
-        Friend friend = new Friend();
-
-        if( !(friendRepository.existsByFirstUserAndSecondUser(firstUser,secondUser)) ){
-            friend.setStatus(Status.accepted);
-            friend.setFirstUser(firstUser);
-            friend.setSecondUser(secondUser);
-            friendRepository.save(friend);
-
-            friend.setStatus(Status.accepted);
-            friend.setFirstUser(secondUser);
-            friend.setSecondUser(firstUser);
-            friendRepository.save(friend);
-        }
     }
 
-    public void deleteFriend(int id1, int id2) {
+    public void acceptFriend(User firstUser, User secondUser){
 
-        friendRepository.deleteById(id1);
-        friendRepository.deleteById(id2);
+        Friend friend1 = friendRepository.findByFirstUserAndSecondUser(firstUser, secondUser);
+        friend1.setStatus(Status.accepted);
+        friendRepository.save(friend1);
+
+        Friend friend2 = friendRepository.findByFirstUserAndSecondUser(secondUser, firstUser);
+        friend2.setStatus(Status.accepted);
+        friendRepository.save(friend2);
+
+    }
+
+    public void denyFriend(User firstUser, User secondUser){
+
+        Friend friend1 = friendRepository.findByFirstUserAndSecondUser(firstUser, secondUser);
+        friend1.setStatus(Status.rejected);
+        friendRepository.save(friend1);
+
+        Friend friend2 = friendRepository.findByFirstUserAndSecondUser(secondUser, firstUser);
+        friend2.setStatus(Status.rejected);
+        friendRepository.save(friend2);
+
+    }
+
+    public void deleteFriend(User firstUser, User secondUser) {
+
+        friendRepository.deleteFriendByFirstUserAndSecondUser(firstUser, secondUser);
+        friendRepository.deleteFriendByFirstUserAndSecondUser(secondUser, firstUser);
 
     }
 
     public List<User> getFriends(){
 
         User currentUser = SecurityConfiguration.getUser();
-        List<Friend> friendsByFirstUser = friendRepository.findByFirstUser(currentUser);
-        /*List<Friend> friendsBySecondUser = friendRepository.findBySecondUser(currentUser);*/
+        List<Friend> friendsByFirstUser = friendRepository.findByFirstUserAndStatus(currentUser, Status.accepted);
         List<User> friendUsers = new ArrayList<>();
 
         for (Friend friend : friendsByFirstUser) {
             friendUsers.add(userRepository.findById(friend.getSecondUser().getId()));
         }
-        /*for (Friend friend : friendsBySecondUser) {
-            friendUsers.add(userRepository.findById(friend.getFirstUser().getId()));
-        }*/
+
         return friendUsers;
+
+    }
+
+    public List<User> getRequests(){
+
+        User currentUser = SecurityConfiguration.getUser();
+        List<Friend> friendsByFirstUser = friendRepository.findByFirstUserAndStatus(currentUser, Status.pending);
+
+        List<User> friendRequests = new ArrayList<>();
+
+        for (Friend friend : friendsByFirstUser) {
+            friendRequests.add(userRepository.findById(friend.getSecondUser().getId()));
+        }
+
+        return friendRequests;
 
     }
 
