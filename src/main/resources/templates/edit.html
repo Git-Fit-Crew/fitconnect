@@ -22,6 +22,9 @@
     <label for="zipcode">Zip Code</label>
     <input id="zipcode" th:field="*{zipcode}" />
 
+    <label hidden for="password">Password</label>
+    <input hidden id="password" th:field="*{password}" />
+
     <label for="gender">Gender</label>
     <select id="gender" name="gender">
       <option th:each="gender : ${T(com.codeup.gitfitcrew.fitconnect.models.Gender).values()}"
