@@ -125,14 +125,14 @@ function createMarker(place) {
     const marker = new google.maps.Marker({
         map,
         position: place.geometry.location,
-        icon: {
-            url: '/static/img/gym-icon.png',
-            scaledSize: new google.maps.Size(40, 40)
-        }
+        // icon: {
+        //     url: '/static/img/gym-icon.png',
+        //     scaledSize: new google.maps.Size(40, 40)
+        // }
     });
 
     // Save the gym location data
-    saveGymLocation(place.name, place.vicinity);
+    // saveGymLocation(place.name, place.vicinity);
 
     google.maps.event.addListener(marker, "click", () => {
         service.getDetails({ placeId: place.place_id, fields: ['opening_hours'] }, (placeDetails, status) => {
@@ -160,16 +160,16 @@ function createMarker(place) {
     });
 }
 
-function saveGymLocation(name, address) {
-    const gymLocation = { name, address };
-
-    fetch('/api/saveGymLocation', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(gymLocation)
-    });
-}
+// function saveGymLocation(name, address) {
+//     const gymLocation = { name, address };
+//
+//     fetch('/api/saveGymLocation', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json'
+//         },
+//         body: JSON.stringify(gymLocation)
+//     });
+// }
 
 window.initMap = initMap;
