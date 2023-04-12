@@ -1,7 +1,6 @@
 package com.codeup.gitfitcrew.fitconnect.repositories;
 
 import com.codeup.gitfitcrew.fitconnect.models.Gym;
-import com.codeup.gitfitcrew.fitconnect.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 
