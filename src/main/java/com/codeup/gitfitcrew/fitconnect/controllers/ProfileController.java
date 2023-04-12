@@ -29,7 +29,7 @@ public class ProfileController {
         return "profile";
     }
 
-    @GetMapping("/profile/{id}")
+    @GetMapping("/{id}")
     public String friendProfile(@PathVariable long id, Model model) {
 
         User user = userDao.findById(id);
@@ -38,7 +38,7 @@ public class ProfileController {
         return "friendProfile";
     }
 
-    @GetMapping("/profile/{id}/request")
+    @GetMapping("/{id}/request")
     public String requestFriend(@PathVariable long id, Model model) {
 
         User firstUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -49,7 +49,7 @@ public class ProfileController {
         return "redirect:/profile/{id}";
     }
 
-    @GetMapping("/profile/{id}/remove")
+    @GetMapping("/{id}/remove")
     public String deleteFriend(@PathVariable long id) {
         User firstUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User secondUser = userDao.findById(id);
@@ -60,7 +60,7 @@ public class ProfileController {
         return "redirect:/profile/removed";
     }
     
-    @GetMapping("/profile/removed")
+    @GetMapping("/removed")
     public String friendRemoved() {
 
         return "removed";
