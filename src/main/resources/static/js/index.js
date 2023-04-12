@@ -51,9 +51,30 @@ function searchGyms() {
         if (status === google.maps.places.PlacesServiceStatus.OK && results) {
             for (let i = 0; i < results.length; i++) {
                 createMarker(results[i]);
+                saveGymInfo(results[i]); // Add this line to save gym information
             }
         }
     });
+}
+
+
+function saveGymInfo(place) {
+    if (!place.geometry || !place.geometry.location) return;
+    console.log(place);
+    const gymData = {
+        name: place.name,
+        address: place.vicinity,
+        // Add other gym properties if needed
+    };
+
+    fetch('/gyms', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(gymData),
+    });
+    return response => response.json();
 }
 
 function createMarker(place) {
