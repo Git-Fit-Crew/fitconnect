@@ -1,14 +1,19 @@
 package com.codeup.gitfitcrew.fitconnect.controllers;
 
 import com.codeup.gitfitcrew.fitconnect.models.User;
+import com.codeup.gitfitcrew.fitconnect.models.Workout;
 import com.codeup.gitfitcrew.fitconnect.repositories.FriendRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
 import com.codeup.gitfitcrew.fitconnect.services.FriendService;
+import com.codeup.gitfitcrew.fitconnect.services.WorkoutService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.Collection;
 
 
 @AllArgsConstructor
@@ -19,13 +24,16 @@ public class ProfileController {
     private final UserRepository userDao;
     private final FriendRepository friendDao;
     private final FriendService friendService;
+    private final WorkoutService workoutService;
 
     @GetMapping()
     public String profile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getUserById(loggedInUser.getId());
+        Collection<Workout> workouts = user.getWorkouts();
         model.addAttribute("user", user);
-
+        model.addAttribute("workouts", workouts);
+        model.addAttribute("isWorkoutLoggedToday", workoutService.didUserLogWorkoutForToday(user));
         return "profile";
     }
 
@@ -92,6 +100,16 @@ public class ProfileController {
 
         // save employee to database
         userDao.save(originalUser);
+        return "redirect:/profile";
+    }
+
+    @PostMapping("/workout")
+    public String logWorkout() {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User user = userDao.getUserById(loggedInUser.getId());
+        if (!workoutService.didUserLogWorkoutForToday(user)) {
+            workoutService.logCurrentDateToUserWorkouts(user);
+        }
         return "redirect:/profile";
     }
 }
