@@ -2,12 +2,10 @@
 <html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <th:block th:replace="~{partials :: head}"></th:block>
-    <meta charset="UTF-8">
-    <title>Place Searches</title>
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-    <link rel="stylesheet" type="text/css" href="../static/css/style.css" />
-    <script type="module" src="../static/js/index.js"></script>
+	<th:block th:replace="~{partials :: head}"></th:block>
+	<meta charset="UTF-8">
+	<title>Place Searches</title>
+	<link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 </head>
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
@@ -19,11 +17,12 @@
   See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
   for more information.
   -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script th:type="module" th:src="@{/js/index.js}"></script>
 <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNeUyQ-XRWgF0FRL4tXw9aqFZ0eW3kEC8&callback=initMap&libraries=places&v=weekly"
-        defer
+	th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
+	defer
 ></script>
-
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
 </body>
