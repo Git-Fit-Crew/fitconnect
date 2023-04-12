@@ -14,11 +14,13 @@ import java.util.Map;
 public class KeysController {
     @Value("${talk-js-api-key}")
     private String talkJsAppId;
-
+    @Value("${google-maps-api-key}")
+    private String googleMapApi;
     @GetMapping(value = "/keys", produces = "application/json")
     @ResponseBody
     public Object getKeys() {
         Map<String, String> keys = new HashMap<>();
+        keys.put("googleMapApi", googleMapApi);
         keys.put("talkJsAppId", talkJsAppId);
         return keys;
     }
