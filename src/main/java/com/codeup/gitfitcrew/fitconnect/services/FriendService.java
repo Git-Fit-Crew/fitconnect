@@ -23,13 +23,11 @@ public class FriendService {
     UserRepository userRepository;
 
     @Autowired
-    ModelMapper modelMapper;
-
-    @Autowired
     SecurityConfiguration securityConfiguration;
 
     public void requestFriend(User firstUser, User secondUser) throws NullPointerException{
 
+        if (!(friendRepository.existsByFirstUserAndSecondUser(firstUser,secondUser))) {
             Friend friend1 = new Friend();
             friend1.setFirstUser(firstUser);
             friend1.setSecondUser(secondUser);
@@ -41,6 +39,19 @@ public class FriendService {
             friend2.setSecondUser(firstUser);
             friend2.setStatus(Status.pending);
             friendRepository.save(friend2);
+
+        } else {
+
+            Friend friend1 = friendRepository.findByFirstUserAndSecondUser(firstUser, secondUser);
+            friend1.setStatus(Status.sent);
+            friendRepository.save(friend1);
+
+            Friend friend2 = friendRepository.findByFirstUserAndSecondUser(secondUser, firstUser);
+            friend2.setStatus(Status.pending);
+            friendRepository.save(friend2);
+
+        }
+
 
     }
 
