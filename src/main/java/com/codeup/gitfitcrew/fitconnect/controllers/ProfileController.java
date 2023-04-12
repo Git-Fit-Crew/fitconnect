@@ -5,6 +5,7 @@ import com.codeup.gitfitcrew.fitconnect.models.Workout;
 import com.codeup.gitfitcrew.fitconnect.repositories.FriendRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
 import com.codeup.gitfitcrew.fitconnect.services.FriendService;
+import com.codeup.gitfitcrew.fitconnect.services.WorkoutService;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -23,6 +24,7 @@ public class ProfileController {
     private final UserRepository userDao;
     private final FriendRepository friendDao;
     private final FriendService friendService;
+    private final WorkoutService workoutService;
 
     @GetMapping()
     public String profile(Model model) {
@@ -31,7 +33,7 @@ public class ProfileController {
         Collection<Workout> workouts = user.getWorkouts();
         model.addAttribute("user", user);
         model.addAttribute("workouts", workouts);
-
+        model.addAttribute("isWorkoutLoggedToday", workoutService.didUserLogWorkoutForToday(user));
         return "profile";
     }
 
@@ -105,13 +107,9 @@ public class ProfileController {
     public String logWorkout() {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getUserById(loggedInUser.getId());
-        Workout workout = new Workout();
-        workout.setWorkoutDate(LocalDate.now());
-        workout.setUser(user);
-        Collection<Workout> workouts = user.getWorkouts();
-        workouts.add(workout);
-        user.setWorkouts(workouts);
-        userDao.save(user);
+        if (!workoutService.didUserLogWorkoutForToday(user)) {
+            workoutService.logCurrentDateToUserWorkouts(user);
+        }
         return "redirect:/profile";
     }
 }
