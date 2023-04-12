@@ -3,9 +3,7 @@ package com.codeup.gitfitcrew.fitconnect.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.List;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -20,8 +18,9 @@ public class Workout {
     private long id;
 
     @Temporal(TemporalType.DATE)
-    private Calendar utilCalendar;
+    private LocalDate workoutDate;
 
-    @ManyToMany(mappedBy = "workouts")
-    private List<User> users;
+    @ManyToOne
+    @JoinColumn(name = "user_id", columnDefinition = "int(11)", nullable = false)
+    private User user;
 }

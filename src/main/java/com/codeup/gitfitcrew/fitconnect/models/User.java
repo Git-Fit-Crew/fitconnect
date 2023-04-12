@@ -3,6 +3,7 @@ package com.codeup.gitfitcrew.fitconnect.models;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 
 import java.util.Collection;
 
@@ -59,12 +60,7 @@ public class User {
     @JoinTable(name = "user_achievement", joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"), inverseJoinColumns = @JoinColumn(name = "achievement_id", referencedColumnName = "id"))
     private Collection<Achievements> achievements;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "users_workouts",
-            joinColumns = @JoinColumn(name = "user_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "workout_id", referencedColumnName = "id")
-    )
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "user")
     private Collection<Workout> workouts;
 
     public User(User copy) {

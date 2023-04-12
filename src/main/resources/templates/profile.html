@@ -18,6 +18,10 @@ Profile Page
     <button id="dismiss-workout">Dismiss</button>
 </div>
 
+<ul th:id="workout-calendar" th:each="workout : ${workouts}">
+    <li th:text="${workout.workoutDate}"></li>
+</ul>
+
 <img src="/" th:src="@{{path}(path=${user.photo})}" class="userImg" alt="...">
 
 <h5  th:text="${user.username}">(insert username here)</h5>
