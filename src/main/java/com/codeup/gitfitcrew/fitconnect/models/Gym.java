@@ -3,7 +3,9 @@ package com.codeup.gitfitcrew.fitconnect.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -22,4 +24,8 @@ public class Gym {
 
     @Column(length=255, nullable = true)
     private String address;
+
+    @OneToMany(mappedBy = "gym")
+    private List<User> users;
+
 }

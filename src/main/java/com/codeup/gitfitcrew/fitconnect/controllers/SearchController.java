@@ -102,15 +102,4 @@ public class SearchController {
         return "search";
     }
 
-
-    /*@GetMapping(value = "/search/byGym/{id}", produces = "application/json")
-    @ResponseBody
-    public String showSearchResults(@PathVariable long id, Model model) {
-        Gym gym = gymDao.getGymById(id);
-        Gson gson = new Gson();
-        List<User> resultsByGym = userDao.findUsersByGym(gym);
-        return gson.toJson(resultsByGym);
-    }*/
-
-
 }

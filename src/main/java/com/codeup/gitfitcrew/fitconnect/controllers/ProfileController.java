@@ -7,6 +7,8 @@ import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
 import com.codeup.gitfitcrew.fitconnect.services.FriendService;
 import com.codeup.gitfitcrew.fitconnect.services.WorkoutService;
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +18,7 @@ import java.time.LocalDate;
 import java.util.Collection;
 
 
-@AllArgsConstructor
+@RequiredArgsConstructor
 @Controller
 @RequestMapping("profile")
 public class ProfileController {
@@ -24,7 +26,12 @@ public class ProfileController {
     private final UserRepository userDao;
     private final FriendRepository friendDao;
     private final FriendService friendService;
+
+    @Value("${google-maps-api-key}")
+    private String googleMapsApiKey;
+
     private final WorkoutService workoutService;
+
 
     @GetMapping()
     public String profile(Model model) {
@@ -82,6 +89,7 @@ public class ProfileController {
 
         // set employee as a model attribute to pre-populate the form
         model.addAttribute("user", user);
+        model.addAttribute("apiKey", googleMapsApiKey);
         return "edit";
     }
 
@@ -97,6 +105,7 @@ public class ProfileController {
         originalUser.setLevel(user.getLevel());
         originalUser.setZipcode(user.getZipcode());
         originalUser.setBio(user.getBio());
+
 
         // save employee to database
         userDao.save(originalUser);

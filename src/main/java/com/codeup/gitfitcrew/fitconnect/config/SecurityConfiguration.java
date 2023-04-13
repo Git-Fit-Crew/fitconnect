@@ -74,7 +74,8 @@ public class SecurityConfiguration {
                         "/register",
                         "/css/**",
                         "/js/**",
-                        "/error")
+                        "/error",
+                        "/gyms")
                 .permitAll()
 
         ;
@@ -88,3 +89,7 @@ public class SecurityConfiguration {
 
     }
 }
+
+
+
+

@@ -55,12 +55,18 @@ function searchGyms() {
         }
     });
 }
-async function sendGymAddress(address) {
-    const response = await fetch('/search?address=' + address, {
+
+
+
+async function addHomeGym(name, address) {
+
+    const response = await fetch('/gyms?name=' + name + '&address=' + address, {
         method: 'GET',
+
     });
 
 }
+
 
 function createMarker(place) {
     if (!place.geometry || !place.geometry.location) return;
@@ -71,9 +77,8 @@ function createMarker(place) {
 
     });
 
-
     google.maps.event.addListener(marker, "click", () => {
-        service.getDetails({ placeId: place.place_id, fields: ['opening_hours'] }, (placeDetails, status) => {
+        service.getDetails({placeId: place.place_id, fields: ['opening_hours']}, (placeDetails, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 const hours = placeDetails.opening_hours ? placeDetails.opening_hours.weekday_text.join('<br>') : 'Hours not available';
                 const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place.place_id}`;
@@ -85,23 +90,29 @@ function createMarker(place) {
                     <p>Hours:<br>${hours}</p>
                     ${
                     place.photos
-                        ? `<img src="${place.photos[0].getUrl({ maxWidth: 200, maxHeight: 200 })}" alt="${place.name}">`
+                        ? `<img src="${place.photos[0].getUrl({maxWidth: 200, maxHeight: 200})}" alt="${place.name}">`
                         : ""
                 }
-                    <p><a href="${googleMapsUrl}" target="_blank">View on Google Maps</a></p>
+                    <p><button id="home-gym-button">Make this my home gym</button></p>
                 </div>`;
 
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);
-                sendGymAddress(place.vicinity)
+
+                google.maps.event.addListenerOnce(infowindow, 'domready', () => {
+                    document.getElementById('home-gym-button').addEventListener('click', () => {
+                        addHomeGym(place.name, place.vicinity);
+                    });
+                });
             }
         });
     });
 
-
 }
 
 window.initMap = initMap;
+
+
 
 
 
