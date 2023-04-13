@@ -18,4 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findUsersByGym(Gym gym);
 
+    List<User> findUsersByZipcodeIn(List<Integer> zips);
+
 }

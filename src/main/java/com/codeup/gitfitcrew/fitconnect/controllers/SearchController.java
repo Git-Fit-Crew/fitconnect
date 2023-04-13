@@ -1,17 +1,14 @@
 package com.codeup.gitfitcrew.fitconnect.controllers;
 
-import com.codeup.gitfitcrew.fitconnect.models.Gender;
-import com.codeup.gitfitcrew.fitconnect.models.Gym;
-import com.codeup.gitfitcrew.fitconnect.models.Level;
-import com.codeup.gitfitcrew.fitconnect.models.User;
+import com.codeup.gitfitcrew.fitconnect.models.*;
 import com.codeup.gitfitcrew.fitconnect.repositories.GymRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
+import com.codeup.gitfitcrew.fitconnect.services.ZipcodeService;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -21,19 +18,21 @@ public class SearchController {
 
     private final UserRepository userDao;
     private final GymRepository gymDao;
+    private final ZipcodeService zipcodeService;
 
     @Value("${google-maps-api-key}")
     private String googleMapsApiKey;
 
-    public SearchController(UserRepository userDao, GymRepository gymDao) {
+    public SearchController(UserRepository userDao, GymRepository gymDao, ZipcodeService zipcodeService) {
         this.userDao = userDao;
         this.gymDao = gymDao;
+        this.zipcodeService = zipcodeService;
     }
 
     @GetMapping("/search")
     public String showSearchPage(Model model,
             @RequestParam(value = "gym", required = false) String address,
-            @RequestParam(value = "radius", required = false) int miles,
+            @RequestParam(value = "radius", required = false) String miles,
             @RequestParam(value = "gender", required = false) String gender,
             @RequestParam(value = "level", required = false) String level) {
 
@@ -43,7 +42,7 @@ public class SearchController {
 
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-        List<User> results;
+        List<User> results = userDao.findAll();
 
         if (address != null) {
 
@@ -57,9 +56,17 @@ public class SearchController {
             System.out.println("BY GYM" + results);
             //model.addAttribute("results", results);
         } else {
-            //RESULTS BY zipcode TODO: switch user zip to the zip codes from radius
 
-            results = userDao.findUsersByZipcode(loggedInUser.getZipcode());
+            if (miles == null) {
+                miles = "50";
+            }
+
+            int milesInt = Integer.parseInt(miles);
+
+            List<Integer> zips = zipcodeService.getZipcodesWithinMilesRadiusFrom(loggedInUser.getZipcode(), milesInt);
+
+            results = userDao.findUsersByZipcodeIn(zips);
+
         }
 
 
