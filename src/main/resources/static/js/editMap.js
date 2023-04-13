@@ -57,39 +57,12 @@ function searchGyms() {
 }
 
 
-// async function saveGymInfo(place) {
-//     if (!place.geometry || !place.geometry.location) return;
-//     console.log(place);
-//     const gymData = {
-//         name: place.name,
-//         address: place.vicinity,
-//         // Add other gym properties if needed
-//     };
-//
-//     const response = await fetch('/gyms', {
-//         method: 'POST',
-//         headers: {
-//             'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify(gymData),
-//     });
-//
-//     return response.json();
-// }
 
 async function addHomeGym(name, address) {
-    const gymData = {
-        name: name,
-        address: address,
-        // Add other gym properties if needed
-    };
 
-    const response = await fetch('/gyms', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(gymData),
+    const response = await fetch('/gyms?name=' + name + '&address=' + address, {
+        method: 'GET',
+
     });
 
 }
@@ -120,11 +93,17 @@ function createMarker(place) {
                         ? `<img src="${place.photos[0].getUrl({maxWidth: 200, maxHeight: 200})}" alt="${place.name}">`
                         : ""
                 }
-                    <p><a href="#" onclick="addHomeGym(${place.name}, ${place.vicinity})">Make this my home gym</a></p>
+                    <p><button id="home-gym-button">Make this my home gym</button></p>
                 </div>`;
 
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);
+
+                google.maps.event.addListenerOnce(infowindow, 'domready', () => {
+                    document.getElementById('home-gym-button').addEventListener('click', () => {
+                        addHomeGym(place.name, place.vicinity);
+                    });
+                });
             }
         });
     });
@@ -132,6 +111,7 @@ function createMarker(place) {
 }
 
 window.initMap = initMap;
+
 
 
 

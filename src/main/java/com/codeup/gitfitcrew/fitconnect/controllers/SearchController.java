@@ -15,4 +15,5 @@ public class SearchController {
         model.addAttribute("apiKey", googleMapsApiKey);
         return "search";
     }
+
 }

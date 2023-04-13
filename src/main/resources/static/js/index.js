@@ -55,26 +55,11 @@ function searchGyms() {
         }
     });
 }
-
-
-async function saveGymInfo(place) {
-    if (!place.geometry || !place.geometry.location) return;
-    console.log(place);
-    const gymData = {
-        name: place.name,
-        address: place.vicinity,
-        // Add other gym properties if needed
-    };
-
-    const response = await fetch('/gyms', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(gymData),
+async function sendGymAddress(address) {
+    const response = await fetch('/search?address=' + address, {
+        method: 'GET',
     });
 
-    return response.json();
 }
 
 function createMarker(place) {
@@ -86,8 +71,6 @@ function createMarker(place) {
 
     });
 
-    // Save the gym location data
-    // saveGymLocation(place.name, place.vicinity);
 
     google.maps.event.addListener(marker, "click", () => {
         service.getDetails({ placeId: place.place_id, fields: ['opening_hours'] }, (placeDetails, status) => {
@@ -110,6 +93,7 @@ function createMarker(place) {
 
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);
+                sendGymAddress(place.vicinity)
             }
         });
     });
