@@ -4,6 +4,12 @@
   <meta charset="UTF-8">
   <title>edit</title>
   <th:block th:replace="~{partials :: head}"></th:block>
+  <style>
+    #map {
+      height: 750px;
+      width: 1000px;
+    }
+  </style>
 </head>
 <body>
 <nav th:replace="~{partials :: nav}"></nav>
@@ -46,6 +52,22 @@
     <input value="Update" type="submit" class="btn"/>
   </div>
 </form>
+
+<div id="map"></div>
+<!--
+  The `defer` attribute causes the callback to execute after the full HTML
+  document has been parsed. For non-blocking uses, avoiding race conditions,
+  and consistent behavior across browsers, consider loading using Promises.
+  See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+  for more information.
+  -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+<script th:type="module" th:src="@{/js/index.js}"></script>
+<script
+        th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
+        defer
+></script>
+
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
