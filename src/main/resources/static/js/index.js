@@ -58,7 +58,7 @@ function searchGyms() {
 }
 
 
-function saveGymInfo(place) {
+async function saveGymInfo(place) {
     if (!place.geometry || !place.geometry.location) return;
     console.log(place);
     const gymData = {
@@ -67,14 +67,15 @@ function saveGymInfo(place) {
         // Add other gym properties if needed
     };
 
-    fetch('/gyms', {
+    const response = await fetch('/gyms', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
         body: JSON.stringify(gymData),
     });
-    return response => response.json();
+
+    return response.json();
 }
 
 function createMarker(place) {
@@ -116,6 +117,7 @@ function createMarker(place) {
 }
 
 window.initMap = initMap;
+
 
 
 
