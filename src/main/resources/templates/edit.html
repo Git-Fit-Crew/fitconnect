@@ -4,10 +4,11 @@
   <meta charset="UTF-8">
   <title>edit</title>
   <th:block th:replace="~{partials :: head}"></th:block>
+  <link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
   <style>
     #map {
-      height: 750px;
-      width: 1000px;
+      height: 600px;
+      width: 600px;
     }
   </style>
 </head>
@@ -62,7 +63,7 @@
   for more information.
   -->
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
-<script th:type="module" th:src="@{/js/index.js}"></script>
+<script th:type="module" th:src="@{/js/editMap.js}"></script>
 <script
         th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
         defer

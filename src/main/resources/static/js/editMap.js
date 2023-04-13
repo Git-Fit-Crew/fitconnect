@@ -77,10 +77,10 @@ function searchGyms() {
 //     return response.json();
 // }
 
-async function addHomeGym(place) {
+async function addHomeGym(name, address) {
     const gymData = {
-        name: place.name,
-        address: place.vicinity,
+        name: name,
+        address: address,
         // Add other gym properties if needed
     };
 
@@ -92,17 +92,6 @@ async function addHomeGym(place) {
         body: JSON.stringify(gymData),
     });
 
-    const gym = await response.json();
-
-    // Update the user's home gym
-    const userId = await fetch('/loggedInUser').then((response) => response.json()).then((user) => user.id);
-    await fetch(`/users/${userId}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ homeGymId: gym.id }),
-    });
 }
 
 
@@ -114,9 +103,6 @@ function createMarker(place) {
         position: place.geometry.location,
 
     });
-
-    // Save the gym location data
-    // saveGymLocation(place.name, place.vicinity);
 
     google.maps.event.addListener(marker, "click", () => {
         service.getDetails({placeId: place.place_id, fields: ['opening_hours']}, (placeDetails, status) => {
@@ -134,10 +120,7 @@ function createMarker(place) {
                         ? `<img src="${place.photos[0].getUrl({maxWidth: 200, maxHeight: 200})}" alt="${place.name}">`
                         : ""
                 }
-<!--                    <button id="home-gym">Make this my home gym</button>-->
-  <p><a href="#" onclick="addHomeGym(${JSON.stringify(place)}); return false;">Make this my home gym</a></p>
-
-
+                    <p><a href="#" onclick="addHomeGym(${place.name}, ${place.vicinity})">Make this my home gym</a></p>
                 </div>`;
 
                 infowindow.setContent(contentString);
@@ -146,7 +129,11 @@ function createMarker(place) {
         });
     });
 
-
 }
 
 window.initMap = initMap;
+
+
+
+
+
