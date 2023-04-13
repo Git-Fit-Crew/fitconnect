@@ -33,16 +33,14 @@ public class SearchController {
     @GetMapping("/search")
     public String showSearchPage(Model model,
             @RequestParam(value = "gym", required = false) String address,
-            @RequestParam(value = "radius", required = false) String radius,
+            @RequestParam(value = "radius", required = false) int miles,
             @RequestParam(value = "gender", required = false) String gender,
-            @RequestParam(value = "level", required = false) String level,
-            @RequestParam(value = "reset", required = false) String reset) {
+            @RequestParam(value = "level", required = false) String level) {
 
         model.addAttribute("apiKey", googleMapsApiKey);
 
 
 
-        //RESULTS BY zipcode TODO: switch user zip to the zip codes from radius
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
         List<User> results;
@@ -59,6 +57,8 @@ public class SearchController {
             System.out.println("BY GYM" + results);
             //model.addAttribute("results", results);
         } else {
+            //RESULTS BY zipcode TODO: switch user zip to the zip codes from radius
+
             results = userDao.findUsersByZipcode(loggedInUser.getZipcode());
         }
 
