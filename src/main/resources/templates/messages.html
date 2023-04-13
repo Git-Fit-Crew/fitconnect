@@ -9,7 +9,7 @@
 <body class="h-100">
 <nav th:replace="~{partials :: nav}"></nav>
 
-Messages Page
+FitChat Page
 
 <!-- minified snippet to load TalkJS without delaying your page -->
 <script>
@@ -30,7 +30,7 @@ Messages Page
         <div class="card m-2 p-2 bg-secondary opacity-75" style="width: 90%;" th:each="friend : ${friends}">
             <div class="card-body">
                 <h4 class="card-title" th:text="${friend.username}"></h4>
-                <button th:attr="data-friend-id=${friend.id}" th:class="message-friend">Message</button>
+                <button th:attr="data-friend-id=${friend.id}" th:class="message-friend">FitChat</button>
 
             </div>
         </div>

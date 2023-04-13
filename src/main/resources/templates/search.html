@@ -17,7 +17,7 @@
   See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
   for more information.
   -->
-<form id="search-form">
+<form th:action="@{/search}" method="get" id="search-form">
 	<input type="text" name="name" placeholder="Enter product name">
 	<select name="radius">
 		<option value="">Radius</option>
@@ -38,6 +38,9 @@
 		<option value="EXPERT">Expert</option>
 	</select>
 	<button type="submit">Search</button>
+</form>
+<form th:action="@{|/search|}">
+	<button type="submit">Reset</button>
 </form>
 <div id="results">
 <div class="col-8 p-0">

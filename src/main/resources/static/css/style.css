@@ -29,8 +29,11 @@
  */
 
 #map {
-    width: 100px!important;
-    height: 100px!important;
+    width: 500px!important;
+    height: 500px!important;
+    overflow: visible!important;
+    position: sticky;
+    top: 1000px;
 }
 
 

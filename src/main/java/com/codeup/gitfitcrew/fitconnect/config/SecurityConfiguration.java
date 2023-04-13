@@ -61,7 +61,8 @@ public class SecurityConfiguration {
                         "/loggedInUserFriends",
                         "/edit",
                         "/profile/showFormForUpdate/{id}",
-                        "/search/byGym/{id}"
+                        "/search/byGym/{id}",
+                        "/about"
                 )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
