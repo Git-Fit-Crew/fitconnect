@@ -20,6 +20,7 @@ public class Workout {
     @Temporal(TemporalType.DATE)
     private LocalDate workoutDate;
 
+    @ToString.Exclude
     @ManyToOne
     @JoinColumn(name = "user_id", columnDefinition = "int(11)", nullable = false)
     private User user;
