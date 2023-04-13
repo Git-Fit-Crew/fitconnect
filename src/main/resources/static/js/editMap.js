@@ -57,9 +57,27 @@ function searchGyms() {
 }
 
 
-async function saveGymInfo(place) {
-    if (!place.geometry || !place.geometry.location) return;
-    console.log(place);
+// async function saveGymInfo(place) {
+//     if (!place.geometry || !place.geometry.location) return;
+//     console.log(place);
+//     const gymData = {
+//         name: place.name,
+//         address: place.vicinity,
+//         // Add other gym properties if needed
+//     };
+//
+//     const response = await fetch('/gyms', {
+//         method: 'POST',
+//         headers: {
+//             'Content-Type': 'application/json',
+//         },
+//         body: JSON.stringify(gymData),
+//     });
+//
+//     return response.json();
+// }
+
+async function addHomeGym(place) {
     const gymData = {
         name: place.name,
         address: place.vicinity,
@@ -74,8 +92,19 @@ async function saveGymInfo(place) {
         body: JSON.stringify(gymData),
     });
 
-    return response.json();
+    const gym = await response.json();
+
+    // Update the user's home gym
+    const userId = await fetch('/loggedInUser').then((response) => response.json()).then((user) => user.id);
+    await fetch(`/users/${userId}`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ homeGymId: gym.id }),
+    });
 }
+
 
 function createMarker(place) {
     if (!place.geometry || !place.geometry.location) return;
@@ -90,7 +119,7 @@ function createMarker(place) {
     // saveGymLocation(place.name, place.vicinity);
 
     google.maps.event.addListener(marker, "click", () => {
-        service.getDetails({ placeId: place.place_id, fields: ['opening_hours'] }, (placeDetails, status) => {
+        service.getDetails({placeId: place.place_id, fields: ['opening_hours']}, (placeDetails, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 const hours = placeDetails.opening_hours ? placeDetails.opening_hours.weekday_text.join('<br>') : 'Hours not available';
                 const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place.place_id}`;
@@ -102,10 +131,13 @@ function createMarker(place) {
                     <p>Hours:<br>${hours}</p>
                     ${
                     place.photos
-                        ? `<img src="${place.photos[0].getUrl({ maxWidth: 200, maxHeight: 200 })}" alt="${place.name}">`
+                        ? `<img src="${place.photos[0].getUrl({maxWidth: 200, maxHeight: 200})}" alt="${place.name}">`
                         : ""
                 }
-                    <p><a href="${googleMapsUrl}" target="_blank">View on Google Maps</a></p>
+<!--                    <button id="home-gym">Make this my home gym</button>-->
+  <p><a href="#" onclick="addHomeGym(${JSON.stringify(place)}); return false;">Make this my home gym</a></p>
+
+
                 </div>`;
 
                 infowindow.setContent(contentString);
@@ -118,7 +150,3 @@ function createMarker(place) {
 }
 
 window.initMap = initMap;
-
-
-
-
