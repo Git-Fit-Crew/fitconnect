@@ -29,13 +29,13 @@
  */
 
 #map {
-    width: 100%;
-    height: 80%;
+    width: 500px!important;
+    height: 500px!important;
+    overflow: visible!important;
+    position: sticky;
+    top: 1000px;
 }
 
-#map {
-    height: 100%;
-}
 
 /*
  * Optional: Makes the sample page fill the window.

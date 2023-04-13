@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:replace="~{partials :: head}"></th:block>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="h-100 d-flex flex-column">
+<nav th:replace="~{partials :: nav}"></nav>
+
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Adam Bishop</h5>
+        <p class="card-text">Backend wizard.</p>
+        <a href="#" class="btn btn-primary">GitHub</a>
+        <a href="#" class="btn btn-primary">LinkedIn</a>
+        <a href="#" class="btn btn-primary">Alumni Portal</a>
+    </div>
+</div>
+
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Isaac Hernandez</h5>
+        <p class="card-text">ChatGBT wizard.</p>
+        <a href="#" class="btn btn-primary">GitHub</a>
+        <a href="#" class="btn btn-primary">LinkedIn</a>
+        <a href="#" class="btn btn-primary">Alumni Portal</a>
+    </div>
+</div>
+
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Misael Cuadrado</h5>
+        <p class="card-text">API wizard.</p>
+        <a href="#" class="btn btn-primary">GitHub</a>
+        <a href="#" class="btn btn-primary">LinkedIn</a>
+        <a href="#" class="btn btn-primary">Alumni Portal</a>
+    </div>
+</div>
+
+<div class="card" style="width: 18rem;">
+    <img class="card-img-top" src="..." alt="Card image cap">
+    <div class="card-body">
+        <h5 class="card-title">Christina Antonuccio</h5>
+        <p class="card-text">Frontend wizard.</p>
+        <a href="#" class="btn btn-primary">GitHub</a>
+        <a href="#" class="btn btn-primary">LinkedIn</a>
+        <a href="#" class="btn btn-primary">Alumni Portal</a>
+    </div>
+</div>
+
+<footer th:replace="~{partials :: footer}"></footer>
+<th:block th:replace="~{partials :: scripts}"></th:block>
+</body>
+</html>
