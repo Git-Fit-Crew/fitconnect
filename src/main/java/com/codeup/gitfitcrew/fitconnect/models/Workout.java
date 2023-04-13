@@ -3,8 +3,7 @@ package com.codeup.gitfitcrew.fitconnect.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Calendar;
-import java.util.List;
+import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -18,10 +17,11 @@ public class Workout {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @ManyToOne
-    @JoinColumn (name = "user_id")
-    private User user;
-
     @Temporal(TemporalType.DATE)
-    private Calendar utilCalendar;
+    private LocalDate workoutDate;
+
+    @ToString.Exclude
+    @ManyToOne
+    @JoinColumn(name = "user_id", columnDefinition = "int(11)", nullable = false)
+    private User user;
 }

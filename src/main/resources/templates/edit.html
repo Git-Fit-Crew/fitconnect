@@ -39,7 +39,7 @@
     </select>
 
     <label for="level">Experience Level</label>
-    <select id="level" name="gender">
+    <select id="level" name="level">
       <option th:each="level : ${T(com.codeup.gitfitcrew.fitconnect.models.Level).values()}"
               th:value="${level}" th:text="${level}"></option>
     </select>

@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface GymRepository extends JpaRepository<Gym, Long> {
 
-    Gym getGymById(long id);
+   Gym getGymById(long id);
+   Gym getGymByAddress(String address);
 
 }

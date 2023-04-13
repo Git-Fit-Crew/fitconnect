@@ -10,8 +10,22 @@
 
 Profile Page
 
+<div th:if="${!isWorkoutLoggedToday}">
+	<form th:action="@{/profile/workout}" th:method="post">
+		<p>Did you workout today?</p>
+		<button type="submit">Yes</button>
+	</form>
+	<button id="dismiss-workout">Dismiss</button>
+</div>
 
-
+<div th:id="workout-calendar">
+	<h5>Workout Tracker</h5>
+	<ul>
+		<th:block th:each="workout : ${workouts}">
+			<li th:text="${workout.workoutDate}"></li>
+		</th:block>
+	</ul>
+</div>
 <img src="/" th:src="@{{path}(path=${user.photo})}" class="userImg" alt="...">
 
 <h5  th:text="${user.username}">(insert username here)</h5>
