@@ -57,13 +57,16 @@ function searchGyms() {
 }
 
 
-
 async function addHomeGym(name, address) {
 
     const response = await fetch('/gyms?name=' + name + '&address=' + address, {
         method: 'GET',
 
     });
+
+    window.alert('Home gym has been changed');
+
+
 
 }
 
