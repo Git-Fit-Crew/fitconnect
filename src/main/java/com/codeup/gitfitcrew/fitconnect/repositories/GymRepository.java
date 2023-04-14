@@ -11,4 +11,6 @@ public interface GymRepository extends JpaRepository<Gym, Long> {
     Gym getGymByAddress(String address);
 
 
+    Gym findByNameAndAddress(String name, String address);
 }
+
