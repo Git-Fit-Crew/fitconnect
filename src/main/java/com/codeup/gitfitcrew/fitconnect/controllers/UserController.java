@@ -1,10 +1,6 @@
 package com.codeup.gitfitcrew.fitconnect.controllers;
 
-import com.codeup.gitfitcrew.fitconnect.models.Gender;
-import com.codeup.gitfitcrew.fitconnect.models.Gym;
-import com.codeup.gitfitcrew.fitconnect.models.Level;
-import com.codeup.gitfitcrew.fitconnect.models.User;
-import com.codeup.gitfitcrew.fitconnect.repositories.FriendRepository;
+import com.codeup.gitfitcrew.fitconnect.models.*;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
 import com.codeup.gitfitcrew.fitconnect.services.FriendService;
 import com.google.gson.Gson;
@@ -54,14 +50,15 @@ public class UserController {
     public String getLoggedInUserJSON() {
         User loggedInUser = getLoggedInUser();
         Gson gson = new Gson();
-        return gson.toJson(loggedInUser);
+        UserDto user = new UserDto(loggedInUser);
+        return gson.toJson(user);
     }
 
     @GetMapping(value = "/loggedInUserFriends", produces = "application/json")
     @ResponseBody
     public String getLoggedInUserFriendsJSON() {
         Gson gson = new Gson();
-        List<User> friends = friendService.getFriends();
+        List<UserDto> friends = UserDto.getUserDtoListFromUsers(friendService.getFriends());
         return gson.toJson(friends);
     }
 
@@ -73,19 +70,4 @@ public class UserController {
             return null;
         }
     }
-
-    public static void main(String[] args) {
-        User user = new User();
-
-        Gym gym = new Gym();
-        gym.setName("my gym");
-        gym.setAddress("9999 gym street");
-        user.setGym(gym);
-        user.setGender(Gender.FEMALE);
-        user.setLevel(Level.EXPERT);
-        System.out.println(user);
-    }
 }
-
-
-
