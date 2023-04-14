@@ -26,9 +26,14 @@ public class ProfileController {
     private final UserRepository userDao;
     private final FriendRepository friendDao;
     private final FriendService friendService;
+
+    @Value("${google-maps-api-key}")
+    private String googleMapsApiKey;
+
     private final WorkoutService workoutService;
     @Value("${google-maps-api-key}")
     private String googleMapsApiKey;
+
 
 
     @GetMapping()

@@ -25,7 +25,8 @@ public class Gym {
     @Column(length=255, nullable = true)
     private String address;
 
-    @OneToMany(mappedBy = "gym")
+    @ToString.Exclude
+    @OneToMany(mappedBy = "gym", fetch = FetchType.EAGER)
     private List<User> users;
 
 }

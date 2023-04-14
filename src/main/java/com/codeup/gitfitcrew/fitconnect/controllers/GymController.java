@@ -54,5 +54,4 @@ public class GymController {
 
         return "profile";
     }
-
 }
