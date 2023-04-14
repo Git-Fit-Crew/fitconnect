@@ -31,9 +31,9 @@
 #map {
     width: 500px!important;
     height: 500px!important;
-    overflow: visible!important;
-    position: sticky;
-    top: 1000px;
+    /*overflow: visible!important;*/
+    /*position: sticky;*/
+    /*top: 1000px;*/
 }
 
 
