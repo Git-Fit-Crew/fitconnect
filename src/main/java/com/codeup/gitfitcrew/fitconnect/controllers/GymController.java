@@ -51,7 +51,6 @@ public class GymController {
                 userDao.save(user);
             }
         }
-
         return "profile";
     }
 }
