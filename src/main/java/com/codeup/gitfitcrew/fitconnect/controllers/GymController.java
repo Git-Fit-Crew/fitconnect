@@ -27,15 +27,31 @@ public class GymController {
     public String saveGym(@RequestParam String name, @RequestParam String address) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getUserById(loggedInUser.getId());
-        Gym gym = new Gym();
-        gym.setName(name);
-        gym.setAddress(address);
-        List<User> users = new ArrayList<>();
-        users.add(user);
-        gym.setUsers(users);
-        gymRepository.save(gym);
-        user.setGym(gym);
-        userDao.save(user);
+        Gym gym = gymRepository.findByNameAndAddress(name, address);
+
+        // If the gym does not exist, create a new one
+        if (gym == null) {
+            gym = new Gym();
+            gym.setName(name);
+            gym.setAddress(address);
+            List<User> users = new ArrayList<>();
+            users.add(user);
+            gym.setUsers(users);
+            gymRepository.save(gym);
+            user.setGym(gym);
+            userDao.save(user);
+        } else {
+            // If the user hasn't clicked the gym, add them to the gym's user list
+            List<User> users = gym.getUsers();
+            if (!users.contains(user)) {
+                users.add(user);
+                gym.setUsers(users);
+                gymRepository.save(gym);
+                user.setGym(gym);
+                userDao.save(user);
+            }
+        }
+
         return "profile";
     }
 }

@@ -31,6 +31,9 @@ public class ProfileController {
     private String googleMapsApiKey;
 
     private final WorkoutService workoutService;
+    @Value("${google-maps-api-key}")
+    private String googleMapsApiKey;
+
 
 
     @GetMapping()
