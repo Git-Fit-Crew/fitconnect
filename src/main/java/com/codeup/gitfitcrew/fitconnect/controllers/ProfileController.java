@@ -100,6 +100,7 @@ public class ProfileController {
         originalUser.setId(id);
         originalUser.setName(user.getName());
         originalUser.setUsername(user.getUsername());
+        originalUser.setEmail(user.getEmail());
         originalUser.setPassword(user.getPassword());
         originalUser.setGender(user.getGender());
         originalUser.setLevel(user.getLevel());
