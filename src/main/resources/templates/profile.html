@@ -26,7 +26,7 @@ Profile Page
 <div th:id="workout-calendar">
 	<h5>Workout Tracker</h5>
 	<ul>
-		<th:block th:each="workout : ${workouts}">
+		<th:block th:each="workout : ${user.getWorkouts()}">
 			<li th:text="${workout.workoutDate}"></li>
 		</th:block>
 	</ul>
