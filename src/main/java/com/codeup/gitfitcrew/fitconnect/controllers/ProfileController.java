@@ -6,7 +6,6 @@ import com.codeup.gitfitcrew.fitconnect.repositories.FriendRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
 import com.codeup.gitfitcrew.fitconnect.services.FriendService;
 import com.codeup.gitfitcrew.fitconnect.services.WorkoutService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.Collection;
 
 
@@ -39,18 +37,31 @@ public class ProfileController {
         User user = userDao.getUserById(loggedInUser.getId());
         Collection<Workout> workouts = user.getWorkouts();
         model.addAttribute("user", user);
+        model.addAttribute("isLoggedInUser", true);
         model.addAttribute("workouts", workouts);
         model.addAttribute("isWorkoutLoggedToday", workoutService.didUserLogWorkoutForToday(user));
+        model.addAttribute("isFriend", false);
         return "profile";
     }
 
     @GetMapping("/{id}")
     public String friendProfile(@PathVariable long id, Model model) {
-
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        loggedInUser = userDao.getUserById(loggedInUser.getId());
+        if (loggedInUser.getId() == id) {
+            return "redirect:/profile";
+        }
         User user = userDao.findById(id);
+        Collection<Workout> workouts = user.getWorkouts();
+        boolean isFriend = friendDao.existsByFirstUserAndSecondUser(loggedInUser, user);
         model.addAttribute("user", user);
+        model.addAttribute("isLoggedInUser", false);
+        System.out.println("model.getAttribute(\"isLoggedInUser\") = " + model.getAttribute("isLoggedInUser"));
+        model.addAttribute("isWorkoutLoggedToday", true);
+        model.addAttribute("workouts", workouts);
+        model.addAttribute("isFriend", isFriend);
 
-        return "friendProfile";
+        return "profile";
     }
 
     @GetMapping("/{id}/request")
