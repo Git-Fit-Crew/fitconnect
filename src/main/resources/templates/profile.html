@@ -1,23 +1,28 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <th:block th:replace="~{partials :: head}"></th:block>
-    <meta charset="UTF-8">
-    <title>Profile</title>
+	<th:block th:replace="~{partials :: head}"></th:block>
+	<meta charset="UTF-8">
+	<title>Profile</title>
 </head>
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
 
 Profile Page
-
-<div th:if="${!isWorkoutLoggedToday}">
-	<form th:action="@{/profile/workout}" th:method="post">
-		<p>Did you workout today?</p>
-		<button type="submit">Yes</button>
-	</form>
-	<button id="dismiss-workout">Dismiss</button>
-</div>
-
+<th:block th:if="${!isLoggedInUser}">
+	<a th:if="${!isFriend}" th:href="@{/profile/{id}/request(id=${user.id})}" class="btn btn-secondary">Send friend request!</a>
+	<button type="submit">Block user</button>
+	<a th:if="${isFriend}" th:href="@{/profile/{id}/remove(id=${user.id})}" class="btn btn-secondary">Remove friend</a>
+</th:block>
+<th:block th:if="${isLoggedInUser}">
+	<div th:if="${!isWorkoutLoggedToday}">
+		<form th:action="@{/profile/workout}" th:method="post">
+			<p>Did you workout today?</p>
+			<button type="submit">Yes</button>
+		</form>
+		<button id="dismiss-workout">Dismiss</button>
+	</div>
+</th:block>
 <div th:id="workout-calendar">
 	<h5>Workout Tracker</h5>
 	<ul>
@@ -26,10 +31,11 @@ Profile Page
 		</th:block>
 	</ul>
 </div>
+
 <img src="/" th:src="@{{path}(path=${user.photo})}" class="userImg" alt="...">
 
-<h5  th:text="${user.username}">(insert username here)</h5>
-<h5  th:text="${user.name}">(insert username here)</h5>
+<h5 th:text="${user.username}">(insert username here)</h5>
+<h5 th:text="${user.name}">(insert username here)</h5>
 
 <p th:text="${user.zipcode}">(insert zipcode here)</p>
 <p th:text="${user.gender}">(insert gender here)</p>
@@ -38,8 +44,8 @@ Profile Page
 <!--<p th:text="${user.gym.address}">(insert gym address here)</p>-->
 
 
-<form th:action="@{|/profile/showFormForUpdate/${user.id}|}">
-    <button type="submit">edit!</button>
+<form th:if="${isLoggedInUser}" th:action="@{|/profile/showFormForUpdate/${user.id}|}">
+	<button type="submit">edit!</button>
 </form>
 
 <footer th:replace="~{partials :: footer}"></footer>
