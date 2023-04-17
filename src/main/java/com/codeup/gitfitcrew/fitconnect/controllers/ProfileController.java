@@ -1,8 +1,8 @@
 package com.codeup.gitfitcrew.fitconnect.controllers;
 
 import com.codeup.gitfitcrew.fitconnect.models.User;
-import com.codeup.gitfitcrew.fitconnect.models.Workout;
 import com.codeup.gitfitcrew.fitconnect.repositories.FriendRepository;
+import com.codeup.gitfitcrew.fitconnect.repositories.PreferencesRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
 import com.codeup.gitfitcrew.fitconnect.services.FriendService;
 import com.codeup.gitfitcrew.fitconnect.services.WorkoutService;
@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 
 
 @RequiredArgsConstructor
@@ -24,6 +23,7 @@ public class ProfileController {
     private final UserRepository userDao;
     private final FriendRepository friendDao;
     private final FriendService friendService;
+    private final PreferencesRepository preferencesDao;
 
     @Value("${google-maps-api-key}")
     private String googleMapsApiKey;
@@ -35,10 +35,8 @@ public class ProfileController {
     public String profile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getUserById(loggedInUser.getId());
-        Collection<Workout> workouts = user.getWorkouts();
         model.addAttribute("user", user);
         model.addAttribute("isLoggedInUser", true);
-        model.addAttribute("workouts", workouts);
         model.addAttribute("isWorkoutLoggedToday", workoutService.didUserLogWorkoutForToday(user));
         model.addAttribute("isFriend", false);
         return "profile";
@@ -52,13 +50,11 @@ public class ProfileController {
             return "redirect:/profile";
         }
         User user = userDao.findById(id);
-        Collection<Workout> workouts = user.getWorkouts();
         boolean isFriend = friendDao.existsByFirstUserAndSecondUser(loggedInUser, user);
         model.addAttribute("user", user);
         model.addAttribute("isLoggedInUser", false);
         System.out.println("model.getAttribute(\"isLoggedInUser\") = " + model.getAttribute("isLoggedInUser"));
         model.addAttribute("isWorkoutLoggedToday", true);
-        model.addAttribute("workouts", workouts);
         model.addAttribute("isFriend", isFriend);
 
         return "profile";
