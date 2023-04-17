@@ -4,8 +4,6 @@ package com.codeup.gitfitcrew.fitconnect.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -24,4 +22,6 @@ public class Preferences {
 
     @Enumerated(EnumType.STRING)
     private Type type;
+
+    private transient boolean checked;
 }
