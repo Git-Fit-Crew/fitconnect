@@ -61,8 +61,10 @@ public class SecurityConfiguration {
                         "/loggedInUserFriends",
                         "/edit",
                         "/profile/showFormForUpdate/{id}",
-                        "/search/byGym/{id}",
-                        "/about"
+                        "/search/byGym/{id}"
+
+
+
                 )
                 .authenticated()
                 /* Pages that can be viewed without having to log in */
@@ -73,9 +75,13 @@ public class SecurityConfiguration {
                         "/login",
                         "/register",
                         "/css/**",
+                        "/css/fitStyle.css",
+                        "/static/**",
+                        "/img/**",
                         "/js/**",
                         "/error",
-                        "/gyms")
+                        "/gyms",
+                        "/about")
                 .permitAll()
 
         ;
