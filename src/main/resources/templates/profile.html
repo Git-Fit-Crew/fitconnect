@@ -10,7 +10,8 @@
 
 Profile Page
 <th:block th:if="${!isLoggedInUser}">
-	<a th:if="${!isFriend}" th:href="@{/profile/{id}/request(id=${user.id})}" class="btn btn-secondary">Send friend request!</a>
+	<a th:if="${!isFriend}" th:href="@{/profile/{id}/request(id=${user.id})}" class="btn btn-secondary">Send friend
+		request!</a>
 	<button type="submit">Block user</button>
 	<a th:if="${isFriend}" th:href="@{/profile/{id}/remove(id=${user.id})}" class="btn btn-secondary">Remove friend</a>
 </th:block>
@@ -26,7 +27,7 @@ Profile Page
 <div th:id="workout-calendar">
 	<h5>Workout Tracker</h5>
 	<ul>
-		<th:block th:each="workout : ${workouts}">
+		<th:block th:each="workout : ${user.getWorkouts()}">
 			<li th:text="${workout.workoutDate}"></li>
 		</th:block>
 	</ul>
@@ -42,7 +43,18 @@ Profile Page
 <p th:text="${user.bio}">(insert bio here)</p>
 <!--<p th:text="${user.gym.name}">(insert gym name here)</p>-->
 <!--<p th:text="${user.gym.address}">(insert gym address here)</p>-->
-
+<th:block th:if="${!user.getStyles().isEmpty()}">
+	<p>Your workout styles</p>
+	<ul>
+		<li th:each="style : ${user.getStyles()}" th:text="${style.name}">Replace with style name</li>
+	</ul>
+</th:block>
+<th:block th:if="${!user.getGoals().isEmpty()}">
+	<p>Your workout goals</p>
+	<ul>
+		<li th:each="goal : ${user.getGoals()}" th:text="${goal.name}">Replace with style name</li>
+	</ul>
+</th:block>
 
 <form th:if="${isLoggedInUser}" th:action="@{|/profile/showFormForUpdate/${user.id}|}">
 	<button type="submit">edit!</button>

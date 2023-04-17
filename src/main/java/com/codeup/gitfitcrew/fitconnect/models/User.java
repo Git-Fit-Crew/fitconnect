@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.Cascade;
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 
@@ -62,6 +63,26 @@ public class User {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "user")
     private Collection<Workout> workouts;
+
+    public Collection<Preferences> getGoals() {
+        Collection<Preferences> goals = new ArrayList<>();
+        preferences.forEach(preference -> {
+            if (preference.getType() == Type.GOALS) {
+                goals.add(preference);
+            }
+        });
+        return goals;
+    }
+
+    public Collection<Preferences> getStyles() {
+        Collection<Preferences> styles = new ArrayList<>();
+        preferences.forEach(preference -> {
+            if (preference.getType() == Type.STYLES) {
+                styles.add(preference);
+            }
+        });
+        return styles;
+    }
 
     public User(User copy) {
         id = copy.id;
