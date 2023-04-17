@@ -53,8 +53,8 @@
 			<p>Select your workout styles</p>
 			<th:block th:each="style : ${styles}">
 				<div th:class="form-check">
-					<input th:class="form-check-input" th:type="checkbox" th:value="${style.name}"
-					       th:id="'style' + ${style.id}" name="styles">
+					<input th:class="form-check-input" th:checked="${style.checked}" th:type="checkbox" th:value="${style.name}"
+					       th:id="'style' + ${style.id}" th:name="styles">
 					<label th:class="form-check-label" th:for="'style' + ${style.id}" th:text="${style.name}">
 						Replace with style name
 					</label>
@@ -65,8 +65,8 @@
 			<p>Select your workout goals</p>
 			<th:block th:each="goal : ${goals}">
 				<div th:class="form-check">
-					<input th:class="form-check-input" th:type="checkbox" th:value="${goal.name}"
-					       th:id="'goal' + ${goal.id}" name="goals">
+					<input th:class="form-check-input" th:checked="${goal.checked}" th:type="checkbox" th:value="${goal.name}"
+					       th:id="'goal' + ${goal.id}" th:name="goals">
 					<label th:class="form-check-label" th:for="'goal' + ${goal.id}" th:text="${goal.name}">
 						Replace with goal name
 					</label>
