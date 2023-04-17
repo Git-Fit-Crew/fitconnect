@@ -16,7 +16,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 
 @RequiredArgsConstructor
@@ -32,7 +34,6 @@ public class ProfileController {
     @Value("${google-maps-api-key}")
     private String googleMapsApiKey;
     private final WorkoutService workoutService;
-
 
 
     @GetMapping()
@@ -85,7 +86,7 @@ public class ProfileController {
         friendService.deleteFriend(firstUser, secondUser);
         return "redirect:/profile/removed";
     }
-    
+
     @GetMapping("/removed")
     public String friendRemoved() {
 
@@ -109,7 +110,16 @@ public class ProfileController {
                 styles.add(preference);
             }
         });
-
+        user.getGoals().forEach(userGoal -> goals.forEach(goal -> {
+            if (goal.getName().equals(userGoal.getName())) {
+                goal.setChecked(true);
+            }
+        }));
+        user.getStyles().forEach(userStyle -> styles.forEach(style -> {
+            if (style.getName().equals(userStyle.getName())) {
+                style.setChecked(true);
+            }
+        }));
         // set employee as a model attribute to pre-populate the form
         model.addAttribute("user", user);
         model.addAttribute("styles", styles);
@@ -119,9 +129,17 @@ public class ProfileController {
     }
 
     @PostMapping("/showFormForUpdate/{id}")
-    public String saveUser(@PathVariable long id, @ModelAttribute("user") User user) {
+    public String saveUser(@PathVariable long id, @ModelAttribute("user") User user, @RequestParam("styles") Optional<List<String>> styles, @RequestParam("goals") Optional<List<String>> goals) {
 
         User originalUser = userDao.getUserById(id);
+        Collection<Preferences> preferences = new ArrayList<>();
+        try {
+            //try to find the styles and goals in preferences, and then add them to the preferences list
+            styles.ifPresent(presentStyles -> presentStyles.forEach(style -> preferencesDao.findByNameAndType(style, Type.STYLES).ifPresent(preferences::add)));
+            goals.ifPresent(presentGoals -> presentGoals.forEach(goal -> preferencesDao.findByNameAndType(goal, Type.GOALS).ifPresent(preferences::add)));
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
         originalUser.setId(id);
         originalUser.setName(user.getName());
         originalUser.setUsername(user.getUsername());
@@ -131,7 +149,7 @@ public class ProfileController {
         originalUser.setLevel(user.getLevel());
         originalUser.setZipcode(user.getZipcode());
         originalUser.setBio(user.getBio());
-
+        originalUser.setPreferences(preferences);
 
         // save employee to database
         userDao.save(originalUser);
