@@ -1,5 +1,7 @@
 package com.codeup.gitfitcrew.fitconnect.controllers;
 
+import com.codeup.gitfitcrew.fitconnect.models.Preferences;
+import com.codeup.gitfitcrew.fitconnect.models.Type;
 import com.codeup.gitfitcrew.fitconnect.models.User;
 import com.codeup.gitfitcrew.fitconnect.repositories.FriendRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.PreferencesRepository;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 
 
 @RequiredArgsConstructor
@@ -94,8 +98,22 @@ public class ProfileController {
         // get employee from the service
         User user = userDao.getUserById(id);
 
+        // get styles and goals from preferences
+        List<Preferences> goals = new ArrayList<>();
+        List<Preferences> styles = new ArrayList<>();
+        preferencesDao.findAll().forEach(preference -> {
+            if (preference.getType() == Type.GOALS) {
+                goals.add(preference);
+            }
+            if (preference.getType() == Type.STYLES) {
+                styles.add(preference);
+            }
+        });
+
         // set employee as a model attribute to pre-populate the form
         model.addAttribute("user", user);
+        model.addAttribute("styles", styles);
+        model.addAttribute("goals", goals);
         model.addAttribute("apiKey", googleMapsApiKey);
         return "edit";
     }
