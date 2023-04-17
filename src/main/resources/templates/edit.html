@@ -1,57 +1,80 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>edit</title>
-  <th:block th:replace="~{partials :: head}"></th:block>
-  <link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-  <style>
-    #map {
-      height: 600px;
-      width: 600px;
-    }
-  </style>
+	<meta charset="UTF-8">
+	<title>edit</title>
+	<th:block th:replace="~{partials :: head}"></th:block>
+	<link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	<style>
+        #map {
+            height: 600px;
+            width: 600px;
+        }
+	</style>
 </head>
 <body>
 <nav th:replace="~{partials :: nav}"></nav>
 
 <form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}">
-  <div class="form">
-    <label for="name">Name</label>
-    <input id="name" th:field="*{name}" />
+	<div class="form">
+		<label for="name">Name</label>
+		<input id="name" th:field="*{name}"/>
 
-    <label for="username">Username</label>
-    <input id="username" th:field="*{username}" />
+		<label for="username">Username</label>
+		<input id="username" th:field="*{username}"/>
 
-    <label for="email">Email</label>
-    <input id="email" th:field="*{email}" />
+		<label for="email">Email</label>
+		<input id="email" th:field="*{email}"/>
 
-    <label for="zipcode">Zip Code</label>
-    <input id="zipcode" th:field="*{zipcode}" />
+		<label for="zipcode">Zip Code</label>
+		<input id="zipcode" th:field="*{zipcode}"/>
 
-    <label hidden for="password">Password</label>
-    <input hidden id="password" th:field="*{password}" />
+		<label hidden for="password">Password</label>
+		<input hidden id="password" th:field="*{password}"/>
 
-    <label for="gender">Gender</label>
-    <select id="gender" name="gender">
-      <option th:each="gender : ${T(com.codeup.gitfitcrew.fitconnect.models.Gender).values()}"
-              th:value="${gender}" th:text="${gender}"></option>
-    </select>
+		<label for="gender">Gender</label>
+		<select id="gender" name="gender">
+			<option th:each="gender : ${T(com.codeup.gitfitcrew.fitconnect.models.Gender).values()}"
+			        th:value="${gender}" th:text="${gender}" th:selected="${user.getGender() == gender}"></option>
+		</select>
 
-    <label for="level">Experience Level</label>
-    <select id="level" name="level">
-      <option th:each="level : ${T(com.codeup.gitfitcrew.fitconnect.models.Level).values()}"
-              th:value="${level}" th:text="${level}"></option>
-    </select>
+		<label for="level">Experience Level</label>
+		<select id="level" name="level">
+			<option th:each="level : ${T(com.codeup.gitfitcrew.fitconnect.models.Level).values()}"
+			        th:value="${level}" th:text="${level}" th:selected="${user.getLevel() == level}"></option>
+		</select>
 
-    <br>
+		<br>
 
-    <label for="bio">Bio</label>
-    <input id="bio" th:field="*{bio}" />
+		<label for="bio">Bio</label>
+		<input id="bio" th:field="*{bio}"/>
 
-
-    <input value="Update" type="submit" class="btn"/>
-  </div>
+		<div>
+			<p>Select your workout styles</p>
+			<th:block th:each="style : ${styles}">
+				<div th:class="form-check">
+					<input th:class="form-check-input" th:type="checkbox" th:value="${style.name}"
+					       th:id="'style' + ${style.id}" name="styles">
+					<label th:class="form-check-label" th:for="'style' + ${style.id}" th:text="${style.name}">
+						Replace with style name
+					</label>
+				</div>
+			</th:block>
+		</div>
+		<div>
+			<p>Select your workout goals</p>
+			<th:block th:each="goal : ${goals}">
+				<div th:class="form-check">
+					<input th:class="form-check-input" th:type="checkbox" th:value="${goal.name}"
+					       th:id="'goal' + ${goal.id}" name="goals">
+					<label th:class="form-check-label" th:for="'goal' + ${goal.id}" th:text="${goal.name}">
+						Replace with goal name
+					</label>
+				</div>
+			</th:block>
+		</div>
+		<input value="Update" type="submit" class="btn"/>
+	</div>
 </form>
 
 <div id="map"></div>
@@ -65,8 +88,8 @@
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script th:type="module" th:src="@{/js/editMap.js}"></script>
 <script
-        th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
-        defer
+	th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
+	defer
 ></script>
 
 
