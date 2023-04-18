@@ -1,10 +1,10 @@
 package com.codeup.gitfitcrew.fitconnect.repositories;
 
-import com.codeup.gitfitcrew.fitconnect.models.Gym;
-import com.codeup.gitfitcrew.fitconnect.models.User;
+import com.codeup.gitfitcrew.fitconnect.models.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long> {
@@ -26,4 +26,13 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByResetPasswordToken(String token);
 
+    @Query("select u from User u where (:gender is null or u.gender = :gender) and " +
+            "(:level is null or u.level = :level) and " +
+            "u.zipcode in :zipcodes")
+    List<User> findUsersByGenderAndLevelAndZipcodeIn(Gender gender, Level level, Collection<Integer> zipcodes);
+
+    @Query("select u from User u where (:gender is null or u.gender = :gender) and " +
+            "(:level is null or u.level = :level) and " +
+            "u.gym = :gym")
+    List<User> findUsersByGenderAndLevelAndGym(Gender gender, Level level, Gym gym);
 }

@@ -16,6 +16,8 @@ public class UserDto {
     private String username;
     private String email;
     private String password;
+    private Gender gender;
+    private Level level;
     private int zipcode;
 
     public UserDto(User copy) {
@@ -25,6 +27,8 @@ public class UserDto {
         email = copy.getEmail();
         password = copy.getPassword();
         zipcode = copy.getZipcode();
+        gender = copy.getGender();
+        level = copy.getLevel();
     }
     public static List<UserDto> getUserDtoListFromUsers(List<User> users) {
         List<UserDto> userDtos = new ArrayList<>();

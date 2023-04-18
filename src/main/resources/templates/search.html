@@ -18,19 +18,19 @@
   for more information.
   -->
 <form th:action="@{/search}" method="get" id="search-form">
-	<input type="text" name="name" placeholder="Enter product name">
-	<select name="radius">
+	<input type="hidden" th:value="${zipcode}" th:name="zipcode">
+	<select name="radius" id="radius">
 		<option value="50" selected>Radius</option>
 		<option value="5">5</option>
 		<option value="10">10</option>
 		<option value="30">30</option>
 	</select>
-	<select name="gender">
+	<select name="gender" id="gender">
 		<option value="">Gender</option>
 		<option value="MALE">Male</option>
 		<option value="FEMALE">Female</option>
 	</select>
-	<select name="level">
+	<select name="level" id="level">
 		<option value="">Experience Level</option>
 		<option value="BEGINNER">Beginner</option>
 		<option value="INTERMEDIATE">Intermediate</option>
@@ -39,13 +39,11 @@
 	</select>
 	<button type="submit">Search</button>
 </form>
-<form th:action="@{|/search|}">
-	<button type="submit">Reset</button>
-</form>
+<button type="button" id="reset-form">Reset</button>
 <div id="results">
 <div class="col-8 p-0">
 	<div class = "d-flex flex-column justify-content-center align-items-center">
-		<div class="card m-2 p-2 bg-secondary opacity-75" style="width: 90%;" th:each="result : ${results}">
+		<div class="card m-2 p-2 bg-secondary opacity-75 user-result" style="width: 90%;" th:each="result : ${results}" th:attr="data-user-id=${result.id}">
 			<div class="card-body">
 				<a th:href="@{/profile/{id}(id=${result.id})}"><h4 class="card-title" th:text="${result.username}">(insert title here)</h4></a>
 				<h4 class="card-title" th:text="${result.name}"></h4>
@@ -54,9 +52,15 @@
 	</div>
 </div>
 </div>
-
+<div class="spinner-border d-none" role="status" id="results-spinner">
+	<span class="visually-hidden">Loading...</span>
+</div>
+<div id="results-none" class="d-none">
+	<p>No results found.</p>
+</div>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script th:type="module" th:src="@{/js/index.js}"></script>
+<script th:src="@{/js/search.js}"></script>
 <script
 	th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
 	defer

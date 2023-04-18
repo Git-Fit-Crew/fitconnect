@@ -61,8 +61,8 @@ public class SecurityConfiguration {
                         "/loggedInUserFriends",
                         "/edit",
                         "/profile/showFormForUpdate/{id}",
-                        "/search/byGym/{id}"
-
+                        "/search/byGym/{id}",
+                        "/filter"
 
 
                 )
