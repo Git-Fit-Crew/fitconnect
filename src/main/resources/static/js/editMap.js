@@ -1,9 +1,9 @@
 let map;
 let service;
 let infowindow;
+let homeGymMarker = null;
 
 async function initMap() {
-
     const loggedInUser = await fetch("/loggedInUser").then(response => response.json())
     const google_maps_api = await fetch("/keys").then(response => response.json()).then(response => response.googleMapApi)
 
@@ -11,9 +11,7 @@ async function initMap() {
 
     let defaultCenter;
 
-    // Check if the user has a zip code
     if (loggedInUser.zipcode) {
-        // Use the user's zip code to get the latitude and longitude
         const zipCodeData = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${loggedInUser.zipcode}&key=${google_maps_api}`).then((response) => response.json());
 
         if (zipCodeData.results && zipCodeData.results[0].geometry) {
@@ -36,8 +34,6 @@ async function initMap() {
 
     service = new google.maps.places.PlacesService(map);
 
-
-    // Search for gyms when the map is moved and idle
     google.maps.event.addListener(map, "idle", searchGyms);
 }
 
@@ -56,20 +52,21 @@ function searchGyms() {
     });
 }
 
-
-async function addHomeGym(name, address) {
-
+async function addHomeGym(name, address, marker) {
     const response = await fetch('/gyms?name=' + name + '&address=' + address, {
         method: 'GET',
-
     });
 
     window.alert('Home gym has been changed');
 
+    marker.setIcon("/img/gym-icon.png");
 
+    if (homeGymMarker) {
+        homeGymMarker.setIcon(null);
+    }
 
+    homeGymMarker = marker;
 }
-
 
 function createMarker(place) {
     if (!place.geometry || !place.geometry.location) return;
@@ -77,7 +74,6 @@ function createMarker(place) {
     const marker = new google.maps.Marker({
         map,
         position: place.geometry.location,
-
     });
 
     google.maps.event.addListener(marker, "click", () => {
@@ -104,19 +100,12 @@ function createMarker(place) {
 
                 google.maps.event.addListenerOnce(infowindow, 'domready', () => {
                     document.getElementById('home-gym-button').addEventListener('click', () => {
-                        addHomeGym(place.name, place.vicinity);
+                        addHomeGym(place.name, place.vicinity, marker);
                     });
                 });
             }
         });
     });
-
 }
 
 window.initMap = initMap;
-
-
-
-
-
-
