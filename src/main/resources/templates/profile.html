@@ -41,8 +41,8 @@ Profile Page
 <p th:text="${user.zipcode}">(insert zipcode here)</p>
 <p th:text="${user.gender}">(insert gender here)</p>
 <p th:text="${user.bio}">(insert bio here)</p>
-<!--<p th:text="${user.gym.name}">(insert gym name here)</p>-->
-<!--<p th:text="${user.gym.address}">(insert gym address here)</p>-->
+<p th:if="${user.gym != null}" th:text="${user.gym.name}">(insert gym name here)</p>
+<p th:if="${user.gym != null}" th:text="${user.gym.address}">(insert gym address here)</p>
 <th:block th:if="${!user.getStyles().isEmpty()}">
 	<p>Your workout styles</p>
 	<ul>
