@@ -1,6 +1,12 @@
+"use strict";
 let map;
 let service;
 let infowindow;
+const form = document.getElementById("search-form");
+const noResultsDiv = document.getElementById("results-none");
+const resetFormButton = document.getElementById("reset-form");
+const gymInputId = "gymAddress";
+let isFilteringByGym = false;
 
 async function initMap() {
     const loggedInUser = await fetch("/loggedInUser").then(response => response.json())
@@ -134,7 +140,6 @@ function searchGyms() {
 
 function setGymAddress(address) {
     const form = document.getElementById("search-form");
-    const gymInputId = "gymAddress";
     let gymInput = document.getElementById(gymInputId);
     if (gymInput === null) {
         gymInput = document.createElement('input');
@@ -176,10 +181,82 @@ function createMarker(place) {
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);
                 setGymAddress(place.vicinity);
+                document.getElementById("radius").disabled = true;
+                isFilteringByGym = true;
+                filterUsersList().then();
             }
         });
     });
 }
+
+function getFilterParams(elements) {
+    const params = new URLSearchParams();
+    elements.forEach(function (element) {
+        if (element.value.length !== 0) {
+            params.set(element.getAttribute("name"), element.value);
+        }
+    });
+    console.log(params);
+    return params;
+}
+
+function showLoadingSpinner() {
+    form.querySelectorAll("select").forEach((e) => e.disabled = true);
+    noResultsDiv.classList.add("d-none");
+    document.querySelectorAll(".user-result").forEach((e) => e.classList.add("d-none"));
+    document.getElementById("results-spinner").classList.remove("d-none");
+}
+
+function hideLoadingSpinner() {
+    form.querySelectorAll("select").forEach((e) => {
+        if (e.id === "radius" && isFilteringByGym) {
+            return
+        }
+        e.disabled = false;
+    });
+    document.getElementById("results-spinner").classList.add("d-none");
+}
+
+async function filterUsersList() {
+    //do loading feedback here
+    showLoadingSpinner();
+    //fetch list of users from filter
+    let users = await fetch("/filter?" + getFilterParams(form.querySelectorAll("input, select"))).then(res => res.json());
+    hideLoadingSpinner();
+    if (users.length === 0) {
+        noResultsDiv.classList.remove("d-none");
+        return
+    }
+    //hide users not on the list
+    for (const user of users) {
+        const userCard = document.querySelector(`[data-user-id='${user.id}']`);
+        userCard.classList.remove("d-none");
+    }
+}
+
+form.addEventListener("submit", async function (e) {
+    e.preventDefault();
+    await filterUsersList();
+});
+
+form.querySelectorAll("input, select").forEach(function (el) {
+    el.addEventListener("change", filterUsersList)
+});
+
+resetFormButton.addEventListener("click", function () {
+    document.getElementById("radius").disabled = false;
+    isFilteringByGym = false;
+    form.querySelectorAll("input, select").forEach(function (el) {
+        if (el.tagName === 'select') {
+            el.selectedIndex = 0;
+        }
+        if (el.id === gymInputId) {
+            el.remove();
+        }
+        document.querySelectorAll(".user-result").forEach((e) => e.classList.remove("d-none"));
+    });
+
+});
 
 window.initMap = initMap;
 
