@@ -81,7 +81,9 @@ public class SecurityConfiguration {
                         "/js/**",
                         "/error",
                         "/gyms",
-                        "/about")
+                        "/about",
+                        "/forgot_password",
+                        "/reset_password")
                 .permitAll()
 
         ;
