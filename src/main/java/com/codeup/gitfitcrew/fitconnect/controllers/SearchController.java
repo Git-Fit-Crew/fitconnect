@@ -45,16 +45,8 @@ public class SearchController {
         List<User> results = userDao.findAll();
 
         if (address != null) {
-
-            //RESULTS BY GYM TODO: import gym address from click on google icon
-            //this commented out code gets the gymId of the currently logged in user (was for testing)
-            //User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            //Gym gym = gymDao.getGymById(loggedInUser.getGym().getId());
-
             Gym gym = gymDao.getGymByAddress(address);
             results = userDao.findUsersByGym(gym);
-            System.out.println("BY GYM" + results);
-            //model.addAttribute("results", results);
         } else {
 
             if (miles == null) {

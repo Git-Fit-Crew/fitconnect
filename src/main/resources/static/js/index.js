@@ -7,7 +7,6 @@ async function initMap() {
     const loggedInUser = await fetch("/loggedInUser").then(response => response.json())
     const google_maps_api = await fetch("/keys").then(response => response.json()).then(response => response.googleMapApi)
 
-    console.log(loggedInUser.zipcode)
 
     let defaultCenter;
 
@@ -55,10 +54,18 @@ function searchGyms() {
         }
     });
 }
-async function sendGymAddress(address) {
-    const response = await fetch('/search?address=' + address, {
-        method: 'GET',
-    });
+function setGymAddress(address) {
+    const form = document.getElementById("search-form");
+    const gymInputId = "gymAddress";
+    let gymInput = document.getElementById(gymInputId);
+    if (gymInput === null) {
+        gymInput = document.createElement('input');
+        gymInput.setAttribute("id", gymInputId);
+    }
+    gymInput.setAttribute("value", address);
+    gymInput.setAttribute("name", "gym");
+    gymInput.setAttribute("type", "hidden");
+    form.appendChild(gymInput);
 
 }
 
@@ -93,7 +100,7 @@ function createMarker(place) {
 
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);
-                sendGymAddress(place.vicinity)
+                setGymAddress(place.vicinity);
             }
         });
     });
