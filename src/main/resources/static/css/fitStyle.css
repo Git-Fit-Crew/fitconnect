@@ -22,3 +22,15 @@ body {
 .collapse ul li a {
     color: white;
 }
+
+.card {
+    background-color: black;
+    color: white;
+    text-align: center;
+}
+
+.btn-success {
+    background-color: #5beb34 !important;
+    /*border-color: black;*/
+    color: black;
+}
