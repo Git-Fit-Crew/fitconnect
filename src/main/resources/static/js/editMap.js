@@ -1,9 +1,9 @@
 let map;
 let service;
 let infowindow;
+let homeGymMarker = null;
 
 async function initMap() {
-
     const loggedInUser = await fetch("/loggedInUser").then(response => response.json())
     const google_maps_api = await fetch("/keys").then(response => response.json()).then(response => response.googleMapApi)
 
@@ -11,9 +11,7 @@ async function initMap() {
 
     let defaultCenter;
 
-    // Check if the user has a zip code
     if (loggedInUser.zipcode) {
-        // Use the user's zip code to get the latitude and longitude
         const zipCodeData = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?address=${loggedInUser.zipcode}&key=${google_maps_api}`).then((response) => response.json());
 
         if (zipCodeData.results && zipCodeData.results[0].geometry) {
@@ -32,12 +30,90 @@ async function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
         center: defaultCenter,
         zoom: 15,
+        styles: [
+            {elementType: "geometry", stylers: [{color: "#242f3e"}]},
+            {elementType: "labels.text.stroke", stylers: [{color: "#242f3e"}]},
+            {elementType: "labels.text.fill", stylers: [{color: "#746855"}]},
+            {
+                featureType: "administrative.locality",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#d59563"}],
+            },
+            {
+                featureType: "poi",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#d59563"}],
+            },
+            {
+                featureType: "poi.park",
+                elementType: "geometry",
+                stylers: [{color: "#263c3f"}],
+            },
+            {
+                featureType: "poi.park",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#6b9a76"}],
+            },
+            {
+                featureType: "road",
+                elementType: "geometry",
+                stylers: [{color: "#38414e"}],
+            },
+            {
+                featureType: "road",
+                elementType: "geometry.stroke",
+                stylers: [{color: "#212a37"}],
+            },
+            {
+                featureType: "road",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#9ca5b3"}],
+            },
+            {
+                featureType: "road.highway",
+                elementType: "geometry",
+                stylers: [{color: "#746855"}],
+            },
+            {
+                featureType: "road.highway",
+                elementType: "geometry.stroke",
+                stylers: [{color: "#1f2835"}],
+            },
+            {
+                featureType: "road.highway",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#f3d19c"}],
+            },
+            {
+                featureType: "transit",
+                elementType: "geometry",
+                stylers: [{color: "#2f3948"}],
+            },
+            {
+                featureType: "transit.station",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#d59563"}],
+            },
+            {
+                featureType: "water",
+                elementType: "geometry",
+                stylers: [{color: "#17263c"}],
+            },
+            {
+                featureType: "water",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#515c6d"}],
+            },
+            {
+                featureType: "water",
+                elementType: "labels.text.stroke",
+                stylers: [{color: "#17263c"}],
+            },
+        ],
     });
 
     service = new google.maps.places.PlacesService(map);
 
-
-    // Search for gyms when the map is moved and idle
     google.maps.event.addListener(map, "idle", searchGyms);
 }
 
@@ -56,18 +132,19 @@ function searchGyms() {
     });
 }
 
-
-async function addHomeGym(name, address) {
-
+async function addHomeGym(name, address, marker) {
     const response = await fetch('/gyms?name=' + name + '&address=' + address, {
         method: 'GET',
-
     });
 
     window.alert('Home gym has been changed');
 
+    if (homeGymMarker) {
+        homeGymMarker.setIcon("/img/defaultMarker.png");
+    }
 
-
+    marker.setIcon("/img/gymHomeMarker.png");
+    homeGymMarker = marker;
 }
 
 
@@ -77,7 +154,7 @@ function createMarker(place) {
     const marker = new google.maps.Marker({
         map,
         position: place.geometry.location,
-
+        icon: "/img/defaultMarker.png",
     });
 
     google.maps.event.addListener(marker, "click", () => {
@@ -87,36 +164,29 @@ function createMarker(place) {
                 const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place.place_id}`;
 
                 const contentString = `<div class="info-window-content">
-                    <h2>${place.name}</h2>
-                    <p>Address: ${place.vicinity}</p>
-                    <p>Rating: ${place.rating}</p>
-                    <p>Hours:<br>${hours}</p>
-                    ${
+                <h2>${place.name}</h2>
+                <p>Address: ${place.vicinity}</p>
+                <p>Rating: ${place.rating}</p>
+                <p>Hours:<br>${hours}</p>
+                ${
                     place.photos
                         ? `<img src="${place.photos[0].getUrl({maxWidth: 200, maxHeight: 200})}" alt="${place.name}">`
                         : ""
                 }
-                    <p><button id="home-gym-button">Make this my home gym</button></p>
-                </div>`;
+                <p><button id="home-gym-button">Make this my home gym</button></p>
+            </div>`;
 
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);
 
                 google.maps.event.addListenerOnce(infowindow, 'domready', () => {
                     document.getElementById('home-gym-button').addEventListener('click', () => {
-                        addHomeGym(place.name, place.vicinity);
+                        addHomeGym(place.name, place.vicinity, marker);
                     });
                 });
             }
         });
     });
-
 }
 
 window.initMap = initMap;
-
-
-
-
-
-
