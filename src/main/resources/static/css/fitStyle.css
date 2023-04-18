@@ -12,7 +12,6 @@ body {
     background-color: black;
     color: white;
 }
-/* Modify brand and text color */
 
 .navbar-custom .navbar-brand,
 .navbar-custom .navbar-text {
@@ -33,4 +32,14 @@ body {
     background-color: #5beb34 !important;
     /*border-color: black;*/
     color: black;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #5beb34;
+
 }

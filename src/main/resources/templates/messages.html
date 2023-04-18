@@ -9,8 +9,6 @@
 <body class="h-100">
 <nav th:replace="~{partials :: nav}"></nav>
 
-FitChat Page
-
 <!-- minified snippet to load TalkJS without delaying your page -->
 <script>
     (function(t,a,l,k,j,s){
@@ -19,23 +17,54 @@ FitChat Page
                     .push([f])},catch:function(){return k&&new k()},c:l}};})(window,document,[]);
 </script>
 
-<!-- container element in which TalkJS will display a chat UI -->
-<div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
-    <i>Loading chat...</i>
+<br>
+<br>
+<br>
+
+<div class="homeCards d-flex flex-row justify-content-around" style="height: 80%;">
+
+    <div class="card" style="width: 75%;">
+        <div class="card-body">
+            <br>
+            <h5 class="card-title" style="color:#5beb34;">FitChat</h5>
+            <!-- container element in which TalkJS will display a chat UI -->
+            <div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
+                <i>Loading chat...</i>
+            </div>
+        </div>
+    </div>
+
+    <div class="card" style="width: 20%;">
+        <div class="card-body">
+            <br>
+            <h5 class="card-title" style="color:#5beb34;">Click on a new friend to start chatting with them:</h5>
+            <!--friends list-->
+                    <div class="card" style="width: 100%;" th:each="friend : ${friends}">
+                    <div class="card-body p-0">
+                        <!--INSERT PROFILE IMAGE HERE-->
+                        <a th:class="message-friend" th:text="${friend.username}" th:attr="data-friend-id=${friend.id}"></a>
+
+                    </div>
+                    </div>
+        </div>
+    </div>
+
 </div>
 
-<!--friends list-->
-<div class="col-8 p-0">
+
+<!--<div class="col-8 p-0">
     <div class = "d-flex flex-column justify-content-center align-items-center">
         <div class="card m-2 p-2 bg-secondary opacity-75" style="width: 90%;" th:each="friend : ${friends}">
             <div class="card-body">
                 <h4 class="card-title" th:text="${friend.username}"></h4>
                 <button th:attr="data-friend-id=${friend.id}" th:class="message-friend">FitChat</button>
-
             </div>
+
         </div>
     </div>
-</div>
+</div>-->
+
+
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
