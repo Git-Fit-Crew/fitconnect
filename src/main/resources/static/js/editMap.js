@@ -30,6 +30,86 @@ async function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
         center: defaultCenter,
         zoom: 15,
+        styles: [
+            {elementType: "geometry", stylers: [{color: "#242f3e"}]},
+            {elementType: "labels.text.stroke", stylers: [{color: "#242f3e"}]},
+            {elementType: "labels.text.fill", stylers: [{color: "#746855"}]},
+            {
+                featureType: "administrative.locality",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#d59563"}],
+            },
+            {
+                featureType: "poi",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#d59563"}],
+            },
+            {
+                featureType: "poi.park",
+                elementType: "geometry",
+                stylers: [{color: "#263c3f"}],
+            },
+            {
+                featureType: "poi.park",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#6b9a76"}],
+            },
+            {
+                featureType: "road",
+                elementType: "geometry",
+                stylers: [{color: "#38414e"}],
+            },
+            {
+                featureType: "road",
+                elementType: "geometry.stroke",
+                stylers: [{color: "#212a37"}],
+            },
+            {
+                featureType: "road",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#9ca5b3"}],
+            },
+            {
+                featureType: "road.highway",
+                elementType: "geometry",
+                stylers: [{color: "#746855"}],
+            },
+            {
+                featureType: "road.highway",
+                elementType: "geometry.stroke",
+                stylers: [{color: "#1f2835"}],
+            },
+            {
+                featureType: "road.highway",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#f3d19c"}],
+            },
+            {
+                featureType: "transit",
+                elementType: "geometry",
+                stylers: [{color: "#2f3948"}],
+            },
+            {
+                featureType: "transit.station",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#d59563"}],
+            },
+            {
+                featureType: "water",
+                elementType: "geometry",
+                stylers: [{color: "#17263c"}],
+            },
+            {
+                featureType: "water",
+                elementType: "labels.text.fill",
+                stylers: [{color: "#515c6d"}],
+            },
+            {
+                featureType: "water",
+                elementType: "labels.text.stroke",
+                stylers: [{color: "#17263c"}],
+            },
+        ],
     });
 
     service = new google.maps.places.PlacesService(map);
@@ -59,14 +139,14 @@ async function addHomeGym(name, address, marker) {
 
     window.alert('Home gym has been changed');
 
-    marker.setIcon("/img/gym-icon.png");
-
     if (homeGymMarker) {
-        homeGymMarker.setIcon(null);
+        homeGymMarker.setIcon("/img/defaultMarker.png");
     }
 
+    marker.setIcon("/img/gymHomeMarker.png");
     homeGymMarker = marker;
 }
+
 
 function createMarker(place) {
     if (!place.geometry || !place.geometry.location) return;
@@ -74,6 +154,7 @@ function createMarker(place) {
     const marker = new google.maps.Marker({
         map,
         position: place.geometry.location,
+        icon: "/img/defaultMarker.png",
     });
 
     google.maps.event.addListener(marker, "click", () => {
@@ -83,17 +164,17 @@ function createMarker(place) {
                 const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place.place_id}`;
 
                 const contentString = `<div class="info-window-content">
-                    <h2>${place.name}</h2>
-                    <p>Address: ${place.vicinity}</p>
-                    <p>Rating: ${place.rating}</p>
-                    <p>Hours:<br>${hours}</p>
-                    ${
+                <h2>${place.name}</h2>
+                <p>Address: ${place.vicinity}</p>
+                <p>Rating: ${place.rating}</p>
+                <p>Hours:<br>${hours}</p>
+                ${
                     place.photos
                         ? `<img src="${place.photos[0].getUrl({maxWidth: 200, maxHeight: 200})}" alt="${place.name}">`
                         : ""
                 }
-                    <p><button id="home-gym-button">Make this my home gym</button></p>
-                </div>`;
+                <p><button id="home-gym-button">Make this my home gym</button></p>
+            </div>`;
 
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);

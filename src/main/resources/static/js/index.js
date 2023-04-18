@@ -3,10 +3,8 @@ let service;
 let infowindow;
 
 async function initMap() {
-
     const loggedInUser = await fetch("/loggedInUser").then(response => response.json())
     const google_maps_api = await fetch("/keys").then(response => response.json()).then(response => response.googleMapApi)
-
 
     let defaultCenter;
 
@@ -31,10 +29,89 @@ async function initMap() {
     map = new google.maps.Map(document.getElementById("map"), {
         center: defaultCenter,
         zoom: 15,
+        styles: [
+            { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+            { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+            { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+            {
+                featureType: "administrative.locality",
+                elementType: "labels.text.fill",
+                stylers: [{ color: "#d59563" }],
+            },
+            {
+                featureType: "poi",
+                elementType: "labels.text.fill",
+                stylers: [{ color: "#d59563" }],
+            },
+            {
+                featureType: "poi.park",
+                elementType: "geometry",
+                stylers: [{ color: "#263c3f" }],
+            },
+            {
+                featureType: "poi.park",
+                elementType: "labels.text.fill",
+                stylers: [{ color: "#6b9a76" }],
+            },
+            {
+                featureType: "road",
+                elementType: "geometry",
+                stylers: [{ color: "#38414e" }],
+            },
+            {
+                featureType: "road",
+                elementType: "geometry.stroke",
+                stylers: [{ color: "#212a37" }],
+            },
+            {
+                featureType: "road",
+                elementType: "labels.text.fill",
+                stylers: [{ color: "#9ca5b3" }],
+            },
+            {
+                featureType: "road.highway",
+                elementType: "geometry",
+                stylers: [{ color: "#746855" }],
+            },
+            {
+                featureType: "road.highway",
+                elementType: "geometry.stroke",
+                stylers: [{ color: "#1f2835" }],
+            },
+            {
+                featureType: "road.highway",
+                elementType: "labels.text.fill",
+                stylers: [{ color: "#f3d19c" }],
+            },
+            {
+                featureType: "transit",
+                elementType: "geometry",
+                stylers: [{ color: "#2f3948" }],
+            },
+            {
+                featureType: "transit.station",
+                elementType: "labels.text.fill",
+                stylers: [{ color: "#d59563" }],
+            },
+            {
+                featureType: "water",
+                elementType: "geometry",
+                stylers: [{ color: "#17263c" }],
+            },
+            {
+                featureType: "water",
+                elementType: "labels.text.fill",
+                stylers: [{ color: "#515c6d" }],
+            },
+            {
+                featureType: "water",
+                elementType: "labels.text.stroke",
+                stylers: [{ color: "#17263c" }],
+            },
+        ],
     });
 
     service = new google.maps.places.PlacesService(map);
-
 
     // Search for gyms when the map is moved and idle
     google.maps.event.addListener(map, "idle", searchGyms);
@@ -54,6 +131,7 @@ function searchGyms() {
         }
     });
 }
+
 function setGymAddress(address) {
     const form = document.getElementById("search-form");
     const gymInputId = "gymAddress";
@@ -66,7 +144,6 @@ function setGymAddress(address) {
     gymInput.setAttribute("name", "gym");
     gymInput.setAttribute("type", "hidden");
     form.appendChild(gymInput);
-
 }
 
 function createMarker(place) {
@@ -75,9 +152,7 @@ function createMarker(place) {
     const marker = new google.maps.Marker({
         map,
         position: place.geometry.location,
-
     });
-
 
     google.maps.event.addListener(marker, "click", () => {
         service.getDetails({ placeId: place.place_id, fields: ['opening_hours'] }, (placeDetails, status) => {
@@ -104,11 +179,12 @@ function createMarker(place) {
             }
         });
     });
-
-
 }
 
 window.initMap = initMap;
+
+
+
 
 
 
