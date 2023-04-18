@@ -3,7 +3,6 @@ package com.codeup.gitfitcrew.fitconnect.models;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -63,6 +62,9 @@ public class User {
 
     @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE, mappedBy = "user")
     private Collection<Workout> workouts;
+
+    @Column(name = "reset_password_token")
+    private String resetPasswordToken;
 
     public Collection<Preferences> getGoals() {
         Collection<Preferences> goals = new ArrayList<>();
