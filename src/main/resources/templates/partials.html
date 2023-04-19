@@ -51,25 +51,19 @@
 
                 <!-- Left links -->
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
                         <a class="nav-link active" href="/search" style="color: #ffffff;">
-                            <th:block sec:authorize="isAuthenticated()">
-                                Connect page
-                            </th:block>
+                            Connect page
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
                         <a class="nav-link active" href="/friends" style="color: #ffffff;">
-                            <th:block sec:authorize="isAuthenticated()">
-                                Friends
-                            </th:block>
+                            Friends
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
                         <a class="nav-link active" href="/messages" style="color: #ffffff;">
-                            <th:block sec:authorize="isAuthenticated()">
-                                FitChat
-                            </th:block>
+                            FitChat
                         </a>
                     </li>
                     <li class="nav-item">
@@ -132,35 +126,27 @@
                             class="dropdown-menu dropdown-menu-end"
                             aria-labelledby="navbarDropdownMenuAvatar"
                     >
-                        <li>
+                        <li sec:authorize="isAnonymous()">
                             <a class="dropdown-item" href="/login">
-                                <th:block sec:authorize="!isAuthenticated()">
-                                    Login
-                                </th:block>
+                                Login
                             </a>
                         </li>
-                        <li>
+                        <li sec:authorize="isAnonymous()">
                             <a class="dropdown-item" href="/register">
-                                <th:block sec:authorize="!isAuthenticated()">
-                                    Register
-                                </th:block>
+                                Register
                             </a>
                         </li>
 
-                        <li>
+                        <li sec:authorize="isAuthenticated()">
                             <a class="dropdown-item" href="/profile">
-                                <th:block sec:authorize="isAuthenticated()">
                                 My profile
-                                </th:block>
                             </a>
                         </li>
-                        <li>
+                        <li sec:authorize="isAuthenticated()">
                             <a class="dropdown-item" href="#">
-                                <th:block sec:authorize="isAuthenticated()">
                                 <form th:action="@{/logout}" th:method="post">
                                     <button type="submit" class="btn-link btn nav-link">Logout</button>
                                 </form>
-                            </th:block>
                             </a>
                         </li>
                     </ul>
@@ -171,34 +157,6 @@
         <!-- Container wrapper -->
     </nav>
     <!-- Navbar -->
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <!--<a class="nav-link active" href="/">FitConnect</a>-->
-    <!--<a class="nav-link active" href="/about">About</a>-->
-    <!--<a class="nav-link active" href="/search">Connect page</a>-->
-
-    <!--<a class="nav-link active" href="/messages">FitChat</a>-->
-    <!--<a class="nav-link active" href="/friends">Friends</a>-->
-    <!--<a class="nav-link active" href="/profile">Profile</a>-->
-    <!--<a class="nav-link active" href="/register">Register</a>
-    <a class="nav-link active" href="/login">Login</a>-->
-<!--    <th:block sec:authorize="isAuthenticated()">
-        <form th:action="@{/logout}" th:method="post">
-            <button type="submit" class="btn-link btn nav-link">Logout</button>
-        </form>
-    </th:block>-->
-
 </th:block>
 
 
