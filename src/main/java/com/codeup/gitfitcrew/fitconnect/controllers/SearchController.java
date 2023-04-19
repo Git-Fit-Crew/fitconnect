@@ -66,7 +66,6 @@ public class SearchController {
         }
         stylesParam.ifPresent(preferenceIds::addAll);
         goalsParam.ifPresent(preferenceIds::addAll);
-        System.out.println("preferences = " + preferenceIds);
         if (address.isPresent()) {
             Gym gym = gymDao.getGymByAddress(address.get());
             userDtos = getUsersByGym(gender, level, preferenceIds, gym);
