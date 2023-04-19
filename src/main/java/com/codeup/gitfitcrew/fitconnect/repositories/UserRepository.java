@@ -3,6 +3,7 @@ package com.codeup.gitfitcrew.fitconnect.repositories;
 import com.codeup.gitfitcrew.fitconnect.models.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
 import java.util.Collection;
 import java.util.List;
@@ -26,19 +27,19 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByResetPasswordToken(String token);
 
-    @Query("select u from User u inner join Preferences p where " +
+    @Query("select u from User u inner join u.preferences p where " +
             "(:gender is null or u.gender = :gender) and " +
             "(:level is null or u.level = :level) and " +
             "p.id in :preferenceIds and " +
             "u.zipcode in :zipcodes")
-    List<User> findUsersByGenderAndLevelAndZipcodeInAndPreferencesIn(Gender gender, Level level, Collection<Integer> zipcodes, Collection<Long> preferenceIds);
+    List<User> findUsersByGenderAndLevelAndZipcodeInAndPreferencesIn(Gender gender, Level level, Collection<Integer> zipcodes,@Param("preferenceIds") Collection<Long> preferenceIds);
 
-    @Query("select u from User u inner join Preferences p where " +
+    @Query("select u from User u inner join u.preferences p where " +
             "(:gender is null or u.gender = :gender) and " +
             "(:level is null or u.level = :level) and " +
             "p.id in :preferenceIds and " +
             "u.gym = :gym")
-    List<User> findUsersByGenderAndLevelAndGymAndPreferencesIn(Gender gender, Level level, Gym gym, Collection<Long> preferenceIds);
+    List<User> findUsersByGenderAndLevelAndGymAndPreferencesIn(Gender gender, Level level, Gym gym,@Param("preferenceIds") Collection<Long> preferenceIds);
 
     @Query("select u from User u where " +
             "(:gender is null or u.gender = :gender) and " +
