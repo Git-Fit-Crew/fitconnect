@@ -37,7 +37,15 @@ public class UserController {
         return "register";
     }
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user){
+    public String saveUser(@ModelAttribute User user, Model model){
+        if (userDao.findByUsername(user.getUsername()) != null) {
+            model.addAttribute("username", "username already taken");
+            return "register";
+        }
+        if (userDao.findByEmail(user.getEmail()) != null) {
+            model.addAttribute("email", "email already taken");
+            return "register";
+        }
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         System.out.println(user);

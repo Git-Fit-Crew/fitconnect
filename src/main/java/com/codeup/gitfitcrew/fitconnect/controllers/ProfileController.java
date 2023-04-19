@@ -40,11 +40,15 @@ public class ProfileController {
     public String profile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getUserById(loggedInUser.getId());
-        model.addAttribute("user", user);
-        model.addAttribute("isLoggedInUser", true);
-        model.addAttribute("isWorkoutLoggedToday", workoutService.didUserLogWorkoutForToday(user));
-        model.addAttribute("isFriend", false);
-        return "profile";
+        if (user == null) {
+            return "login";
+        } else {
+            model.addAttribute("user", user);
+            model.addAttribute("isLoggedInUser", true);
+            model.addAttribute("isWorkoutLoggedToday", workoutService.didUserLogWorkoutForToday(user));
+            model.addAttribute("isFriend", false);
+            return "profile";
+        }
     }
 
     @GetMapping("/{id}")
@@ -129,7 +133,8 @@ public class ProfileController {
     }
 
     @PostMapping("/showFormForUpdate/{id}")
-    public String saveUser(@PathVariable long id, @ModelAttribute("user") User user, @RequestParam("styles") Optional<List<String>> styles, @RequestParam("goals") Optional<List<String>> goals) {
+    public String saveUser(@PathVariable long id, @ModelAttribute("user") User user,
+                           @RequestParam("styles") Optional<List<String>> styles, @RequestParam("goals") Optional<List<String>> goals) {
 
         User originalUser = userDao.getUserById(id);
         Collection<Preferences> preferences = new ArrayList<>();

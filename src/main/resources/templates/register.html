@@ -11,6 +11,10 @@
 
 <h1>Register to connect with other exercise enthusiasts!</h1>
 
+<p th:if="${username != null}">Username is taken</p>
+<p th:if="${email != null}">Email is taken</p>
+
+
 <form th:action="@{/register}" method="POST" th:object="${user}" class="row g-3 needs-validation" novalidate>
     <div class="col-md-4">
         <label for="username" class="form-label">Username</label>
