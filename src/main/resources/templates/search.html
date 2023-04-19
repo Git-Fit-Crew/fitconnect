@@ -37,6 +37,30 @@
 		<option value="ADVANCED">Advanced</option>
 		<option value="EXPERT">Expert</option>
 	</select>
+	<div>
+		<p>Workout Styles</p>
+		<th:block th:each="style : ${styles}">
+			<div th:class="form-check">
+				<input th:class="form-check-input" th:type="checkbox" th:value="${style.id}"
+				       th:id="'style' + ${style.id}" th:name="styles">
+				<label th:class="form-check-label" th:for="'style' + ${style.id}" th:text="${style.name}">
+					Replace with style name
+				</label>
+			</div>
+		</th:block>
+	</div>
+	<div>
+		<p>Workout Goals</p>
+		<th:block th:each="goal : ${goals}">
+			<div th:class="form-check">
+				<input th:class="form-check-input" th:type="checkbox" th:value="${goal.id}"
+				       th:id="'goal' + ${goal.id}" th:name="goals">
+				<label th:class="form-check-label" th:for="'goal' + ${goal.id}" th:text="${goal.name}">
+					Replace with goal name
+				</label>
+			</div>
+		</th:block>
+	</div>
 	<button type="submit">Search</button>
 </form>
 <button type="button" id="reset-form">Reset</button>
@@ -60,7 +84,6 @@
 </div>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script th:type="module" th:src="@{/js/index.js}"></script>
-<script th:src="@{/js/search.js}"></script>
 <script
 	th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
 	defer
