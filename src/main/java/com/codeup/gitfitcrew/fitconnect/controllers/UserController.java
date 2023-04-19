@@ -4,7 +4,12 @@ import com.codeup.gitfitcrew.fitconnect.models.*;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
 import com.codeup.gitfitcrew.fitconnect.services.FriendService;
 import com.google.gson.Gson;
+import jakarta.mail.MessagingException;
+import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -14,6 +19,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -24,6 +30,8 @@ public class UserController {
     private final UserRepository userDao;
     private final FriendService friendService;
     private final PasswordEncoder passwordEncoder;
+    @Autowired
+    private JavaMailSender mailSender;
 
     @GetMapping("/login")
     public String showLoginForm(){
@@ -38,7 +46,7 @@ public class UserController {
         return "register";
     }
     @PostMapping("/register")
-    public String saveUser(@ModelAttribute User user, Model model){
+    public String saveUser(@ModelAttribute User user, Model model) throws MessagingException, UnsupportedEncodingException {
         if (userDao.findByUsername(user.getUsername()) != null) {
             model.addAttribute("username", "username already taken");
             return "register";
@@ -70,11 +78,31 @@ public class UserController {
             model.addAttribute("length", "password must be at least 8 characters");
             return "register";
         }
+        sendEmail(user.getEmail());
         String hash = passwordEncoder.encode(user.getPassword());
         user.setPassword(hash);
         System.out.println(user);
         userDao.save(user);
         return "redirect:/login";
+    }
+    public void sendEmail(String recipientEmail)
+            throws MessagingException, UnsupportedEncodingException {
+        MimeMessage message = mailSender.createMimeMessage();
+        MimeMessageHelper helper = new MimeMessageHelper(message);
+
+        helper.setFrom("FitConnectCorp@gmail.com", "FitConnect");
+        helper.setTo(recipientEmail);
+
+        String subject = "Registration Email";
+
+        String content = "<p>Hello,</p>"
+                + "<p>Thank you for creating an account with FitConnect</p>";
+
+        helper.setSubject(subject);
+
+        helper.setText(content, true);
+
+        mailSender.send(message);
     }
 
     @GetMapping(value = "/loggedInUser", produces = "application/json")
