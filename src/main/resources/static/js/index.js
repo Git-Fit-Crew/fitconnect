@@ -196,13 +196,11 @@ function getFilterParams(elements) {
             return
         }
         if (element.type === 'checkbox' && element.checked) {
-            console.log(element);
             params.append(element.getAttribute("name"), element.value)
             return
         }
         params.set(element.getAttribute("name"), element.value);
     });
-    console.log(Object.fromEntries(params));
     return params;
 }
 
