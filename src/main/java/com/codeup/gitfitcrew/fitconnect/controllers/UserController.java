@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.regex.Pattern;
 
 @Controller
 @RequiredArgsConstructor
@@ -44,6 +45,25 @@ public class UserController {
         }
         if (userDao.findByEmail(user.getEmail()) != null) {
             model.addAttribute("email", "email already taken");
+            return "register";
+        }
+        Pattern upperCase = Pattern.compile("[A-Z ]");
+        Pattern numbers = Pattern.compile("[0-9 ]");
+        Pattern specialChar = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
+        if (!upperCase.matcher(user.getPassword()).find()){
+            model.addAttribute("uppercase", "uppercase");
+            return "register";
+        }
+        if (!numbers.matcher(user.getPassword()).find()){
+            model.addAttribute("numbers", "numbers");
+            return "register";
+        }
+        if (!specialChar.matcher(user.getPassword()).find()){
+            model.addAttribute("special", "special");
+            return "register";
+        }
+        if (!(user.getPassword().length() > 8)) {
+            model.addAttribute("length", "length");
             return "register";
         }
         String hash = passwordEncoder.encode(user.getPassword());

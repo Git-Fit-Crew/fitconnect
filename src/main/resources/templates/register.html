@@ -13,6 +13,14 @@
 
 <p th:if="${username != null}">Username is taken</p>
 <p th:if="${email != null}">Email is taken</p>
+<p th:if="${uppercase != null}">Password must contain a uppercase letter</p>
+<p th:if="${special != null}">Password must contain a special character</p>
+<p th:if="${numbers != null}">Password must contain a number</p>
+<p th:if="${length != null}">Password have more than 8 characters</p>
+
+
+
+
 
 
 <form th:action="@{/register}" method="POST" th:object="${user}" class="row g-3 needs-validation" novalidate>
