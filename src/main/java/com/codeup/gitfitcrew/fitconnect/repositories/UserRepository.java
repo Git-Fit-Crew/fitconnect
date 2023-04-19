@@ -26,12 +26,28 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     User findByResetPasswordToken(String token);
 
-    @Query("select u from User u where (:gender is null or u.gender = :gender) and " +
+    @Query("select u from User u inner join Preferences p where " +
+            "(:gender is null or u.gender = :gender) and " +
+            "(:level is null or u.level = :level) and " +
+            "p.id in :preferenceIds and " +
+            "u.zipcode in :zipcodes")
+    List<User> findUsersByGenderAndLevelAndZipcodeInAndPreferencesIn(Gender gender, Level level, Collection<Integer> zipcodes, Collection<Long> preferenceIds);
+
+    @Query("select u from User u inner join Preferences p where " +
+            "(:gender is null or u.gender = :gender) and " +
+            "(:level is null or u.level = :level) and " +
+            "p.id in :preferenceIds and " +
+            "u.gym = :gym")
+    List<User> findUsersByGenderAndLevelAndGymAndPreferencesIn(Gender gender, Level level, Gym gym, Collection<Long> preferenceIds);
+
+    @Query("select u from User u where " +
+            "(:gender is null or u.gender = :gender) and " +
             "(:level is null or u.level = :level) and " +
             "u.zipcode in :zipcodes")
     List<User> findUsersByGenderAndLevelAndZipcodeIn(Gender gender, Level level, Collection<Integer> zipcodes);
 
-    @Query("select u from User u where (:gender is null or u.gender = :gender) and " +
+    @Query("select u from User u where " +
+            "(:gender is null or u.gender = :gender) and " +
             "(:level is null or u.level = :level) and " +
             "u.gym = :gym")
     List<User> findUsersByGenderAndLevelAndGym(Gender gender, Level level, Gym gym);
