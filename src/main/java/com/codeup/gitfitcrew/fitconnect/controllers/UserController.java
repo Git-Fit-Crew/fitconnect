@@ -47,6 +47,10 @@ public class UserController {
             model.addAttribute("email", "email already taken");
             return "register";
         }
+        if (user.getUsername().length() >= 15){
+            model.addAttribute("userL", "username has to be 15 characters or shorter");
+            return "register";
+        }
         Pattern upperCase = Pattern.compile("[A-Z ]");
         Pattern numbers = Pattern.compile("[0-9 ]");
         Pattern specialChar = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);

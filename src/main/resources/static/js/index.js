@@ -36,83 +36,83 @@ async function initMap() {
         center: defaultCenter,
         zoom: 15,
         styles: [
-            { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
-            { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
-            { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+            {elementType: "geometry", stylers: [{color: "#242f3e"}]},
+            {elementType: "labels.text.stroke", stylers: [{color: "#242f3e"}]},
+            {elementType: "labels.text.fill", stylers: [{color: "#746855"}]},
             {
                 featureType: "administrative.locality",
                 elementType: "labels.text.fill",
-                stylers: [{ color: "#d59563" }],
+                stylers: [{color: "#d59563"}],
             },
             {
                 featureType: "poi",
                 elementType: "labels.text.fill",
-                stylers: [{ color: "#d59563" }],
+                stylers: [{color: "#d59563"}],
             },
             {
                 featureType: "poi.park",
                 elementType: "geometry",
-                stylers: [{ color: "#263c3f" }],
+                stylers: [{color: "#263c3f"}],
             },
             {
                 featureType: "poi.park",
                 elementType: "labels.text.fill",
-                stylers: [{ color: "#6b9a76" }],
+                stylers: [{color: "#6b9a76"}],
             },
             {
                 featureType: "road",
                 elementType: "geometry",
-                stylers: [{ color: "#38414e" }],
+                stylers: [{color: "#38414e"}],
             },
             {
                 featureType: "road",
                 elementType: "geometry.stroke",
-                stylers: [{ color: "#212a37" }],
+                stylers: [{color: "#212a37"}],
             },
             {
                 featureType: "road",
                 elementType: "labels.text.fill",
-                stylers: [{ color: "#9ca5b3" }],
+                stylers: [{color: "#9ca5b3"}],
             },
             {
                 featureType: "road.highway",
                 elementType: "geometry",
-                stylers: [{ color: "#746855" }],
+                stylers: [{color: "#746855"}],
             },
             {
                 featureType: "road.highway",
                 elementType: "geometry.stroke",
-                stylers: [{ color: "#1f2835" }],
+                stylers: [{color: "#1f2835"}],
             },
             {
                 featureType: "road.highway",
                 elementType: "labels.text.fill",
-                stylers: [{ color: "#f3d19c" }],
+                stylers: [{color: "#f3d19c"}],
             },
             {
                 featureType: "transit",
                 elementType: "geometry",
-                stylers: [{ color: "#2f3948" }],
+                stylers: [{color: "#2f3948"}],
             },
             {
                 featureType: "transit.station",
                 elementType: "labels.text.fill",
-                stylers: [{ color: "#d59563" }],
+                stylers: [{color: "#d59563"}],
             },
             {
                 featureType: "water",
                 elementType: "geometry",
-                stylers: [{ color: "#17263c" }],
+                stylers: [{color: "#17263c"}],
             },
             {
                 featureType: "water",
                 elementType: "labels.text.fill",
-                stylers: [{ color: "#515c6d" }],
+                stylers: [{color: "#515c6d"}],
             },
             {
                 featureType: "water",
                 elementType: "labels.text.stroke",
-                stylers: [{ color: "#17263c" }],
+                stylers: [{color: "#17263c"}],
             },
         ],
     });
@@ -160,7 +160,7 @@ function createMarker(place) {
     });
 
     google.maps.event.addListener(marker, "click", () => {
-        service.getDetails({ placeId: place.place_id, fields: ['opening_hours'] }, (placeDetails, status) => {
+        service.getDetails({placeId: place.place_id, fields: ['opening_hours']}, (placeDetails, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 const hours = placeDetails.opening_hours ? placeDetails.opening_hours.weekday_text.join('<br>') : 'Hours not available';
                 const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place.place_id}`;
@@ -172,7 +172,7 @@ function createMarker(place) {
                     <p>Hours:<br>${hours}</p>
                     ${
                     place.photos
-                        ? `<img src="${place.photos[0].getUrl({ maxWidth: 200, maxHeight: 200 })}" alt="${place.name}">`
+                        ? `<img src="${place.photos[0].getUrl({maxWidth: 200, maxHeight: 200})}" alt="${place.name}">`
                         : ""
                 }
                     <p><a href="${googleMapsUrl}" target="_blank">View on Google Maps</a></p>
