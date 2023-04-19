@@ -17,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.io.UnsupportedEncodingException;
 import java.util.regex.Pattern;
@@ -83,9 +84,19 @@ public class ForgotPasswordController {
 
 
     @GetMapping("/reset_password")
-    public String showResetPasswordForm(@Param(value = "token") String token, Model model) {
+    public String showResetPasswordForm(@Param(value = "token") String token, Model model
+            , @RequestParam(required = false) String paramType
+            , @RequestParam(required = false) String msg) {
         User user = userService.getByResetPasswordToken(token);
         model.addAttribute("token", token);
+
+        if(paramType != null) {
+            System.out.println(paramType);
+            model.addAttribute(paramType, msg);
+        }
+        if(msg != null) {
+            System.out.println(msg);
+        }
 
         if (user == null) {
             String message = "invalid token";
@@ -115,20 +126,19 @@ public class ForgotPasswordController {
             Pattern specialChar = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
 
             if (!upperCase.matcher(user.getPassword()).find()) {
-                model.addAttribute("uppercase", "password must have an uppercase letter");
-                return "redirect:/reset_password?token=" + token;
+                return "redirect:/reset_password?token=" + token + "&paramType=uppercase&msg=password must have an uppercase letter";
             }
             if (!numbers.matcher(user.getPassword()).find()) {
                 model.addAttribute("numbers", "password must have a number");
-                return "redirect:/reset_password?token=" + token;
+                return "redirect:/reset_password?token=" + token + "&paramType=numbers&msg=password must have a number";
             }
             if (!specialChar.matcher(user.getPassword()).find()) {
                 model.addAttribute("special", "password must have a special character");
-                return "redirect:/reset_password?token=" + token;
+                return "redirect:/reset_password?token=" + token + "&paramType=special&msg=password must have a special character";
             }
             if (!(user.getPassword().length() >= 8)) {
                 model.addAttribute("length", "password must be at least  8 characters");
-                return "redirect:/reset_password?token=" + token;
+                return "redirect:/reset_password?token=" + token + "&paramType=length&msg=password must be at least  8 characters";
             }
             userService.updatePassword(user, password);
 
