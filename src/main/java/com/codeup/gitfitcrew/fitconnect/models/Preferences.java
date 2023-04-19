@@ -24,4 +24,9 @@ public class Preferences {
     private Type type;
 
     private transient boolean checked;
+
+    public Preferences(String name, Type type) {
+        this.name = name;
+        this.type = type;
+    }
 }
