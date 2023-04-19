@@ -192,11 +192,17 @@ function createMarker(place) {
 function getFilterParams(elements) {
     const params = new URLSearchParams();
     elements.forEach(function (element) {
-        if (element.value.length !== 0) {
-            params.set(element.getAttribute("name"), element.value);
+        if (element.value.length === 0 || (element.type === 'checkbox' && !element.checked)) {
+            return
         }
+        if (element.type === 'checkbox' && element.checked) {
+            console.log(element);
+            params.append(element.getAttribute("name"), element.value)
+            return
+        }
+        params.set(element.getAttribute("name"), element.value);
     });
-    console.log(params);
+    console.log(Object.fromEntries(params));
     return params;
 }
 
