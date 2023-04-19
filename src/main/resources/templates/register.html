@@ -11,12 +11,24 @@
 
 <h1>Register to connect with other exercise enthusiasts!</h1>
 
-<p th:if="${username != null}">Username is taken</p>
-<p th:if="${email != null}">Email is taken</p>
-<p th:if="${uppercase != null}">Password must contain a uppercase letter</p>
-<p th:if="${special != null}">Password must contain a special character</p>
-<p th:if="${numbers != null}">Password must contain a number</p>
-<p th:if="${length != null}">Password have more than 8 characters</p>
+<div th:if="${username != null}">
+    <p class="text-warning">[[${username}]]</p>
+</div>
+<div th:if="${email != null}">
+    <p class="text-warning">[[${email}]]</p>
+</div>
+<div th:if="${uppercase != null}">
+    <p class="text-warning">[[${uppercase}]]</p>
+</div>
+<div th:if="${numbers != null}">
+    <p class="text-warning">[[${numbers}]]</p>
+</div>
+<div th:if="${special != null}">
+    <p class="text-warning">[[${special}]]</p>
+</div>
+<div th:if="${length != null}">
+    <p class="text-warning">[[${length}]]</p>
+</div>
 
 
 

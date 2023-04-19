@@ -51,19 +51,19 @@ public class UserController {
         Pattern numbers = Pattern.compile("[0-9 ]");
         Pattern specialChar = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
         if (!upperCase.matcher(user.getPassword()).find()){
-            model.addAttribute("uppercase", "uppercase");
+            model.addAttribute("uppercase", "password must have an uppercase letter");
             return "register";
         }
         if (!numbers.matcher(user.getPassword()).find()){
-            model.addAttribute("numbers", "numbers");
+            model.addAttribute("numbers", "password must have a number");
             return "register";
         }
         if (!specialChar.matcher(user.getPassword()).find()){
-            model.addAttribute("special", "special");
+            model.addAttribute("special", "password must have a special character");
             return "register";
         }
-        if (!(user.getPassword().length() > 8)) {
-            model.addAttribute("length", "length");
+        if (!(user.getPassword().length() >= 8)) {
+            model.addAttribute("length", "password must be at least 8 characters");
             return "register";
         }
         String hash = passwordEncoder.encode(user.getPassword());
