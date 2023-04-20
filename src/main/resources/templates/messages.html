@@ -4,7 +4,7 @@
 <head>
     <th:block th:replace="~{partials :: head}"></th:block>
     <meta charset="UTF-8">
-    <title>Chat with your friends</title>
+    <title>Chat with your fitness friends!</title>
 </head>
 <body class="h-100">
 <nav th:replace="~{partials :: nav}"></nav>
@@ -24,50 +24,23 @@
 
 <div class="homeCards d-flex flex-row justify-content-around" style="height: 90%;">
 
-    <!--<div class="card" style="width: 75%;">
-        <div class="card-body">-->
+
             <br>
-            <!--<h5 class="card-title" style="color:#5beb34;">FitChat</h5>-->
-            <!-- container element in which TalkJS will display a chat UI -->
+
             <div id="talkjs-container" style="width: 80%; margin: 30px; height: 80%">
                 <i>Loading chat...</i>
             </div>
-        <!--</div>
-    </div>-->
 
-    <!--<div class="card" style="width: 20%;">
-        <div class="card-body">
-            <br>
-            <h5 class="card-title" style="color:#5beb34;">Click on a new friend to start chatting with them:</h5>
-            &lt;!&ndash;friends list&ndash;&gt;
-                    <div class="card" style="width: 100%;" th:each="friend : ${friends}">
-                    <div class="card-body p-0">
-                        &lt;!&ndash;INSERT PROFILE IMAGE HERE&ndash;&gt;
-                        <a th:class="message-friend" th:text="${friend.username}" th:attr="data-friend-id=${friend.id}"></a>
-
-                    </div>
-                    </div>
-        </div>
-    </div>-->
 
 </div>
 
-<div id="friendId" th:text="${friendToChat.id}" th:class="message-friend" style="display: none;"></div>
-<div id="friendUsername" th:text="${friendToChat.username}" th:class="message-friend" style="display: none;"></div>
-<div id="friendEmail" th:text="${friendToChat.email}" th:class="message-friend" style="display: none;"></div>
-<div id="friendPhoto" th:text="${friendToChat.photo}" th:class="message-friend" style="display: none;"></div>
+<div th:if="friendToChat != null">
+    <div id="friendId" th:text="${friendToChat.id}" th:class="message-friend" style="display: none;"></div>
+    <div id="friendUsername" th:text="${friendToChat.username}" th:class="message-friend" style="display: none;"></div>
+    <div id="friendEmail" th:text="${friendToChat.email}" th:class="message-friend" style="display: none;"></div>
+    <div id="friendPhoto" th:text="${friendToChat.photo}" th:class="message-friend" style="display: none;"></div>
+</div>
 
-<!--<div class="col-8 p-0">
-    <div class = "d-flex flex-column justify-content-center align-items-center">
-        <div class="card m-2 p-2 bg-secondary opacity-75" style="width: 90%;" th:each="friend : ${friends}">
-            <div class="card-body">
-                <h4 class="card-title" th:text="${friend.username}"></h4>
-                <button th:attr="data-friend-id=${friend.id}" th:class="message-friend">FitChat</button>
-            </div>
-
-        </div>
-    </div>
-</div>-->
 
 
 

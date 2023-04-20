@@ -18,7 +18,7 @@ Profile Page
 <th:block th:if="${!isLoggedInUser}">
 	<a th:if="${!isFriend}" th:href="@{/profile/{id}/request(id=${user.id})}" class="btn btn-secondary">Send friend
 		request!</a>
-	<button type="submit">Block user</button>
+<!--	<button type="submit">Block user</button>-->
 	<a th:if="${isFriend}" th:href="@{/profile/{id}/remove(id=${user.id})}" class="btn btn-secondary">Remove friend</a>
 </th:block>
 <th:block th:if="${isLoggedInUser}">
