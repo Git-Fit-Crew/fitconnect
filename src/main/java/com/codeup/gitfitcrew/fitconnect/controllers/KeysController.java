@@ -16,12 +16,16 @@ public class KeysController {
     private String talkJsAppId;
     @Value("${google-maps-api-key}")
     private String googleMapApi;
+    @Value("${filestack-api-key}")
+    private String fileStackAPI;
+
     @GetMapping(value = "/keys", produces = "application/json")
     @ResponseBody
     public Object getKeys() {
         Map<String, String> keys = new HashMap<>();
         keys.put("googleMapApi", googleMapApi);
         keys.put("talkJsAppId", talkJsAppId);
+        keys.put("fileStackAPI", fileStackAPI);
         return keys;
     }
 }
