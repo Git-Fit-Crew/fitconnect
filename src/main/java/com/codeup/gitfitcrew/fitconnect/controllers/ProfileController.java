@@ -6,6 +6,7 @@ import com.codeup.gitfitcrew.fitconnect.models.User;
 import com.codeup.gitfitcrew.fitconnect.repositories.FriendRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.PreferencesRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
+import com.codeup.gitfitcrew.fitconnect.services.FileUploadUtil;
 import com.codeup.gitfitcrew.fitconnect.services.FriendService;
 import com.codeup.gitfitcrew.fitconnect.services.WorkoutService;
 import lombok.RequiredArgsConstructor;
@@ -13,8 +14,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -134,7 +138,9 @@ public class ProfileController {
 
     @PostMapping("/showFormForUpdate/{id}")
     public String saveUser(@PathVariable long id, @ModelAttribute("user") User user,
-                           @RequestParam("styles") Optional<List<String>> styles, @RequestParam("goals") Optional<List<String>> goals) {
+                           @RequestParam("styles") Optional<List<String>> styles,
+                           @RequestParam("goals") Optional<List<String>> goals,
+                           @RequestParam("image") MultipartFile multipartFile) throws IOException {
 
         User originalUser = userDao.getUserById(id);
         Collection<Preferences> preferences = new ArrayList<>();
@@ -145,6 +151,14 @@ public class ProfileController {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
+        user.setPhoto(fileName);
+
+        User savedUser = userDao.save(user);
+
+        String uploadDir = "src/main/resources/static/img/user-photos/" + savedUser.getId();
+
+        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         originalUser.setId(id);
         originalUser.setName(user.getName());
         originalUser.setUsername(user.getUsername());

@@ -15,8 +15,11 @@
 <body>
 <nav th:replace="~{partials :: nav}"></nav>
 
-<form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}">
+<form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}" enctype="multipart/form-data">
 	<div class="form">
+		<label>Photos: </label>
+		<input type="file" name="image" accept="image/png, image/jpeg" />
+
 		<label for="name">Name</label>
 		<input id="name" th:field="*{name}"/>
 

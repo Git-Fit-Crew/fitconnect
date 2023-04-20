@@ -86,6 +86,13 @@ public class User {
         return styles;
     }
 
+    @Transient
+    public String getPhotosImagePath() {
+        if (photo == null) return null;
+
+        return "/img/user-photos/" + id + "/" + photo;
+    }
+
     public User(User copy) {
         id = copy.id;
         name = copy.name;

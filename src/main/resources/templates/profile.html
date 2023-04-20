@@ -4,6 +4,12 @@
 	<th:block th:replace="~{partials :: head}"></th:block>
 	<meta charset="UTF-8">
 	<title>Profile</title>
+	<style>
+		.pic {
+			height: 50px;
+			width: 50px;
+		}
+	</style>
 </head>
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
@@ -33,7 +39,7 @@ Profile Page
 	</ul>
 </div>
 
-<img src="/" th:src="@{{path}(path=${user.photo})}" class="userImg" alt="...">
+<img class="pic" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}" />
 
 <h5 th:text="${user.username}">(insert username here)</h5>
 <h5 th:text="${user.name}">(insert username here)</h5>
