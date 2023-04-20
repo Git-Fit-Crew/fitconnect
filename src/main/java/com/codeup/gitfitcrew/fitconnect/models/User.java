@@ -37,7 +37,7 @@ public class User {
     private String photo;
 
     @Column(length = 11, nullable = false)
-    private int zipcode;
+    private Integer zipcode;
 
     @Enumerated(EnumType.STRING)
     private Gender gender;

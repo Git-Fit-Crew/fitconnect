@@ -4,13 +4,26 @@
 <head>
     <th:block th:replace="~{partials :: head}"></th:block>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Friend removed</title>
 </head>
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
 
-Friend removed
-Make new connections on the Search page (link)
+<br>
+<br>
+
+<div class="homeCards d-flex flex-row justify-content-around">
+    <div class="card" style="width: 32%;">
+        <img class="card-img-top" src="/img/sadboi.jpeg" alt="adam">
+        <div class="card-body">
+            <p class="card-text">Friend removed.</p>
+            <a href="/search" class="btn btn-success btn-sm">Find New Fitness Connections</a>
+        </div>
+    </div>
+</div>
+
+
+
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
