@@ -140,10 +140,10 @@ async function addHomeGym(name, address, marker) {
     window.alert('Home gym has been changed');
 
     if (homeGymMarker) {
-        homeGymMarker.setIcon("/img/defaultMarker.png");
+        homeGymMarker.setIcon("/img/anyGym16.png");
     }
 
-    marker.setIcon("/img/gymHomeMarker.png");
+    marker.setIcon("/img/heartHomeGym1.png");
     homeGymMarker = marker;
 }
 
@@ -154,7 +154,7 @@ function createMarker(place) {
     const marker = new google.maps.Marker({
         map,
         position: place.geometry.location,
-        icon: "/img/defaultMarker.png",
+        icon: "/img/anyGym16.png",
     });
 
     google.maps.event.addListener(marker, "click", () => {
