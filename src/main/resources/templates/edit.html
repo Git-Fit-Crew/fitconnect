@@ -5,6 +5,7 @@
 	<title>edit</title>
 	<th:block th:replace="~{partials :: head}"></th:block>
 	<link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 	<style>
         #map {
             height: 600px;
@@ -17,8 +18,7 @@
 
 <form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}" enctype="multipart/form-data">
 	<div class="form">
-		<label>Photos: </label>
-		<input type="file" name="image" accept="image/png, image/jpeg" />
+		<a id="picture">Change profile picture</a>
 
 		<label for="name">Name</label>
 		<input id="name" th:field="*{name}"/>
@@ -94,6 +94,12 @@
 	th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
 	defer
 ></script>
+<script>
+	document.getElementById("picture").addEventListener("click", function () {
+		const client = filestack.init();
+		client.picker().open();
+	})
+</script>
 
 
 <footer th:replace="~{partials :: footer}"></footer>
