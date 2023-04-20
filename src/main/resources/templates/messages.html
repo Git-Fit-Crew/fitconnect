@@ -34,12 +34,12 @@
 
 </div>
 
-<div th:if="friendToChat != null">
+<th:block th:if="friendToChat != null">
     <div id="friendId" th:text="${friendToChat.id}" th:class="message-friend" style="display: none;"></div>
     <div id="friendUsername" th:text="${friendToChat.username}" th:class="message-friend" style="display: none;"></div>
     <div id="friendEmail" th:text="${friendToChat.email}" th:class="message-friend" style="display: none;"></div>
     <div id="friendPhoto" th:text="${friendToChat.photo}" th:class="message-friend" style="display: none;"></div>
-</div>
+</th:block>
 
 
 
