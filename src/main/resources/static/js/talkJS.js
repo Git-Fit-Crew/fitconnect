@@ -58,4 +58,27 @@ document.querySelectorAll('.message-friend').forEach(function (button){
 		conversation.setParticipant(friend);
 		inbox.select(conversation)
 	});
+
+	let friendId = document.querySelector('#friendId');
+	let friendUsername = document.querySelector('#friendUsername');
+	let friendEmail = document.querySelector('#friendEmail');
+	let friendPhoto = document.querySelector('#friendPhoto');
+	if (friendId != null) {
+
+		let friend = new Talk.User({
+			id: friendId.textContent,
+			name: friendUsername.textContent,
+			email: friendEmail.textContent,
+			photoUrl: friendPhoto.textContent,
+		})
+
+		let conversation = session.getOrCreateConversation(
+			Talk.oneOnOneId(me, friend)
+		)
+		conversation.setParticipant(me);
+		conversation.setParticipant(friend);
+		inbox.select(conversation)
+
+	}
+
 })

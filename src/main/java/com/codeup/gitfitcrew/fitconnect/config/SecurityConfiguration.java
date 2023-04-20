@@ -62,7 +62,12 @@ public class SecurityConfiguration {
                         "/edit",
                         "/profile/showFormForUpdate/{id}",
                         "/search/byGym/{id}",
+<<<<<<< HEAD
                         "/filter"
+=======
+                        "/messages/{id}"
+
+>>>>>>> 53813ea (friends page, profile pics)
 
 
                 )

@@ -43,3 +43,7 @@ a:hover {
     color: #5beb34;
 
 }
+
+.profilePic {
+    max-width: 200px;
+}
