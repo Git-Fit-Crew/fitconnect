@@ -24,11 +24,14 @@
   See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
   for more information.
   -->
-<div class="homeCards d-flex flex-row justify-content-around">
+<div class="homeCards d-flex flex-row justify-content-around" style="max-height: 1200px">
 	<div class="card" style="width: 60%;">
 		<div id="map"></div>
+		<br>
+		<br>
 		<div class="card-body">
 			<h5 class="card-title" style="color:#5beb34;">Refine search results</h5>
+			<br>
 			<form th:action="@{/search}" method="get" id="search-form">
 				<input type="hidden" th:value="${zipcode}" th:name="zipcode">
 				<select name="radius" id="radius">
@@ -49,10 +52,15 @@
 					<option value="ADVANCED">Advanced</option>
 					<option value="EXPERT">Expert</option>
 				</select>
+
+
+				<br>
+				<br>
+				<div class="d-flex flex-row justify-content-around">
 				<div>
 					<p>Workout Styles</p>
 					<th:block th:each="style : ${styles}">
-						<div th:class="form-check">
+						<div th:class="form-check" style="text-align: left">
 							<input th:class="form-check-input" th:type="checkbox" th:value="${style.id}"
 								   th:id="'style' + ${style.id}" th:name="styles">
 							<label th:class="form-check-label" th:for="'style' + ${style.id}" th:text="${style.name}">
@@ -64,7 +72,7 @@
 				<div>
 					<p>Workout Goals</p>
 					<th:block th:each="goal : ${goals}">
-						<div th:class="form-check">
+						<div th:class="form-check" style="text-align: left">
 							<input th:class="form-check-input" th:type="checkbox" th:value="${goal.id}"
 								   th:id="'goal' + ${goal.id}" th:name="goals">
 							<label th:class="form-check-label" th:for="'goal' + ${goal.id}" th:text="${goal.name}">
@@ -73,36 +81,89 @@
 						</div>
 					</th:block>
 				</div>
-				<button type="submit" class="btn btn-success btn-sm">Search</button>
+				</div>
+				<br>
+
+				<div class="d-flex flex-row justify-content-center">
+				<button type="submit" class="btn btn-success btn-sm mx-4">Refine</button>
+				<button type="button" id="reset-form" class="btn btn-success btn-sm mx-4">Reset</button>
+				</div>
 			</form>
-			<button type="button" id="reset-form" class="btn btn-success btn-sm">Reset</button>
+
+
 
 
 		</div>
 	</div>
 
 
-	<div class="card d-flex flex-column justify-content-center scroll" style="width: 35%;" >
+	<div class="card d-flex flex-column justify-content-center  scroll" style="width: 35%;" >
 		<div style="text-align: center;">
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+			<br>
+
+
 		<img class="card-img-top" src="/img/5empty.jpeg" alt="girl" style="max-height: 207px;">
 		</div>
 		<br>
 		<div class="card-body">
 			<h5 class="card-title" style="color:#5beb34;">Results</h5>
 			<div class="card d-flex flex-column justify-content-center" style="width: 100%;" th:each="result : ${results}" th:attr="data-user-id=${result.id}">
-				<img class="profilePic" th:src="${result.photo}" alt="profilepic">
+				<img class="profilePic" th:src="${result.photo}" alt="profilepic" style="margin-left:auto; margin-right:auto;">
 				<div class="card-body">
 					<a th:href="@{/profile/{id}(id=${result.id})}"><h4 class="card-title" th:text="${result.username}">(insert title here)</h4></a>
 					<p class="card-title" th:text="${result.gender}"></p>
 					<p class="card-title" th:text="${result.level}"></p>
 
+					<a th:href="@{/profile/{id}/request(id=${result.id})}" class="btn btn-success btn-sm">Send friend request!</a>
 
-					<a th:href="@{/messages/{id}(id=${result.id})}"><button class="btn btn-success btn-sm"><i class="fa-solid fa-envelope"></i></button></a>
+
+
 				</div>
 				<hr>
 			</div>
+			<div class="spinner-border d-none" role="status" id="results-spinner">
+				<span class="visually-hidden">Loading...</span>
+			</div>
+			<div id="results-none" class="d-none">
+				<p>No results found.</p>
+			</div>
 		</div>
+
+
 	</div>
+
+
 
 
 
@@ -118,12 +179,7 @@
 
 
 
-	<div class="spinner-border d-none" role="status" id="results-spinner">
-		<span class="visually-hidden">Loading...</span>
-	</div>
-	<div id="results-none" class="d-none">
-		<p>No results found.</p>
-	</div>
+
 
 
 
