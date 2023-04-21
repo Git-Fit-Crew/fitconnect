@@ -23,17 +23,15 @@
 <br>
 <br>
 
-<form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}" enctype="multipart/form-data">
+<!--<form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}" enctype="multipart/form-data">
 	<div class="form">
-		<a id="picture">Change profile picture</a>
+		<a id="picture">Change profile picture</a>-->
 
 
 
-<div class="homeCards d-flex flex-row justify-content-center">
-	<div class="card" style="width: 90%;">
-		<h5 class="card-titl" style="color:#5beb34;">Choose your home gym</h5>
-		<p>by selecting the gym icon and clicking the "Make this my home gym" button.</p>
-		<div class="d-flex flex-row justify-content-center" id="map" style="text-align: center"></div>
+<div class="homeCards d-flex flex-row justify-content-around">
+	<div class="card" style="width: 80%;">
+		<div id="map" style="margin-left:auto; margin-right:auto;"></div>
 		<!--
           The `defer` attribute causes the callback to execute after the full HTML
           document has been parsed. For non-blocking uses, avoiding race conditions,
@@ -41,39 +39,49 @@
           See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
           for more information.
           -->
-		<div class="card-body d-flex flex-column">
+		<div class="card-body d-flex flex-column justify-content-center">
+			<p>Choose your home gym by selecting the gym icon and clicking the "Make this my home gym" button.</p>
+
 			<h5 class="card-title" style="color:#5beb34;">Update your information</h5>
 
+			<div class="">
+			<form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}" enctype="multipart/form-data"  style='width: 100%;'>
 
-			<form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}" enctype="multipart/form-data">
-				<div class="form">
-
+				<div class="col-12 d-flex flex-column justify-content-center align-items-start" style='width: 100%;'>
 					<label>Choose your profile picture </label>
-					<input type="file" name="image" accept="image/png, image/jpeg" style="width: 60%;" />
+					<input type="file" name="image" accept="image/png, image/jpeg"/>
+					<br>
+
 
 					<label for="name">Name</label>
-					<input id="name" th:field="*{name}" style="width: 60%;" />
+					<input id="name" th:field="*{name}" />
+					<br>
+
 
 					<label for="username">Username</label>
-					<input id="username" th:field="*{username}" style="width: 60%;" />
+					<input id="username" th:field="*{username}" />
+					<br>
 
 					<label for="email">Email</label>
-					<input id="email" th:field="*{email}" style="width: 60%;" />
+					<input id="email" th:field="*{email}" />
+					<br>
 
 					<label for="zipcode">Zip Code</label>
-					<input id="zipcode" th:field="*{zipcode}" style="width: 60%;" />
+					<input id="zipcode" th:field="*{zipcode}" />
+					<br>
 
 					<label hidden for="password">Password</label>
-					<input hidden id="password" th:field="*{password}" style="width: 60%;"/>
+					<input hidden id="password" th:field="*{password}" />
 
 					<label for="gender">Gender</label>
-					<select id="gender" name="gender" style="width: 60%;">
+					<select id="gender" name="gender" >
 						<option th:each="gender : ${T(com.codeup.gitfitcrew.fitconnect.models.Gender).values()}"
 								th:value="${gender}" th:text="${gender}" th:selected="${user.getGender() == gender}"></option>
 					</select>
+					<br>
 
 					<label for="level">Experience Level</label>
-					<select id="level" name="level" style="width: 60%;">
+					<select id="level" name="level" >
 						<option th:each="level : ${T(com.codeup.gitfitcrew.fitconnect.models.Level).values()}"
 								th:value="${level}" th:text="${level}" th:selected="${user.getLevel() == level}"></option>
 					</select>
@@ -81,12 +89,12 @@
 					<br>
 
 					<label for="bio">Bio</label>
-					<textarea id="bio" rows="10" th:field="*{bio}" style="width: 60%;"></textarea>
-
+					<textarea id="bio" rows="10" th:field="*{bio}" ></textarea>
+				</div>
 					<div>
 						<h5 class="card-title" style="color:#5beb34;">Select your workout styles</h5>
 						<th:block th:each="style : ${styles}">
-							<div th:class="form-check">
+							<div th:class="form-check" style="text-align: left">
 								<input th:class="form-check-input" th:checked="${style.checked}" th:type="checkbox" th:value="${style.name}"
 									   th:id="'style' + ${style.id}" th:name="styles">
 								<label th:class="form-check-label" th:for="'style' + ${style.id}" th:text="${style.name}">
@@ -96,9 +104,9 @@
 						</th:block>
 					</div>
 					<div>
-						<h5 class="card-title" style="color:#5beb34;">Select your workout styles</h5>
+						<h5 class="card-title" style="color:#5beb34;">Select your workout goals</h5>
 						<th:block th:each="goal : ${goals}">
-							<div th:class="form-check">
+							<div th:class="form-check" style="text-align: left">
 								<input th:class="form-check-input" th:checked="${goal.checked}" th:type="checkbox" th:value="${goal.name}"
 									   th:id="'goal' + ${goal.id}" th:name="goals">
 								<label th:class="form-check-label" th:for="'goal' + ${goal.id}" th:text="${goal.name}">
@@ -108,8 +116,9 @@
 						</th:block>
 					</div>
 					<input value="Update" type="submit" class="btn btn-success" style="width: 60%;"/>
-				</div>
+
 			</form>
+			</div>
 		</div>
 	</div>
 
