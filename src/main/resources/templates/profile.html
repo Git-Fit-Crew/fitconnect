@@ -14,57 +14,111 @@
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
 
-Profile Page
-<th:block th:if="${!isLoggedInUser}">
-	<a th:if="${!isFriend}" th:href="@{/profile/{id}/request(id=${user.id})}" class="btn btn-secondary">Send friend
-		request!</a>
-	<button type="submit">Block user</button>
-	<a th:if="${isFriend}" th:href="@{/profile/{id}/remove(id=${user.id})}" class="btn btn-secondary">Remove friend</a>
-</th:block>
-<th:block th:if="${isLoggedInUser}">
-	<div th:if="${!isWorkoutLoggedToday}">
-		<form th:action="@{/profile/workout}" th:method="post">
-			<p>Did you workout today?</p>
-			<button type="submit">Yes</button>
-		</form>
-		<button id="dismiss-workout">Dismiss</button>
+<br>
+<br>
+<h1 style="text-align:center">Profile Page</h1>
+<br>
+<br>
+
+	<th:block th:if="${isLoggedInUser}" class="homeCards col-12">
+		<div th:if="${!isWorkoutLoggedToday}" class="card d-flex flex-row justify-content-start">
+			<form th:action="@{/profile/workout}" th:method="post" class="card-body">
+				<p>Did you workout today?</p>
+				<button type="submit" class="btn btn-success btn-sm">Yes</button>
+				<button id="dismiss-workout" class="btn btn-success btn-sm">Dismiss</button>
+			</form>
+		</div>
+	</th:block>
+<br>
+<br>
+
+<div class="homeCards d-flex flex-row justify-content-around">
+	<div class="card" style="width: 32%;">
+		<img class="card-img-top" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}" />
+		<div class="card-body">
+
+			<h5 th:text="${user.username}" style="color:#5beb34;">(insert username here)</h5>
+			<p class="card-text" th:text="${user.name}"></p>
+			<!--If logged in user, edit button-->
+			<form th:if="${isLoggedInUser}" th:action="@{|/profile/showFormForUpdate/${user.id}|}">
+				<button type="submit" class="btn btn-success btn-sm">Edit Profile</button>
+			</form>
+			<!--If not logged in user, request or remove button-->
+			<th:block th:if="${!isLoggedInUser}">
+				<a th:if="${!isFriend}" th:href="@{/profile/{id}/request(id=${user.id})}" class="btn btn-success btn-sm">Send friend request!</a>
+				<!--	<button type="submit">Block user</button>-->
+				<a th:if="${isFriend}" th:href="@{/profile/{id}/remove(id=${user.id})}" class="btn btn-success btn-sm">Remove friend</a>
+			</th:block>
+			<br>
+			<!--<p th:text="${user.zipcode}">(insert zipcode here)</p>-->
+			<p th:text="${user.gender}">(insert gender here)</p>
+
+			<p th:text="${user.level}">(insert gender here)</p>
+
+
+
+			<div th:id="workout-calendar">
+				<div id="calendar"></div>
+				<h5>Workout Tracker</h5>
+				<ul>
+					<th:block th:each="workout : ${user.getWorkouts()}">
+						<li th:text="${workout.workoutDate}"></li>
+					</th:block>
+				</ul>
+			</div>
+		</div>
+
 	</div>
-</th:block>
-<div th:id="workout-calendar">
-	<h5>Workout Tracker</h5>
-	<ul>
-		<th:block th:each="workout : ${user.getWorkouts()}">
-			<li th:text="${workout.workoutDate}"></li>
-		</th:block>
-	</ul>
+
+	<div class="card" style="width: 60%;">
+		<!--MAYBE ADD A WORKOUT EQUIP PIC HERE? <img class="card-img-top" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}" />-->
+		<div class="card-body" style="text-align:left;">
+			<h5 style="color:#5beb34;">Gym</h5>
+			<p class="card-text" th:if="${user.gym != null}" th:text="${user.gym.name}">(insert gym name here)</p>
+
+			<h5 style="color:#5beb34;">Bio</h5>
+			<p class="card-text" th:text="${user.bio}">(insert bio here)</p>
+
+			<th:block th:if="${!user.getStyles().isEmpty()}">
+				<h5 style="color:#5beb34;">Workout Styles</h5>
+				<ul>
+					<li th:each="style : ${user.getStyles()}" th:text="${style.name}">Replace with style name</li>
+				</ul>
+			</th:block>
+			<th:block th:if="${!user.getGoals().isEmpty()}">
+				<h5 style="color:#5beb34;">Workout Goals</h5>
+				<ul>
+					<li th:each="goal : ${user.getGoals()}" th:text="${goal.name}">Replace with style name</li>
+				</ul>
+			</th:block>
+		</div>
+	</div>
+
 </div>
 
-<img class="pic" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}" />
 
-<h5 th:text="${user.username}">(insert username here)</h5>
-<h5 th:text="${user.name}">(insert username here)</h5>
 
-<p th:text="${user.zipcode}">(insert zipcode here)</p>
-<p th:text="${user.gender}">(insert gender here)</p>
-<p th:text="${user.bio}">(insert bio here)</p>
-<p th:if="${user.gym != null}" th:text="${user.gym.name}">(insert gym name here)</p>
-<p th:if="${user.gym != null}" th:text="${user.gym.address}">(insert gym address here)</p>
-<th:block th:if="${!user.getStyles().isEmpty()}">
-	<p>Your workout styles</p>
-	<ul>
-		<li th:each="style : ${user.getStyles()}" th:text="${style.name}">Replace with style name</li>
-	</ul>
-</th:block>
-<th:block th:if="${!user.getGoals().isEmpty()}">
-	<p>Your workout goals</p>
-	<ul>
-		<li th:each="goal : ${user.getGoals()}" th:text="${goal.name}">Replace with style name</li>
-	</ul>
-</th:block>
 
-<form th:if="${isLoggedInUser}" th:action="@{|/profile/showFormForUpdate/${user.id}|}">
-	<button type="submit">edit!</button>
-</form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>

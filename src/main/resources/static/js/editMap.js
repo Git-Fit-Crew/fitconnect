@@ -140,10 +140,10 @@ async function addHomeGym(name, address, marker) {
     window.alert('Home gym has been changed');
 
     if (homeGymMarker) {
-        homeGymMarker.setIcon("/img/defaultMarker.png");
+        homeGymMarker.setIcon("/img/anyGym16.png");
     }
 
-    marker.setIcon("/img/gymHomeMarker.png");
+    marker.setIcon("/img/heartHomeGym1.png");
     homeGymMarker = marker;
 }
 
@@ -154,7 +154,7 @@ function createMarker(place) {
     const marker = new google.maps.Marker({
         map,
         position: place.geometry.location,
-        icon: "/img/defaultMarker.png",
+        icon: "/img/anyGym16.png",
     });
 
     google.maps.event.addListener(marker, "click", () => {
@@ -168,12 +168,8 @@ function createMarker(place) {
                 <p>Address: ${place.vicinity}</p>
                 <p>Rating: ${place.rating}</p>
                 <p>Hours:<br>${hours}</p>
-                ${
-                    place.photos
-                        ? `<img src="${place.photos[0].getUrl({maxWidth: 200, maxHeight: 200})}" alt="${place.name}">`
-                        : ""
-                }
-                <p><button id="home-gym-button">Make this my home gym</button></p>
+              
+                <p><button id="home-gym-button" class="btn-success btn-sm">Make this my home gym</button></p>
             </div>`;
 
                 infowindow.setContent(contentString);
@@ -190,3 +186,10 @@ function createMarker(place) {
 }
 
 window.initMap = initMap;
+
+
+/*${
+                    place.photos
+                        ? `<img src="${place.photos[0].getUrl({maxWidth: 200, maxHeight: 200})}" alt="${place.name}">`
+                        : ""
+                }*/

@@ -151,12 +151,17 @@ function setGymAddress(address) {
     form.appendChild(gymInput);
 }
 
+// ... All the other code above remains the same
+
 function createMarker(place) {
     if (!place.geometry || !place.geometry.location) return;
+
+    const customMarkerIcon = '/img/anyGym16.png'; // Your custom marker image URL
 
     const marker = new google.maps.Marker({
         map,
         position: place.geometry.location,
+        icon: customMarkerIcon,
     });
 
     google.maps.event.addListener(marker, "click", () => {
@@ -263,10 +268,4 @@ resetFormButton.addEventListener("click", function () {
 });
 
 window.initMap = initMap;
-
-
-
-
-
-
 

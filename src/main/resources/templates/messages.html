@@ -4,12 +4,10 @@
 <head>
     <th:block th:replace="~{partials :: head}"></th:block>
     <meta charset="UTF-8">
-    <title>Chat with your friends</title>
+    <title>Chat with your fitness friends!</title>
 </head>
 <body class="h-100">
 <nav th:replace="~{partials :: nav}"></nav>
-
-FitChat Page
 
 <!-- minified snippet to load TalkJS without delaying your page -->
 <script>
@@ -19,23 +17,32 @@ FitChat Page
                     .push([f])},catch:function(){return k&&new k()},c:l}};})(window,document,[]);
 </script>
 
-<!-- container element in which TalkJS will display a chat UI -->
-<div id="talkjs-container" style="width: 90%; margin: 30px; height: 500px">
-    <i>Loading chat...</i>
-</div>
+<br>
+<br>
+<h1 style="text-align:center">FitChat</h1>
+<br>
 
-<!--friends list-->
-<div class="col-8 p-0">
-    <div class = "d-flex flex-column justify-content-center align-items-center">
-        <div class="card m-2 p-2 bg-secondary opacity-75" style="width: 90%;" th:each="friend : ${friends}">
-            <div class="card-body">
-                <h4 class="card-title" th:text="${friend.username}"></h4>
-                <button th:attr="data-friend-id=${friend.id}" th:class="message-friend">FitChat</button>
+<div class="homeCards d-flex flex-row justify-content-around" style="height: 90%;">
 
+
+            <br>
+
+            <div id="talkjs-container" style="width: 80%; margin: 30px; height: 80%">
+                <i>Loading chat...</i>
             </div>
-        </div>
-    </div>
+
+
 </div>
+
+<th:block th:if="${friendToChat}">
+    <div id="friendId" th:text="${friendToChat.id}" th:class="message-friend" style="display: none;"></div>
+    <div id="friendUsername" th:text="${friendToChat.username}" th:class="message-friend" style="display: none;"></div>
+    <div id="friendEmail" th:text="${friendToChat.email}" th:class="message-friend" style="display: none;"></div>
+    <div id="friendPhoto" th:text="${friendToChat.photo}" th:class="message-friend" style="display: none;"></div>
+</th:block>
+
+
+
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>

@@ -4,12 +4,14 @@
 <head>
     <th:block th:replace="~{partials :: head}"></th:block>
     <meta charset="UTF-8">
-    <title>Register</title>
+    <title>Register with Us!</title>
 </head>
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
 
-<h1>Register to connect with other exercise enthusiasts!</h1>
+<br>
+<br>
+<br>
 
 <div th:if="${username != null}">
     <p class="text-warning">[[${username}]]</p>
@@ -34,46 +36,59 @@
 </div>
 
 
+<div class="homeCards d-flex flex-row justify-content-around">
+<div class="card" style="width: 75%;">
+    <img class="card-img-top" src="/img/squatrackGuy.jpeg" alt="dude">
+    <div class="card-body">
+        <h5 class="card-title" style="color:#5beb34;">Register to connect with other fitness enthusiasts!</h5>
 
 
-
-
-<form th:action="@{/register}" method="POST" th:object="${user}" class="row g-3 needs-validation" novalidate>
-    <div class="col-md-4">
-        <label for="username" class="form-label">Username</label>
-        <div class="input-group has-validation">
-            <span class="input-group-text" id="inputGroupPrepend">@</span>
-            <input type="text" class="form-control" id="username" aria-describedby="inputGroupPrepend" th:field="*{username}" required>
-            <div class="invalid-feedback">
-                Please choose a username.
+        <form th:action="@{/register}" method="POST" th:object="${user}" class="row g-3 needs-validation" novalidate>
+            <div class="col-12">
+                <label for="username" class="form-label d-flex justify-content-start">Username</label>
+                <div class="input-group has-validation">
+                    <!--<span class="input-group-text" id="inputGroupPrepend">@</span>-->
+                    <input type="text" class="form-control" id="username" aria-describedby="inputGroupPrepend" th:field="*{username}" required>
+                    <div class="invalid-feedback">
+                        Please choose a username.
+                    </div>
+                </div>
             </div>
-        </div>
+            <div class="col-12">
+                <label for="email" class="form-label d-flex justify-content-start">Email</label>
+                <input type="text" class="form-control" id="email" th:field="*{email}" required>
+                <div class="invalid-feedback">
+                    Please provide a valid email.
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="password" class="form-label d-flex justify-content-start">Password</label>
+                <input type="password" class="form-control" id="password" th:field="*{password}" required>
+                <div class="invalid-feedback">
+                    Please provide a valid password.
+                </div>
+            </div>
+            <div class="col-12">
+                <label for="zipcode" class="form-label d-flex justify-content-start" >Zipcode</label>
+                <input type="text" class="form-control" id="zipcode" th:field="*{zipcode}" required>
+                <div class="invalid-feedback">
+                    Please provide a valid zip.
+                </div>
+            </div>
+            <div class="col-12">
+                <button class="btn btn-success" type="submit">Submit</button>
+            </div>
+        </form>
+
+
+
+
+
     </div>
-    <div class="col-md-6">
-        <label for="email" class="form-label">Email</label>
-        <input type="text" class="form-control" id="email" th:field="*{email}" required>
-        <div class="invalid-feedback">
-            Please provide a valid email.
-        </div>
-    </div>
-    <div class="col-md-6">
-        <label for="password" class="form-label">Password</label>
-        <input type="password" class="form-control" id="password" th:field="*{password}" required>
-        <div class="invalid-feedback">
-            Please provide a valid password.
-        </div>
-    </div>
-    <div class="col-md-3">
-        <label for="zipcode" class="form-label">Zip</label>
-        <input type="text" class="form-control" id="zipcode" th:field="*{zipcode}" required>
-        <div class="invalid-feedback">
-            Please provide a valid zip.
-        </div>
-    </div>
-    <div class="col-12">
-        <button class="btn btn-dark" type="submit">Submit form</button>
-    </div>
-</form>
+</div>
+</div>
+
+
 <script>
     (() => {
         'use strict'

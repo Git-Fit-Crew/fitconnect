@@ -62,7 +62,10 @@ public class SecurityConfiguration {
                         "/edit",
                         "/profile/showFormForUpdate/{id}",
                         "/search/byGym/{id}",
-                        "/filter"
+                        "/filter",
+                        "/messages/{id}"
+
+
 
 
                 )
