@@ -5,7 +5,6 @@
 	<title>edit</title>
 	<th:block th:replace="~{partials :: head}"></th:block>
 	<link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-	<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 	<style>
         #map {
             height: 600px;
@@ -16,10 +15,13 @@
 <body>
 <nav th:replace="~{partials :: nav}"></nav>
 
+<input type="hidden" id="fileStackAPIKey" th:value="${fileApi}">
+
+<button id="picture">Change profile picture</button>
+
+
 <form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}" enctype="multipart/form-data">
 	<div class="form">
-		<a id="picture">Change profile picture</a>
-
 		<label for="name">Name</label>
 		<input id="name" th:field="*{name}"/>
 
@@ -88,6 +90,7 @@
   See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
   for more information.
   -->
+<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script th:type="module" th:src="@{/js/editMap.js}"></script>
 <script
@@ -96,7 +99,7 @@
 ></script>
 <script>
 	document.getElementById("picture").addEventListener("click", function () {
-		const client = filestack.init();
+		const client = filestack.init(document.querySelector("#fileStackAPIKey").value);
 		client.picker().open();
 	})
 </script>

@@ -16,7 +16,7 @@ public class KeysController {
     private String talkJsAppId;
     @Value("${google-maps-api-key}")
     private String googleMapApi;
-    @Value("${filestack-api-key}")
+    @Value("${stack-api-key}")
     private String fileStackAPI;
 
     @GetMapping(value = "/keys", produces = "application/json")

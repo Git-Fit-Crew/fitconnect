@@ -6,7 +6,6 @@ import com.codeup.gitfitcrew.fitconnect.models.User;
 import com.codeup.gitfitcrew.fitconnect.repositories.FriendRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.PreferencesRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
-import com.codeup.gitfitcrew.fitconnect.services.FileUploadUtil;
 import com.codeup.gitfitcrew.fitconnect.services.FriendService;
 import com.codeup.gitfitcrew.fitconnect.services.WorkoutService;
 import lombok.RequiredArgsConstructor;
@@ -14,11 +13,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -37,6 +34,9 @@ public class ProfileController {
 
     @Value("${google-maps-api-key}")
     private String googleMapsApiKey;
+
+    @Value("${stack-api-key}")
+    private String fileStackAPI;
     private final WorkoutService workoutService;
 
 
@@ -74,7 +74,7 @@ public class ProfileController {
     }
 
     @GetMapping("/{id}/request")
-    public String requestFriend(@PathVariable long id, Model model) {
+    public String requestFriend(@PathVariable long id) {
 
         User firstUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User secondUser = userDao.findById(id);
@@ -133,14 +133,16 @@ public class ProfileController {
         model.addAttribute("styles", styles);
         model.addAttribute("goals", goals);
         model.addAttribute("apiKey", googleMapsApiKey);
+        model.addAttribute("fileApi", fileStackAPI);
         return "edit";
     }
 
     @PostMapping("/showFormForUpdate/{id}")
     public String saveUser(@PathVariable long id, @ModelAttribute("user") User user,
                            @RequestParam("styles") Optional<List<String>> styles,
-                           @RequestParam("goals") Optional<List<String>> goals,
-                           @RequestParam("image") MultipartFile multipartFile) throws IOException {
+                           @RequestParam("goals") Optional<List<String>> goals
+//                           @RequestParam("file") MultipartFile file
+    ) {
 
         User originalUser = userDao.getUserById(id);
         Collection<Preferences> preferences = new ArrayList<>();
@@ -151,14 +153,13 @@ public class ProfileController {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-        String fileName = StringUtils.cleanPath(multipartFile.getOriginalFilename());
-        user.setPhoto(fileName);
 
-        User savedUser = userDao.save(user);
+//        // Save the uploaded file using FileStack API
+//        String fileStackUrl = null;
+//        if (!file.isEmpty()) {
+//            fileStackUrl = FileUploadUtil.uploadFile(file, fileStackAPI);
+//        }
 
-        String uploadDir = "src/main/resources/static/img/user-photos/" + savedUser.getId();
-
-        FileUploadUtil.saveFile(uploadDir, fileName, multipartFile);
         originalUser.setId(id);
         originalUser.setName(user.getName());
         originalUser.setUsername(user.getUsername());
@@ -169,6 +170,9 @@ public class ProfileController {
         originalUser.setZipcode(user.getZipcode());
         originalUser.setBio(user.getBio());
         originalUser.setPreferences(preferences);
+//        if (fileStackUrl != null) {
+//            originalUser.setPhoto(fileStackUrl);
+//        }
 
         // save employee to database
         userDao.save(originalUser);
