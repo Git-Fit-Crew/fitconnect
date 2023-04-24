@@ -112,9 +112,49 @@ async function initMap() {
         ],
     });
 
+
+
+
     service = new google.maps.places.PlacesService(map);
 
+    // Add the search box
+    const input = document.getElementById("search-box");
+    const searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener("bounds_changed", () => {
+        searchBox.setBounds(map.getBounds());
+    });
+
+    searchBox.addListener("places_changed", () => {
+        const places = searchBox.getPlaces();
+
+        if (places.length === 0) {
+            return;
+        }
+
+        // For each place, get the icon, name, and location.
+        const bounds = new google.maps.LatLngBounds();
+        places.forEach((place) => {
+            if (!place.geometry || !place.geometry.location) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+
+            // Check if the home gym marker is present and if its position is not the same as the new search location.
+            if (!homeGymMarker || !homeGymMarker.getPosition().equals(place.geometry.location)) {
+                // Update the map bounds to include the new search location.
+                bounds.extend(place.geometry.location);
+            }
+        });
+
+        // Fit the map bounds to include the new search location.
+        map.fitBounds(bounds);
+    });
+
     google.maps.event.addListener(map, "idle", searchGyms);
+    createHomeGymMarker(loggedInUser.homeGym);
 }
 
 function searchGyms() {
@@ -132,6 +172,22 @@ function searchGyms() {
     });
 }
 
+async function createHomeGymMarker(homeGym) {
+    if (homeGym && homeGym.latitude && homeGym.longitude) {
+        const homeGymLocation = new google.maps.LatLng(homeGym.latitude, homeGym.longitude);
+
+        homeGymMarker = new google.maps.Marker({
+            map,
+            position: homeGymLocation,
+            icon: "/img/heartHomeGym1.png",
+        });
+    }
+}
+
+function removeDefaultMarker(marker) {
+    marker.setMap(null);
+}
+
 async function addHomeGym(name, address, marker) {
     const response = await fetch('/gyms?name=' + name + '&address=' + address, {
         method: 'GET',
@@ -139,14 +195,19 @@ async function addHomeGym(name, address, marker) {
 
     window.alert('Home gym has been changed');
 
+    // Remove the default marker
+    removeDefaultMarker(marker);
+
     if (homeGymMarker) {
-        homeGymMarker.setIcon("/img/anyGym16.png");
+        homeGymMarker.setPosition(marker.getPosition());
+    } else {
+        homeGymMarker = new google.maps.Marker({
+            map,
+            position: marker.getPosition(),
+            icon: "/img/heartHomeGym1.png",
+        });
     }
-
-    marker.setIcon("/img/heartHomeGym1.png");
-    homeGymMarker = marker;
 }
-
 
 function createMarker(place) {
     if (!place.geometry || !place.geometry.location) return;
@@ -168,7 +229,7 @@ function createMarker(place) {
                 <p>Address: ${place.vicinity}</p>
                 <p>Rating: ${place.rating}</p>
                 <p>Hours:<br>${hours}</p>
-              
+
                 <p><button id="home-gym-button" class="btn-success btn-sm">Make this my home gym</button></p>
             </div>`;
 
@@ -186,10 +247,3 @@ function createMarker(place) {
 }
 
 window.initMap = initMap;
-
-
-/*${
-                    place.photos
-                        ? `<img src="${place.photos[0].getUrl({maxWidth: 200, maxHeight: 200})}" alt="${place.name}">`
-                        : ""
-                }*/
