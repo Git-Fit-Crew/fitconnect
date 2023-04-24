@@ -97,46 +97,14 @@
 	</div>
 
 
-	<div class="card d-flex flex-column justify-content-center  scroll" style="width: 35%;" >
+	<div class="card d-flex flex-column justify-content-center" style="width: 35%;" >
 		<div style="text-align: center;">
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
 
 
 		<img class="card-img-top" src="/img/5empty.jpeg" alt="girl" style="max-height: 207px;">
 		</div>
 		<br>
-		<div class="card-body">
+		<div class="card-body overflow-scroll">
 			<h5 class="card-title" style="color:#5beb34;">Results</h5>
 			<div class="card d-flex flex-column justify-content-center" style="width: 100%;" th:each="result : ${results}" th:attr="data-user-id=${result.id}">
 				<img class="profilePic" th:src="${result.photo}" alt="profilepic" style="margin-left:auto; margin-right:auto;">
