@@ -50,9 +50,8 @@
 			<p th:text="${user.level}">(insert gender here)</p>
 
 
-
 			<div th:id="workout-calendar">
-				<div id="calendar"></div>
+				<!--<div id="calendar"></div>-->
 				<h5>Workout Tracker</h5>
 				<ul>
 					<th:block th:each="workout : ${user.getWorkouts()}">
@@ -89,32 +88,9 @@
 	</div>
 
 </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
 </body>
 </html>
+
+

@@ -1,31 +1,38 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Edit Your Profile</title>
-    <th:block th:replace="~{partials :: head}"></th:block>
-    <link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-    <style>
-        #map {
-            height: 600px;
-            width: 600px;
-        }
-    </style>
+	<meta charset="UTF-8">
+	<title>Edit Your Profile</title>
+	<th:block th:replace="~{partials :: head}"></th:block>
+	<link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+	<style>
+		#map {
+			height: 600px;
+			width: 600px;
+		}
+		#search-box {
+			box-sizing: border-box;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			font-size: 14px;
+			font-weight: 300;
+			margin-top: 10px;
+			outline: none;
+			padding: 12px 15px;
+			width: 100%;
+		}
+	</style>
+
 </head>
 <body>
 <nav th:replace="~{partials :: nav}"></nav>
-
 
 <br>
 <br>
 <h1 style="text-align:center">Edit Your Profile</h1>
 <br>
 <br>
-
-<!--<form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}" enctype="multipart/form-data">
-	<div class="form">
-		<a id="picture">Change profile picture</a>-->
 
 
 <div class="homeCards d-flex flex-row justify-content-around">
@@ -136,6 +143,7 @@
 <script
         th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
         defer
+
 ></script>
 <script>
     const fileApi = document.getElementById("api").value
