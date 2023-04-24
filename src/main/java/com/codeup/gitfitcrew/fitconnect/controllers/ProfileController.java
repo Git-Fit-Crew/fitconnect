@@ -44,13 +44,13 @@ public class ProfileController {
         User user = userDao.getUserById(loggedInUser.getId());
         if (user == null) {
             return "login";
-        } else {
-            model.addAttribute("user", user);
-            model.addAttribute("isLoggedInUser", true);
-            model.addAttribute("isWorkoutLoggedToday", workoutService.didUserLogWorkoutForToday(user));
-            model.addAttribute("isFriend", false);
-            return "profile";
         }
+        model.addAttribute("user", user);
+        model.addAttribute("isLoggedInUser", true);
+        model.addAttribute("isWorkoutLoggedToday", workoutService.didUserLogWorkoutForToday(user));
+        model.addAttribute("isFriend", false);
+        return "profile";
+
     }
 
     @GetMapping("/{id}")

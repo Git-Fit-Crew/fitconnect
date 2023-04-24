@@ -25,6 +25,12 @@ public class FriendsController {
 
     @GetMapping("/friends")
     public String showFriendsPage(Model model){
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User currentUser = userDao.getUserById(user.getId());
+        if (currentUser == null) {
+            return "login";
+        }
+
         List<User> requests = friendService.getRequests();
         model.addAttribute("requests", requests);
         System.out.println("REQUESTS " + requests);
