@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<title>Edit Your Profile</title>
-	<th:block th:replace="~{partials :: head}"></th:block>
-	<link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-	<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-	<style>
-		#map {
-			height: 600px;
-			width: 600px;
-		}
-		#search-box {
-			box-sizing: border-box;
-			border: 1px solid #ccc;
-			border-radius: 3px;
-			font-size: 14px;
-			font-weight: 300;
-			margin-top: 10px;
-			outline: none;
-			padding: 12px 15px;
-			width: 100%;
-		}
-	</style>
+    <meta charset="UTF-8">
+    <title>Edit Your Profile</title>
+    <th:block th:replace="~{partials :: head}"></th:block>
+    <link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+    <style>
+        #map {
+            height: 600px;
+            width: 600px;
+        }
+
+        #search-box {
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: 300;
+            margin-top: 10px;
+            outline: none;
+            padding: 12px 15px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 <nav th:replace="~{partials :: nav}"></nav>
@@ -34,108 +35,115 @@
 <br>
 
 <div class="homeCards d-flex flex-row justify-content-around">
-	<div class="card" style="width: 80%;">
-		<div id="map" style="margin-left:auto; margin-right:auto;"></div>
-		<input id="search-box" class="controls" type="text" placeholder="Search for places, zipcodes...">
-		<div class="card-body d-flex flex-column justify-content-center">
-			<p>Choose your home gym by selecting the gym icon and clicking the "Make this my home gym" button.</p>
+    <div class="card" style="width: 80%;">
+        <div id="map" style="margin-left:auto; margin-right:auto;"></div>
+        <input id="search-box" class="controls" type="text" placeholder="Search for places, zipcodes...">
+        <div class="card-body d-flex flex-column justify-content-center">
+            <p>Choose your home gym by selecting the gym icon and clicking the "Make this my home gym" button.</p>
 
-			<!-- Rest of the code -->
-
-
-			<h5 class="card-title" style="color:#5beb34;">Update your information</h5>
-
-			<div class="">
-				<form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}" enctype="multipart/form-data"  style='width: 100%;'>
-
-					<div class="col-12 d-flex flex-column justify-content-center align-items-start" style='width: 100%;'>
-						<label>Choose your profile picture </label>
-						<input type="file" name="image" accept="image/png, image/jpeg"/>
-						<br>
+            <!-- Rest of the code -->
 
 
-						<label for="name">Name</label>
-						<input id="name" th:field="*{name}" />
-						<br>
+            <h5 class="card-title" style="color:#5beb34;">Update your information</h5>
+
+            <div class="">
+                <form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}"
+                      enctype="multipart/form-data" style='width: 100%;'>
+
+                    <div class="col-12 d-flex flex-column justify-content-center align-items-start"
+                         style='width: 100%;'>
+                        <label>Choose your profile picture </label>
+                        <input type="file" name="image" accept="image/png, image/jpeg"/>
+                        <br>
 
 
-						<label for="username">Username</label>
-						<input id="username" th:field="*{username}" />
-						<br>
+                        <label for="name">Name</label>
+                        <input id="name" th:field="*{name}"/>
+                        <br>
 
-						<label for="email">Email</label>
-						<input id="email" th:field="*{email}" />
-						<br>
 
-						<label for="zipcode">Zip Code</label>
-						<input id="zipcode" th:field="*{zipcode}" />
-						<br>
+                        <label for="username">Username</label>
+                        <input id="username" th:field="*{username}"/>
+                        <br>
 
-						<label hidden for="password">Password</label>
-						<input hidden id="password" th:field="*{password}" />
+                        <label for="email">Email</label>
+                        <input id="email" th:field="*{email}"/>
+                        <br>
 
-						<label for="gender">Gender</label>
-						<select id="gender" name="gender" >
-							<option th:each="gender : ${T(com.codeup.gitfitcrew.fitconnect.models.Gender).values()}"
-									th:value="${gender}" th:text="${gender}" th:selected="${user.getGender() == gender}"></option>
-						</select>
-						<br>
+                        <label for="zipcode">Zip Code</label>
+                        <input id="zipcode" th:field="*{zipcode}"/>
+                        <br>
 
-						<label for="level">Experience Level</label>
-						<select id="level" name="level" >
-							<option th:each="level : ${T(com.codeup.gitfitcrew.fitconnect.models.Level).values()}"
-									th:value="${level}" th:text="${level}" th:selected="${user.getLevel() == level}"></option>
-						</select>
+                        <label hidden for="password">Password</label>
+                        <input hidden id="password" th:field="*{password}"/>
 
-						<br>
+                        <label for="gender">Gender</label>
+                        <select id="gender" name="gender">
+                            <option th:each="gender : ${T(com.codeup.gitfitcrew.fitconnect.models.Gender).values()}"
+                                    th:value="${gender}" th:text="${gender}"
+                                    th:selected="${user.getGender() == gender}"></option>
+                        </select>
+                        <br>
 
-						<label for="bio">Bio</label>
-						<textarea id="bio" rows="10" th:field="*{bio}" ></textarea>
-					</div>
-					<div>
-						<h5 class="card-title" style="color:#5beb34;">Select your workout styles</h5>
-						<th:block th:each="style : ${styles}">
-							<div th:class="form-check" style="text-align: left">
-								<input th:class="form-check-input" th:checked="${style.checked}" th:type="checkbox" th:value="${style.name}"
-									   th:id="'style' + ${style.id}" th:name="styles">
-								<label th:class="form-check-label" th:for="'style' + ${style.id}" th:text="${style.name}">
-									Replace with style name
-								</label>
-							</div>
-						</th:block>
-					</div>
-					<div>
-						<h5 class="card-title" style="color:#5beb34;">Select your workout goals</h5>
-						<th:block th:each="goal : ${goals}">
-							<div th:class="form-check" style="text-align: left">
-								<input th:class="form-check-input" th:checked="${goal.checked}" th:type="checkbox" th:value="${goal.name}"
-									   th:id="'goal' + ${goal.id}" th:name="goals">
-								<label th:class="form-check-label" th:for="'goal' + ${goal.id}" th:text="${goal.name}">
-									Replace with goal name
-								</label>
-							</div>
-						</th:block>
-					</div>
-					<input value="Update" type="submit" class="btn btn-success" style="width: 60%;"/>
+                        <label for="level">Experience Level</label>
+                        <select id="level" name="level">
+                            <option th:each="level : ${T(com.codeup.gitfitcrew.fitconnect.models.Level).values()}"
+                                    th:value="${level}" th:text="${level}"
+                                    th:selected="${user.getLevel() == level}"></option>
+                        </select>
 
-				</form>
-			</div>
-		</div>
-	</div>
+                        <br>
+
+                        <label for="bio">Bio</label>
+                        <textarea id="bio" rows="10" th:field="*{bio}"></textarea>
+                    </div>
+                    <div>
+                        <h5 class="card-title" style="color:#5beb34;">Select your workout styles</h5>
+                        <th:block th:each="style : ${styles}">
+                            <div th:class="form-check" style="text-align: left">
+                                <input th:class="form-check-input" th:checked="${style.checked}" th:type="checkbox"
+                                       th:value="${style.name}"
+                                       th:id="'style' + ${style.id}" th:name="styles">
+                                <label th:class="form-check-label" th:for="'style' + ${style.id}"
+                                       th:text="${style.name}">
+                                    Replace with style name
+                                </label>
+                            </div>
+                        </th:block>
+                    </div>
+                    <div>
+                        <h5 class="card-title" style="color:#5beb34;">Select your workout goals</h5>
+                        <th:block th:each="goal : ${goals}">
+                            <div th:class="form-check" style="text-align: left">
+                                <input th:class="form-check-input" th:checked="${goal.checked}" th:type="checkbox"
+                                       th:value="${goal.name}"
+                                       th:id="'goal' + ${goal.id}" th:name="goals">
+                                <label th:class="form-check-label" th:for="'goal' + ${goal.id}" th:text="${goal.name}">
+                                    Replace with goal name
+                                </label>
+                            </div>
+                        </th:block>
+                    </div>
+                    <input value="Update" type="submit" class="btn btn-success" style="width: 60%;"/>
+
+                </form>
+            </div>
+        </div>
+    </div>
 
 </div>
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script th:type="module" th:src="@{/js/editMap.js}"></script>
 <script
-		th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
-		defer
+        th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
+        defer
 ></script>
 <script>
-	document.getElementById("picture").addEventListener("click", function () {
-		const client = filestack.init();
-		client.picker().open();
-	})
+    document.getElementById("picture").addEventListener("click", function () {
+        const client = filestack.init();
+        client.picker().open();
+    })
 </script>
 
 
