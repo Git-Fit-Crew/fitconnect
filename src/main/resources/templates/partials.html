@@ -25,9 +25,9 @@
 <th:block th:fragment="nav">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-custom" style="color: #ffffff;">
+    <nav class="navbar navbar-expand-lg navbar-custom row" style="color: #ffffff;">
         <!-- Container wrapper -->
-        <div class="container-fluid">
+        <div class="container-fluid col-12">
             <!-- Toggle button -->
             <button
                     class="navbar-toggler"
@@ -45,34 +45,6 @@
             <a class="navbar-brand mt-2 mt-lg-0" href="/">
                 <i class="fa-solid fa-dumbbell" style="color:#5beb34;"></i> FitConnect
             </a>
-
-            <!-- Collapsible wrapper -->
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-                <!-- Left links -->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link active" href="/search" style="color: #ffffff;">
-                            Connect page
-                        </a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link active" href="/friends" style="color: #ffffff;">
-                            Friends
-                        </a>
-                    </li>
-                    <li class="nav-item" sec:authorize="isAuthenticated()">
-                        <a class="nav-link active" href="/messages" style="color: #ffffff;">
-                            FitChat
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/about" style="color: #ffffff;">About</a>
-                    </li>
-                </ul>
-                <!-- Left links -->
-            </div>
-            <!-- Collapsible wrapper -->
 
             <!-- Right elements -->
             <div class="d-flex align-items-center">
@@ -121,6 +93,36 @@
                 </div>
             </div>
             <!-- Right elements -->
+
+            <!-- Collapsible wrapper -->
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <!-- Left links -->
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link active" href="/search" style="color: #ffffff;">
+                            Connect page
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link active" href="/friends" style="color: #ffffff;">
+                            Friends
+                        </a>
+                    </li>
+                    <li class="nav-item" sec:authorize="isAuthenticated()">
+                        <a class="nav-link active" href="/messages" style="color: #ffffff;">
+                            FitChat
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/about" style="color: #ffffff;">About</a>
+                    </li>
+                </ul>
+                <!-- Left links -->
+            </div>
+            <!-- Collapsible wrapper -->
+
+
         </div>
         <!-- Container wrapper -->
     </nav>
