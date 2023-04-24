@@ -1,22 +1,22 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<th:block th:replace="~{partials :: head}"></th:block>
-	<meta charset="UTF-8">
-	<title>Search for New Fitness Connections!</title>
-	<link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-	<style>
-		#search-box {
-			box-sizing: border-box;
-			border: 1px solid #ccc;
-			border-radius: 3px;
-			font-size: 14px;
-			font-weight: 300;
-			margin-top: 10px;
-			outline: none;
-			padding: 12px 15px;
-		}
-	</style>
+    <th:block th:replace="~{partials :: head}"></th:block>
+    <meta charset="UTF-8">
+    <title>Search for New Fitness Connections!</title>
+    <link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+    <style>
+        #search-box {
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: 300;
+            margin-top: 10px;
+            outline: none;
+            padding: 12px 15px;
+        }
+    </style>
 </head>
 <body class="h-100">
 <nav th:replace="~{partials :: nav}"></nav>
@@ -28,123 +28,123 @@
 <br>
 <br>
 
-<!--
-  The `defer` attribute causes the callback to execute after the full HTML
-  document has been parsed. For non-blocking uses, avoiding race conditions,
-  and consistent behavior across browsers, consider loading using Promises.
-  See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
-  for more information.
-  -->
+
 <div class="homeCards d-flex flex-row justify-content-around" style="max-height: 1200px">
-	<div class="card" style="width: 60%;">
-		<div id="map" style="margin-left:auto; margin-right:auto;"></div>
-		<input id="search-box" class="controls" type="text" placeholder="Search by zipcode...">
-		<br>
-		<br>
-		<div class="card-body">
-			<h5 class="card-title" style="color:#5beb34;">Refine search results</h5>
-			<br>
-			<form th:action="@{/search}" method="get" id="search-form">
-				<input type="hidden" th:value="${zipcode}" th:name="zipcode">
-				<select name="radius" id="radius">
-					<option value="50" selected>Radius</option>
-					<option value="5">5</option>
-					<option value="10">10</option>
-					<option value="30">30</option>
-				</select>
-				<select name="gender" id="gender">
-					<option value="">Gender</option>
-					<option value="MALE">Male</option>
-					<option value="FEMALE">Female</option>
-				</select>
-				<select name="level" id="level">
-					<option value="">Experience Level</option>
-					<option value="BEGINNER">Beginner</option>
-					<option value="INTERMEDIATE">Intermediate</option>
-					<option value="ADVANCED">Advanced</option>
-					<option value="EXPERT">Expert</option>
-				</select>
+    <div class="card" style="width: 60%;">
+        <div id="map" style="margin-left:auto; margin-right:auto;"></div>
+        <input id="search-box" class="controls" type="text" placeholder="Search by zipcode...">
+        <!--
+          The `defer` attribute causes the callback to execute after the full HTML
+          document has been parsed. For non-blocking uses, avoiding race conditions,
+          and consistent behavior across browsers, consider loading using Promises.
+          See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+          for more information.
+          -->
+        <br>
+        <br>
+        <div class="card-body">
+            <h5 class="card-title" style="color:#5beb34;">Refine search results</h5>
+            <br>
+            <form th:action="@{/search}" method="get" id="search-form">
+                <input type="hidden" th:value="${zipcode}" th:name="zipcode">
+                <select name="radius" id="radius">
+                    <option value="50" selected>Radius</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="30">30</option>
+                </select>
+                <select name="gender" id="gender">
+                    <option value="">Gender</option>
+                    <option value="MALE">Male</option>
+                    <option value="FEMALE">Female</option>
+                </select>
+                <select name="level" id="level">
+                    <option value="">Experience Level</option>
+                    <option value="BEGINNER">Beginner</option>
+                    <option value="INTERMEDIATE">Intermediate</option>
+                    <option value="ADVANCED">Advanced</option>
+                    <option value="EXPERT">Expert</option>
+                </select>
 
 
-				<br>
-				<br>
-				<div class="d-flex flex-row justify-content-around">
-				<div>
-					<p>Workout Styles</p>
-					<th:block th:each="style : ${styles}">
-						<div th:class="form-check" style="text-align: left">
-							<input th:class="form-check-input" th:type="checkbox" th:value="${style.id}"
-								   th:id="'style' + ${style.id}" th:name="styles">
-							<label th:class="form-check-label" th:for="'style' + ${style.id}" th:text="${style.name}">
-								Replace with style name
-							</label>
-						</div>
-					</th:block>
-				</div>
-				<div>
-					<p>Workout Goals</p>
-					<th:block th:each="goal : ${goals}">
-						<div th:class="form-check" style="text-align: left">
-							<input th:class="form-check-input" th:type="checkbox" th:value="${goal.id}"
-								   th:id="'goal' + ${goal.id}" th:name="goals">
-							<label th:class="form-check-label" th:for="'goal' + ${goal.id}" th:text="${goal.name}">
-								Replace with goal name
-							</label>
-						</div>
-					</th:block>
-				</div>
-				</div>
-				<br>
+                <br>
+                <br>
+                <div class="d-flex flex-row justify-content-around">
+                    <div>
+                        <p>Workout Styles</p>
+                        <th:block th:each="style : ${styles}">
+                            <div th:class="form-check" style="text-align: left">
+                                <input th:class="form-check-input" th:type="checkbox" th:value="${style.id}"
+                                       th:id="'style' + ${style.id}" th:name="styles">
+                                <label th:class="form-check-label" th:for="'style' + ${style.id}"
+                                       th:text="${style.name}">
+                                    Replace with style name
+                                </label>
+                            </div>
+                        </th:block>
+                    </div>
+                    <div>
+                        <p>Workout Goals</p>
+                        <th:block th:each="goal : ${goals}">
+                            <div th:class="form-check" style="text-align: left">
+                                <input th:class="form-check-input" th:type="checkbox" th:value="${goal.id}"
+                                       th:id="'goal' + ${goal.id}" th:name="goals">
+                                <label th:class="form-check-label" th:for="'goal' + ${goal.id}" th:text="${goal.name}">
+                                    Replace with goal name
+                                </label>
+                            </div>
+                        </th:block>
+                    </div>
+                </div>
+                <br>
 
-				<div class="d-flex flex-row justify-content-center">
-				<button type="submit" class="btn btn-success btn-sm mx-4">Refine</button>
-				<button type="button" id="reset-form" class="btn btn-success btn-sm mx-4">Reset</button>
-				</div>
-			</form>
-
-
-
-
-		</div>
-	</div>
+                <div class="d-flex flex-row justify-content-center">
+                    <button type="submit" class="btn btn-success btn-sm mx-4">Refine</button>
+                    <button type="button" id="reset-form" class="btn btn-success btn-sm mx-4">Reset</button>
+                </div>
+            </form>
 
 
-	<div class="card d-flex flex-column justify-content-center" style="width: 35%;" >
-		<div style="text-align: center;">
+        </div>
+    </div>
 
 
-		<img class="card-img-top" src="/img/5empty.jpeg" alt="girl" style="max-height: 207px;">
-		</div>
-		<br>
-		<div class="card-body overflow-scroll">
-			<h5 class="card-title" style="color:#5beb34;">Results</h5>
-			<div class="card d-flex flex-column justify-content-center" style="width: 100%;" th:each="result : ${results}" th:attr="data-user-id=${result.id}">
-				<img class="profilePic" th:src="${result.photo}" alt="profilepic" style="margin-left:auto; margin-right:auto;">
-				<div class="card-body">
-					<a th:href="@{/profile/{id}(id=${result.id})}"><h4 class="card-title" th:text="${result.username}">(insert title here)</h4></a>
-					<p class="card-title" th:text="${result.gender}"></p>
-					<p class="card-title" th:text="${result.level}"></p>
-
-					<a th:href="@{/profile/{id}/request(id=${result.id})}" class="btn btn-success btn-sm">Send friend request!</a>
+    <div class="card d-flex flex-column justify-content-center" style="width: 35%;">
+        <div style="text-align: center;">
 
 
+            <img class="card-img-top" src="/img/5empty.jpeg" alt="girl" style="max-height: 207px;">
+        </div>
+        <br>
+        <div class="card-body overflow-scroll">
+            <h5 class="card-title" style="color:#5beb34;">Results</h5>
+            <div class="card d-flex flex-column justify-content-center" style="width: 100%;"
+                 th:each="result : ${results}" th:attr="data-user-id=${result.id}">
+                <img class="profilePic" th:src="${result.photo}" alt="profilepic"
+                     style="margin-left:auto; margin-right:auto;">
+                <div class="card-body">
+                    <a th:href="@{/profile/{id}(id=${result.id})}"><h4 class="card-title" th:text="${result.username}">
+                        (insert title here)</h4></a>
+                    <p class="card-title" th:text="${result.gender}"></p>
+                    <p class="card-title" th:text="${result.level}"></p>
 
-				</div>
-				<hr>
-			</div>
-			<div class="spinner-border d-none" role="status" id="results-spinner">
-				<span class="visually-hidden">Loading...</span>
-			</div>
-			<div id="results-none" class="d-none">
-				<p>No results found.</p>
-			</div>
-		</div>
+                    <a th:href="@{/profile/{id}/request(id=${result.id})}" class="btn btn-success btn-sm">Send friend
+                        request!</a>
 
 
-	</div>
+                </div>
+                <hr>
+            </div>
+            <div class="spinner-border d-none" role="status" id="results-spinner">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <div id="results-none" class="d-none">
+                <p>No results found.</p>
+            </div>
+        </div>
 
 
-
+    </div>
 
 
 </div>
@@ -158,21 +158,11 @@
 </div>-->
 
 
-
-
-
-
-
-
-
-
-
-
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script th:type="module" th:src="@{/js/index.js}"></script>
 <script
-	th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
-	defer
+        th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
+        defer
 ></script>
 
 <footer th:replace="~{partials :: footer}"></footer>

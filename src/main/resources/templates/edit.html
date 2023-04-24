@@ -7,20 +7,16 @@
 	<link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 	<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
 	<style>
-		#map {
-			height: 600px;
-			width: 600px;
-		}
-		#search-box {
-			box-sizing: border-box;
-			border: 1px solid #ccc;
-			border-radius: 3px;
-			font-size: 14px;
-			font-weight: 300;
-			margin-top: 10px;
-			outline: none;
-			padding: 12px 15px;
-		}
+        #search-box {
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
+            font-weight: 300;
+            margin-top: 10px;
+            outline: none;
+            padding: 12px 15px;
+        }
 	</style>
 </head>
 <body>
@@ -36,7 +32,6 @@
 <div class="homeCards d-flex flex-row justify-content-around">
     <div class="card" style="width: 80%;">
         <div id="map" style="margin-left:auto; margin-right:auto;"></div>
-
         <input id="search-box" class="controls" type="text" placeholder="Search by zipcode...">
         <!--
           The `defer` attribute causes the callback to execute after the full HTML
@@ -49,7 +44,7 @@
             <p>Choose your home gym by selecting the gym icon and clicking the "Make this my home gym" button.</p>
 
             <h5 class="card-title" style="color:#5beb34;">Change profile picture</h5>
-            <button id="picture" class="btn btn-success btn-sm mx-auto" style="width: 60%;">Upload a profile photo</button>
+            <button id="picture" class="btn btn-success btn-sm mx-auto" style="width: 35%;">Upload a profile photo</button>
             <input type="hidden" id="api" th:value="${fileApi}">
 
             <br>
@@ -62,38 +57,37 @@
                 <form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}"
                       enctype="multipart/form-data" style='width: 100%;' class="d-flex flex-column justify-content-center align-items-center">
 
-                    <div class="d-flex flex-column justify-content-center"
-                         style='width: 100%;'>
-                        <label for="name">Name</label>
-                        <input id="name" th:field="*{name}"/>
+                    <div class="text-center" style="width: 100%">
+                        <label class="w-50" for="name">Name</label>
+                        <input class="w-50" id="name" th:field="*{name}"/>
                         <br>
 
 
-                        <label for="username">Username</label>
-                        <input id="username" th:field="*{username}"/>
+                        <label class="w-50" for="username">Username</label>
+                        <input class="w-50" id="username" th:field="*{username}"/>
                         <br>
 
-                        <label for="email">Email</label>
-                        <input id="email" th:field="*{email}"/>
+                        <label class="w-50" for="email">Email</label>
+                        <input class="w-50" id="email" th:field="*{email}"/>
                         <br>
 
-                        <label for="zipcode">Zip Code</label>
-                        <input id="zipcode" th:field="*{zipcode}"/>
+                        <label class="w-50" for="zipcode">Zip Code</label>
+                        <input class="w-50" id="zipcode" th:field="*{zipcode}"/>
                         <br>
 
                         <label hidden for="password">Password</label>
                         <input hidden id="password" th:field="*{password}"/>
 
-                        <label for="gender">Gender</label>
-                        <select id="gender" name="gender">
+                        <label class="w-50" for="gender">Gender</label>
+                        <select class="w-50" id="gender" name="gender">
                             <option th:each="gender : ${T(com.codeup.gitfitcrew.fitconnect.models.Gender).values()}"
                                     th:value="${gender}" th:text="${gender}"
                                     th:selected="${user.getGender() == gender}"></option>
                         </select>
                         <br>
 
-                        <label for="level">Experience Level</label>
-                        <select id="level" name="level">
+                        <label class="w-50" for="level">Experience Level</label>
+                        <select class="w-50" id="level" name="level">
                             <option th:each="level : ${T(com.codeup.gitfitcrew.fitconnect.models.Level).values()}"
                                     th:value="${level}" th:text="${level}"
                                     th:selected="${user.getLevel() == level}"></option>
@@ -101,8 +95,8 @@
 
                         <br>
 
-                        <label for="bio">Bio</label>
-                        <textarea id="bio" rows="10" th:field="*{bio}"></textarea>
+                        <label class="w-50" for="bio">Bio</label>
+                        <textarea class="w-50" id="bio" rows="10" th:field="*{bio}"></textarea>
                     </div>
                     <div>
                         <h5 class="card-title" style="color:#5beb34;">Select your workout styles</h5>
