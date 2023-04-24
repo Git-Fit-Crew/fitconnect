@@ -16,10 +16,8 @@ import org.springframework.ui.Model;
 
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
+
+import java.util.*;
 
 
 @RequiredArgsConstructor
@@ -46,13 +44,13 @@ public class ProfileController {
         User user = userDao.getUserById(loggedInUser.getId());
         if (user == null) {
             return "login";
-        } else {
-            model.addAttribute("user", user);
-            model.addAttribute("isLoggedInUser", true);
-            model.addAttribute("isWorkoutLoggedToday", workoutService.didUserLogWorkoutForToday(user));
-            model.addAttribute("isFriend", false);
-            return "profile";
         }
+        model.addAttribute("user", user);
+        model.addAttribute("isLoggedInUser", true);
+        model.addAttribute("isWorkoutLoggedToday", workoutService.didUserLogWorkoutForToday(user));
+        model.addAttribute("isFriend", false);
+        return "profile";
+
     }
 
     @GetMapping("/{id}")
@@ -140,9 +138,8 @@ public class ProfileController {
     @PostMapping("/showFormForUpdate/{id}")
     public String saveUser(@PathVariable long id, @ModelAttribute("user") User user,
                            @RequestParam("styles") Optional<List<String>> styles,
-                           @RequestParam("goals") Optional<List<String>> goals
-//                           @RequestParam("file") MultipartFile file
-    ) {
+                           @RequestParam("goals") Optional<List<String>> goals,
+                           @RequestParam("pic-url") String url) {
 
         User originalUser = userDao.getUserById(id);
         Collection<Preferences> preferences = new ArrayList<>();
@@ -154,11 +151,6 @@ public class ProfileController {
             e.printStackTrace();
         }
 
-//        // Save the uploaded file using FileStack API
-//        String fileStackUrl = null;
-//        if (!file.isEmpty()) {
-//            fileStackUrl = FileUploadUtil.uploadFile(file, fileStackAPI);
-//        }
 
         originalUser.setId(id);
         originalUser.setName(user.getName());
@@ -170,9 +162,8 @@ public class ProfileController {
         originalUser.setZipcode(user.getZipcode());
         originalUser.setBio(user.getBio());
         originalUser.setPreferences(preferences);
-//        if (fileStackUrl != null) {
-//            originalUser.setPhoto(fileStackUrl);
-//        }
+        originalUser.setPhoto(url);
+
 
         // save employee to database
         userDao.save(originalUser);

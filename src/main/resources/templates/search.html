@@ -1,11 +1,22 @@
 <!DOCTYPE html>
-<html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 	<th:block th:replace="~{partials :: head}"></th:block>
 	<meta charset="UTF-8">
 	<title>Search for New Fitness Connections!</title>
 	<link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	<style>
+		#search-box {
+			box-sizing: border-box;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			font-size: 14px;
+			font-weight: 300;
+			margin-top: 10px;
+			outline: none;
+			padding: 12px 15px;
+		}
+	</style>
 </head>
 <body class="h-100">
 <nav th:replace="~{partials :: nav}"></nav>
@@ -26,7 +37,8 @@
   -->
 <div class="homeCards d-flex flex-row justify-content-around" style="max-height: 1200px">
 	<div class="card" style="width: 60%;">
-		<div id="map"></div>
+		<div id="map" style="margin-left:auto; margin-right:auto;"></div>
+		<input id="search-box" class="controls" type="text" placeholder="Search by zipcode...">
 		<br>
 		<br>
 		<div class="card-body">
@@ -97,46 +109,14 @@
 	</div>
 
 
-	<div class="card d-flex flex-column justify-content-center  scroll" style="width: 35%;" >
+	<div class="card d-flex flex-column justify-content-center" style="width: 35%;" >
 		<div style="text-align: center;">
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
-			<br>
 
 
 		<img class="card-img-top" src="/img/5empty.jpeg" alt="girl" style="max-height: 207px;">
 		</div>
 		<br>
-		<div class="card-body">
+		<div class="card-body overflow-scroll">
 			<h5 class="card-title" style="color:#5beb34;">Results</h5>
 			<div class="card d-flex flex-column justify-content-center" style="width: 100%;" th:each="result : ${results}" th:attr="data-user-id=${result.id}">
 				<img class="profilePic" th:src="${result.photo}" alt="profilepic" style="margin-left:auto; margin-right:auto;">

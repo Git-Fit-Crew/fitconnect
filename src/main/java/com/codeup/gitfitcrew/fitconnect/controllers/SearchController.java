@@ -34,6 +34,9 @@ public class SearchController {
     public String showSearchPage(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         loggedInUser = userDao.getUserById(loggedInUser.getId());
+        if (loggedInUser == null) {
+            return "login";
+        }
         model.addAttribute("apiKey", googleMapsApiKey);
         model.addAttribute("zipcode", loggedInUser.getZipcode());
         model.addAttribute("results", userDao.findAll());

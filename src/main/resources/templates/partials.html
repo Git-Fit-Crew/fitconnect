@@ -25,9 +25,9 @@
 <th:block th:fragment="nav">
 
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-custom" style="color: #ffffff;">
+    <nav class="navbar navbar-expand-lg navbar-custom d-flex justify-content-between" style="color: #ffffff;">
         <!-- Container wrapper -->
-        <div class="container-fluid">
+        <div class="container-fluid d-flex justify-content-between">
             <!-- Toggle button -->
             <button
                     class="navbar-toggler"
@@ -40,11 +40,6 @@
             >
                 <i class="fas fa-bars" style="color: #ffffff;"></i>
             </button>
-
-            <!-- Navbar brand -->
-            <a class="navbar-brand mt-2 mt-lg-0" href="/">
-                <i class="fa-solid fa-dumbbell" style="color:#5beb34;"></i> FitConnect
-            </a>
 
             <!-- Collapsible wrapper -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -74,6 +69,12 @@
             </div>
             <!-- Collapsible wrapper -->
 
+
+            <!-- Navbar brand -->
+            <a class="navbar-brand mt-2 mt-lg-0 d-flex align-items-center" href="/">
+                <i class="fa-solid fa-dumbbell" style="color:#5beb34;"></i> FitConnect
+            </a>
+
             <!-- Right elements -->
             <div class="d-flex align-items-center">
 
@@ -91,9 +92,7 @@
                         <i class="fa-solid fa-user" style="color: #ffffff;"></i>
                     </a>
                     <ul
-                            class="dropdown-menu dropdown-menu-end"
-                            aria-labelledby="navbarDropdownMenuAvatar"
-                    >
+                            class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
                         <li sec:authorize="isAnonymous()">
                             <a class="dropdown-item" href="/login">
                                 Login
@@ -121,6 +120,8 @@
                 </div>
             </div>
             <!-- Right elements -->
+
+
         </div>
         <!-- Container wrapper -->
     </nav>

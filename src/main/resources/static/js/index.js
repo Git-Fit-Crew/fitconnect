@@ -119,6 +119,42 @@ async function initMap() {
 
     service = new google.maps.places.PlacesService(map);
 
+    // Add the search box
+    const input = document.getElementById("search-box");
+    const searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener("bounds_changed", () => {
+        searchBox.setBounds(map.getBounds());
+    });
+
+    searchBox.addListener("places_changed", () => {
+        const places = searchBox.getPlaces();
+
+        if (places.length === 0) {
+            return;
+        }
+
+        // For each place, get the icon, name, and location.
+        const bounds = new google.maps.LatLngBounds();
+        places.forEach((place) => {
+            if (!place.geometry || !place.geometry.location) {
+                console.log("Returned place contains no geometry");
+                return;
+            }
+
+            // Check if the home gym marker is present and if its position is not the same as the new search location.
+            if (!homeGymMarker || !homeGymMarker.getPosition().equals(place.geometry.location)) {
+                // Update the map bounds to include the new search location.
+                bounds.extend(place.geometry.location);
+            }
+        });
+
+        // Fit the map bounds to include the new search location.
+        map.fitBounds(bounds);
+    });
+
     // Search for gyms when the map is moved and idle
     google.maps.event.addListener(map, "idle", searchGyms);
 }

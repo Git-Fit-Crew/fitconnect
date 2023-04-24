@@ -48,11 +48,11 @@ a:hover {
     max-width: 200px;
 }
 
-.scroll {
-    max-height: 1200px;
+/*.scroll {
+    height: auto;
+    !*max-height: 1200px;*!
     overflow-y: auto;
-}
-
+}*/
 
 
 .calendar-month {

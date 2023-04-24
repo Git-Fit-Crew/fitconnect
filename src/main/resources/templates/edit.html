@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Edit Your Profile</title>
-    <th:block th:replace="~{partials :: head}"></th:block>
-    <link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
-    <script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-    <style>
-        #map {
-            height: 600px;
-            width: 600px;
-        }
-
-        #search-box {
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            font-size: 14px;
-            font-weight: 300;
-            margin-top: 10px;
-            outline: none;
-            padding: 12px 15px;
-            width: 100%;
-        }
-    </style>
+	<meta charset="UTF-8">
+	<title>Edit Your Profile</title>
+	<th:block th:replace="~{partials :: head}"></th:block>
+	<link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+	<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
+	<style>
+		#map {
+			height: 600px;
+			width: 600px;
+		}
+		#search-box {
+			box-sizing: border-box;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+			font-size: 14px;
+			font-weight: 300;
+			margin-top: 10px;
+			outline: none;
+			padding: 12px 15px;
+		}
+	</style>
 </head>
 <body>
 <nav th:replace="~{partials :: nav}"></nav>
@@ -34,29 +32,38 @@
 <br>
 <br>
 
+
 <div class="homeCards d-flex flex-row justify-content-around">
     <div class="card" style="width: 80%;">
         <div id="map" style="margin-left:auto; margin-right:auto;"></div>
-        <input id="search-box" class="controls" type="text" placeholder="Search for places, zipcodes...">
+
+        <input id="search-box" class="controls" type="text" placeholder="Search by zipcode...">
+        <!--
+          The `defer` attribute causes the callback to execute after the full HTML
+          document has been parsed. For non-blocking uses, avoiding race conditions,
+          and consistent behavior across browsers, consider loading using Promises.
+          See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+          for more information.
+          -->
         <div class="card-body d-flex flex-column justify-content-center">
             <p>Choose your home gym by selecting the gym icon and clicking the "Make this my home gym" button.</p>
 
-            <!-- Rest of the code -->
+            <h5 class="card-title" style="color:#5beb34;">Change profile picture</h5>
+            <button id="picture" class="btn btn-success btn-sm mx-auto" style="width: 60%;">Upload a profile photo</button>
+            <input type="hidden" id="api" th:value="${fileApi}">
 
+            <br>
 
             <h5 class="card-title" style="color:#5beb34;">Update your information</h5>
 
+
+
             <div class="">
                 <form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}"
-                      enctype="multipart/form-data" style='width: 100%;'>
+                      enctype="multipart/form-data" style='width: 100%;' class="d-flex flex-column justify-content-center align-items-center">
 
-                    <div class="col-12 d-flex flex-column justify-content-center align-items-start"
+                    <div class="d-flex flex-column justify-content-center"
                          style='width: 100%;'>
-                        <label>Choose your profile picture </label>
-                        <input type="file" name="image" accept="image/png, image/jpeg"/>
-                        <br>
-
-
                         <label for="name">Name</label>
                         <input id="name" th:field="*{name}"/>
                         <br>
@@ -124,6 +131,8 @@
                             </div>
                         </th:block>
                     </div>
+
+                    <input type="hidden" th:name="pic-url" th:value="${user.photo}" id="pic-url">
                     <input value="Update" type="submit" class="btn btn-success" style="width: 60%;"/>
 
                 </form>
@@ -133,6 +142,7 @@
 
 </div>
 
+
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script th:type="module" th:src="@{/js/editMap.js}"></script>
 <script
@@ -140,9 +150,17 @@
         defer
 ></script>
 <script>
+    const fileApi = document.getElementById("api").value
+    const inputForPhotoUrl = document.getElementById("pic-url")
     document.getElementById("picture").addEventListener("click", function () {
-        const client = filestack.init();
-        client.picker().open();
+        const client = filestack.init(fileApi);
+        const options = {
+            onFileUploadFinished(file) {
+                inputForPhotoUrl.value = file.url
+            }
+        }
+
+        client.picker(options).open();
     })
 </script>
 

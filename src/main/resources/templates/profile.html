@@ -4,12 +4,6 @@
 	<th:block th:replace="~{partials :: head}"></th:block>
 	<meta charset="UTF-8">
 	<title>Profile</title>
-	<style>
-		.pic {
-			height: 50px;
-			width: 50px;
-		}
-	</style>
 </head>
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
@@ -34,7 +28,7 @@
 
 <div class="homeCards d-flex flex-row justify-content-around">
 	<div class="card" style="width: 32%;">
-		<img class="card-img-top" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}" />
+		<img class="card-img-top pic" th:if="${user.photo != null}" th:src="@{${user.photo}}" />
 		<div class="card-body">
 
 			<h5 th:text="${user.username}" style="color:#5beb34;">(insert username here)</h5>
@@ -57,7 +51,7 @@
 
 
 			<div th:id="workout-calendar">
-				<div id="calendar"></div>
+				<!--<div id="calendar"></div>-->
 				<h5>Workout Tracker</h5>
 				<ul>
 					<th:block th:each="workout : ${user.getWorkouts()}">
