@@ -28,6 +28,36 @@ body {
     text-align: center;
 }
 
+.modal {
+    background-color: black !important;
+    color: white;
+    text-align: center;
+    border: 1px solid white;
+    border-radius: 25px;
+    max-width: 80%;
+    max-height: 50%;
+    /*max-height: 40%;*/
+
+    margin:0 auto;
+    display:table;
+    position: absolute;
+    left: 0;
+    right:0;
+    top: 50%;
+    border:1px solid;
+    -webkit-transform:translateY(-50%);
+    -moz-transform:translateY(-50%);
+    -ms-transform:translateY(-50%);
+    -o-transform:translateY(-50%);
+    transform:translateY(-50%);
+
+}
+
+
+.modal-content {
+    background-color: black !important;
+}
+
 .log {
     background-color: black;
     color: white;

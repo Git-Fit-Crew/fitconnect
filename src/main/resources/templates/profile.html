@@ -4,6 +4,7 @@
 	<th:block th:replace="~{partials :: head}"></th:block>
 	<meta charset="UTF-8">
 	<title>Profile</title>
+
 </head>
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
@@ -15,18 +16,38 @@
 		</div>
 	</div>
 </div>
+<br>
 
-	<th:block th:if="${isLoggedInUser}" class="homeCards col-12">
-		<div th:if="${!isWorkoutLoggedToday}" class="card d-flex flex-row justify-content-start">
-			<form th:action="@{/profile/workout}" th:method="post" class="card-body">
-				<p>Did you workout today?</p>
-				<button type="submit" class="btn btn-success btn-sm">Yes</button>
-				<button id="dismiss-workout" class="btn btn-success btn-sm">Dismiss</button>
-			</form>
+<th:block th:if="${isLoggedInUser}">
+<div th:if="${!isWorkoutLoggedToday}" id="myModal" class="modal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" style="color:#5beb34;">Did you workout today?</h5>
+			</div>
+			<div class="modal-body">
+				<img src="/img/plankGirl.jpeg" class="card-img-top">
+				<br>
+				<p>If not, even just 15 minutes of movement can improve mood and health.</p>
+			</div>
+			<div class="modal-footer">
+				<form th:action="@{/profile/workout}" th:method="post" class="card-body">
+					<button type="submit" class="btn btn-success btn-sm">Yes</button>
+					<button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Close</button>
+				</form>
+			</div>
 		</div>
-	</th:block>
-<br>
-<br>
+	</div>
+</div>
+</th:block>
+
+
+
+
+
+
+
+
 
 <div class="homeCards d-flex flex-row justify-content-around">
 	<div class="card" style="width: 32%;">
@@ -90,8 +111,14 @@
 	</div>
 
 </div>
+
+
+
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
+
+
+
 </body>
 </html>
 
