@@ -175,6 +175,7 @@ function searchGyms() {
 }
 
 function setGymAddress(address) {
+    console.log(address)
     const form = document.getElementById("search-form");
     let gymInput = document.getElementById(gymInputId);
     if (gymInput === null) {
@@ -206,16 +207,54 @@ function createMarker(place) {
                 const hours = placeDetails.opening_hours ? placeDetails.opening_hours.weekday_text.join('<br>') : 'Hours not available';
                 const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place.place_id}`;
 
-                const contentString = `<div class="info-window-content">
-                    <h2>${place.name}</h2>
-                    <p>Address: ${place.vicinity}</p>
-                    <p>Rating: ${place.rating}</p>
-                    <p>Hours:<br>${hours}</p>
-                    ${
-                    place.photos
-                        ? `<img src="${place.photos[0].getUrl({maxWidth: 200, maxHeight: 200})}" alt="${place.name}">`
-                        : ""
+                const contentString = ` <style>
+                 .styled-table {
+                    border-collapse: collapse;
+                    margin: 25px 0;
+                    font-size: 0.9em;
+                    font-family: sans-serif;
+                    min-width: 400px;
+                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
                 }
+                .styled-table thead tr {
+                    background-color: #5beb34;
+                    color: #ffffff;
+                    text-align: center;
+                }
+                .styled-table th,
+                .styled-table td {
+                    padding: 12px 15px;
+                }
+                .styled-table tbody tr {
+                    border-bottom: 1px solid #dddddd;
+                }
+                
+                .styled-table tbody tr:nth-of-type(even) {
+                    background-color: #f3f3f3;
+                }
+                
+                .styled-table tbody tr:last-of-type {
+                    border-bottom: 2px solid #009879;
+                }
+                </style>
+                <div class="info-window-content">
+                <h2>${place.name}</h2>
+                <table class="styled-table">
+                    <thead>
+                        <tr>
+                            <th>Address</th>
+                            <th>Rating</th>
+                            <th>Hours</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>${place.vicinity}</td>
+                            <td>${place.rating}</td>
+                            <td>${hours}</td>
+                        </tr>
+                    </tbody>
+                </table>
                     <p><a href="${googleMapsUrl}" target="_blank">View on Google Maps</a></p>
                 </div>`;
 
