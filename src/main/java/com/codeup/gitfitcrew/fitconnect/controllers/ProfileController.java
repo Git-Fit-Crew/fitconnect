@@ -101,6 +101,11 @@ public class ProfileController {
 
     @GetMapping("/showFormForUpdate/{id}")
     public String showFormForUpdate(@PathVariable long id, Model model) {
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        User currentUser = userDao.getUserById(loggedInUser.getId());
+        if (currentUser == null) {
+            return "login";
+        }
 
         // get employee from the service
         User user = userDao.getUserById(id);
