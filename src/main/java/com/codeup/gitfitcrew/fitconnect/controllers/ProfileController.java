@@ -111,7 +111,7 @@ public class ProfileController {
         User user = userDao.getUserById(id);
 
         if (currentUser != user) {
-            return "profile";
+            return "search";
         }
 
         // get styles and goals from preferences
