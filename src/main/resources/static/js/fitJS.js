@@ -1,3 +1,4 @@
+/*
 function isLeapYear(year) {
     var resp = new Date(year,1,29).getDate()===29;;
     return resp;
@@ -43,3 +44,21 @@ daysOfMonth.forEach(
         calendarEl.appendChild(monthEl);
     }
 );
+*/
+
+
+
+
+    let modal = document.querySelector("#myModal");
+    if (modal != null) {
+    $(document).ready(function(){
+        $("#myModal").modal('show');
+    });
+    }
+
+
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+    return new bootstrap.Tooltip(tooltipTriggerEl)
+})
+

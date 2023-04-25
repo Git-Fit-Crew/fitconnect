@@ -49,7 +49,7 @@
                     <p class="card-title" th:text="${friend.level}"></p>
 
 
-                    <a th:href="@{/messages/{id}(id=${friend.id})}"><button class="btn btn-success btn-sm"><i class="fa-solid fa-envelope"></i></button></a>
+                    <a th:href="@{/messages/{id}(id=${friend.id})}"><button class="btn btn-success btn-sm" data-bs-toggle="tooltip" data-bs-placement="bottom" title="Chat"><i class="fa-solid fa-envelope"></i></button></a>
 
 
 
