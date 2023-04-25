@@ -28,14 +28,23 @@
         <br>
         <div class="card-body">
             <img class="profilePic" th:src="${request.photo}" alt="profilepic">
-            <a th:href="@{/profile/{id}(id=${request.id})}"><h4 class="card-title" th:text="${request.username}">(insert title here)</h4></a>
-            <a th:href="@{/friends/{id}/accept(id=${request.id})}" class="btn btn-success btn-sm"><i class="fa-solid fa-square-check"></i></a>
-            <a th:href="@{/friends/{id}/deny(id=${request.id})}" class="btn btn-success btn-sm"><i class="fa-solid fa-rectangle-xmark"></i></a>
+            <a th:href="@{/profile/{id}(id=${request.id})}"><h4 class="card-title" th:text="${request.username}">(insert
+                title here)</h4></a>
+            <a th:href="@{/friends/{id}/accept(id=${request.id})}"
+               data-bs-toggle="tooltip"
+               data-bs-placement="top"
+               title="Accept Request" class="btn btn-success btn-sm"><i
+                    class="fa-solid fa-square-check"></i></a>
+            <a th:href="@{/friends/{id}/deny(id=${request.id})}"
+               data-bs-toggle="tooltip"
+               data-bs-placement="top"
+               title="Deny Request" class="btn btn-success btn-sm"><i
+                    class="fa-solid fa-rectangle-xmark"></i></a>
             <hr>
         </div>
-</div>
+    </div>
 
-    <div class="card" style="width: 60%;" >
+    <div class="card" style="width: 60%;">
         <img class="card-img-top" src="/img/5empty.jpeg" alt="girl" style="max-height: 207px">
         <br>
         <div class="card-body">
@@ -44,13 +53,20 @@
             <div class="card d-flex flex-row" style="width: 100%;" th:each="friend : ${friends}">
                 <img class="profilePic" th:src="${friend.photo}" alt="profilepic">
                 <div class="card-body d-flex flex-column justify-content-center">
-                    <a th:href="@{/profile/{id}(id=${friend.id})}"><h4 class="card-title" th:text="${friend.username}">(insert title here)</h4></a>
+                    <a th:href="@{/profile/{id}(id=${friend.id})}"><h4 class="card-title" th:text="${friend.username}">
+                        (insert title here)</h4></a>
                     <p class="card-title" th:text="${friend.gender}"></p>
                     <p class="card-title" th:text="${friend.level}"></p>
 
 
-                    <a th:href="@{/messages/{id}(id=${friend.id})}"><button class="btn btn-success btn-sm"><i class="fa-solid fa-envelope"></i></button></a>
-
+                    <a th:href="@{/messages/{id}(id=${friend.id})}">
+                        <button class="btn btn-success btn-sm"
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="Chat">
+                        <i class="fa-solid fa-envelope"></i>
+                        </button>
+                    </a>
 
 
                 </div>
@@ -59,6 +75,7 @@
     </div>
 
 </div>
+
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
