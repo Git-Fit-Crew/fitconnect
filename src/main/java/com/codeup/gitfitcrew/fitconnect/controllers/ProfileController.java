@@ -110,6 +110,10 @@ public class ProfileController {
         // get employee from the service
         User user = userDao.getUserById(id);
 
+        if (currentUser != user) {
+            return "profile";
+        }
+
         // get styles and goals from preferences
         List<Preferences> goals = new ArrayList<>();
         List<Preferences> styles = new ArrayList<>();
