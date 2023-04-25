@@ -115,4 +115,7 @@ public class FriendService {
 
     }
 
+    public boolean hasFriends(User user) {
+        return friendRepository.existsByFirstUserAndStatus(user, Status.accepted);
+    }
 }
