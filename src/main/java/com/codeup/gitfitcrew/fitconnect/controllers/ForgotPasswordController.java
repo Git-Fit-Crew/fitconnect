@@ -51,7 +51,7 @@ public class ForgotPasswordController {
         } catch (UsernameNotFoundException ex) {
             model.addAttribute("error", ex.getMessage());
         } catch (UnsupportedEncodingException | MessagingException e) {
-            model.addAttribute("error", "Error while sending email");
+            model.addAttribute("error", "Error while sending email.");
         }
 
         return "forgot_password_form";
@@ -126,19 +126,19 @@ public class ForgotPasswordController {
             Pattern specialChar = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
 
             if (!upperCase.matcher(user.getPassword()).find()) {
-                return "redirect:/reset_password?token=" + token + "&paramType=uppercase&msg=password must have an uppercase letter";
+                return "redirect:/reset_password?token=" + token + "&paramType=uppercase&msg=Password must have an uppercase letter.";
             }
             if (!numbers.matcher(user.getPassword()).find()) {
                 model.addAttribute("numbers", "password must have a number");
-                return "redirect:/reset_password?token=" + token + "&paramType=numbers&msg=password must have a number";
+                return "redirect:/reset_password?token=" + token + "&paramType=numbers&msg=Password must have a number.";
             }
             if (!specialChar.matcher(user.getPassword()).find()) {
                 model.addAttribute("special", "password must have a special character");
-                return "redirect:/reset_password?token=" + token + "&paramType=special&msg=password must have a special character";
+                return "redirect:/reset_password?token=" + token + "&paramType=special&msg=Password must have a special character.";
             }
             if (!(user.getPassword().length() >= 8)) {
                 model.addAttribute("length", "password must be at least  8 characters");
-                return "redirect:/reset_password?token=" + token + "&paramType=length&msg=password must be at least  8 characters";
+                return "redirect:/reset_password?token=" + token + "&paramType=length&msg=Password must be at least 8 characters.";
             }
             userService.updatePassword(user, password);
 

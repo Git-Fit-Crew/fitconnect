@@ -20,14 +20,16 @@
 </head>
 <body class="h-100">
 <nav th:replace="~{partials :: nav}"></nav>
-
 <br>
+<div class="d-flex flex-row justify-content-around">
+    <div class="card" style="width: 90%;">
+        <div class="card-body">
+            <h1 style="text-align:center; color:#5beb34;">Find Other Fitness Enthusiasts to Connect With</h1>
+            <h2 style="text-align:center">We are stronger together</h2>
+        </div>
+    </div>
+</div>
 <br>
-<h1 style="text-align:center">Find Other Fitness Enthusiasts to Connect With</h1>
-<h2 style="text-align:center">We are stronger together</h2>
-<br>
-<br>
-
 
 <div class="homeCards d-flex flex-row justify-content-around" style="max-height: 1200px">
     <div class="card" style="width: 60%;">
@@ -40,7 +42,6 @@
           See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
           for more information.
           -->
-        <br>
         <br>
         <div class="card-body">
             <h5 class="card-title" style="color:#5beb34;">Refine search results</h5>
@@ -111,14 +112,13 @@
 
     <div class="card d-flex flex-column justify-content-center" style="width: 35%;">
         <div style="text-align: center;">
-
-
             <img class="card-img-top" src="/img/5empty.jpeg" alt="girl" style="max-height: 207px;">
         </div>
         <br>
+        <div id="results">
         <div class="card-body overflow-scroll">
             <h5 class="card-title" style="color:#5beb34;">Results</h5>
-            <div class="card d-flex flex-column justify-content-center" style="width: 100%;"
+            <div class="card d-flex flex-column justify-content-center user-result" style="width: 100%;"
                  th:each="result : ${results}" th:attr="data-user-id=${result.id}">
                 <img class="profilePic" th:src="${result.photo}" alt="profilepic"
                      style="margin-left:auto; margin-right:auto;">
@@ -130,8 +130,6 @@
 
                     <a th:href="@{/profile/{id}/request(id=${result.id})}" class="btn btn-success btn-sm">Send friend
                         request!</a>
-
-
                 </div>
                 <hr>
             </div>
@@ -141,6 +139,8 @@
             <div id="results-none" class="d-none">
                 <p>No results found.</p>
             </div>
+        </div>
+
         </div>
 
 

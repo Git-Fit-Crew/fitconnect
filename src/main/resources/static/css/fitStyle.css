@@ -28,6 +28,18 @@ body {
     text-align: center;
 }
 
+.log {
+    background-color: black;
+    color: white;
+    text-align: center;
+    max-width: 60%;
+}
+
+/*.pass {
+    margin-left: 8px !important;
+    margin-right: 8px !important;
+}*/
+
 .btn-success {
     background-color: #5beb34 !important;
     /*border-color: black;*/
