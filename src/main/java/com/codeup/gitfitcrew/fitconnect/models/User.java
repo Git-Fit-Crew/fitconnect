@@ -93,6 +93,46 @@ public class User {
         return "/img/user-photos/" + id + "/" + photo;
     }
 
+    public boolean hasName() {
+        return name != null && !name.isBlank();
+    }
+
+    public boolean hasEmail() {
+        return email != null && !email.isBlank();
+    }
+
+    public boolean hasPhoto() {
+        return photo != null && !photo.isBlank();
+    }
+
+    public boolean hasBio() {
+        return bio != null && !bio.isBlank();
+    }
+
+    public boolean hasGender() {
+        return gender != null;
+    }
+
+    public boolean hasZipcode() {
+        return zipcode != null;
+    }
+
+    public boolean hasLevel() {
+        return level != null;
+    }
+
+    public boolean hasGym() {
+        return gym != null;
+    }
+
+    public boolean hasStyles() {
+        return !getStyles().isEmpty();
+    }
+
+    public boolean hasGoals() {
+        return !getGoals().isEmpty();
+    }
+
     public User(User copy) {
         id = copy.id;
         name = copy.name;
