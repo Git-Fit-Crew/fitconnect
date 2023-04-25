@@ -169,7 +169,7 @@ function searchGyms() {
 }
 
 async function addHomeGym(name, address, marker) {
-    const response = await fetch('/gyms?name=' + name + '&address=' + address, {
+    const response = await fetch('/gyms?name=' + name + '&address=' + encodeURIComponent(address), {
         method: 'GET',
     });
 

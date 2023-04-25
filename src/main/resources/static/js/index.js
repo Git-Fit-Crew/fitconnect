@@ -175,6 +175,7 @@ function searchGyms() {
 }
 
 function setGymAddress(address) {
+    console.log(address)
     const form = document.getElementById("search-form");
     let gymInput = document.getElementById(gymInputId);
     if (gymInput === null) {
