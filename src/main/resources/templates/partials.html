@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--suppress HtmlUnknownTag -->
 <html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
@@ -24,6 +25,11 @@
 
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/img/dumbbellGREEN.gif">
+
+    <!--Cal-Heatmap-->
+    <script type="text/javascript" src="//d3js.org/d3.v3.min.js"></script>
+    <script type="text/javascript" src="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/cal-heatmap/3.3.10/cal-heatmap.css" />
 
 </th:block>
 
@@ -159,7 +165,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <!-- Fit JS File -->
     <script th:src="@{/js/fitJS.js}"></script>
-
+    <script th:src="@{/js/calendar.js}"></script>
 </th:block>
 
 
