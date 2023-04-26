@@ -50,12 +50,12 @@ daysOfMonth.forEach(
 
 
 
-    let modal = document.querySelector("#myModal");
-    if (modal != null) {
-    $(document).ready(function(){
-        $("#myModal").modal('show');
-    });
-    }
+let modal = document.querySelector("#myModal");
+if (modal != null) {
+$(document).ready(function(){
+    $("#myModal").modal('show');
+});
+}
 
 
 
