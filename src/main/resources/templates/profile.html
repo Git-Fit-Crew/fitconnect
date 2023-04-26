@@ -77,6 +77,7 @@
 			<h5 style="color:#5beb34;">Workout Tracker</h5>
 			<div class="d-flex justify-content-center" id="cal-heatmap"></div>
 
+
 			<h5 style="color:#5beb34;">Gym</h5>
 			<p class="card-text" th:if="${user.gym != null}" th:text="${user.gym.name}">(insert gym name here)</p>
 
@@ -111,8 +112,6 @@
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
-
-
 
 </body>
 </html>

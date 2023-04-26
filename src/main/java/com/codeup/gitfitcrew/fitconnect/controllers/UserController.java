@@ -48,34 +48,34 @@ public class UserController {
     @PostMapping("/register")
     public String saveUser(@ModelAttribute User user, Model model) throws MessagingException, UnsupportedEncodingException {
         if (userDao.findByUsername(user.getUsername()) != null) {
-            model.addAttribute("username", "username already taken");
+            model.addAttribute("username", "Username is already in use.");
             return "register";
         }
         if (userDao.findByEmail(user.getEmail()) != null) {
-            model.addAttribute("email", "email already taken");
+            model.addAttribute("email", "Email is already in use.");
             return "register";
         }
         if (user.getUsername().length() >= 15){
-            model.addAttribute("userL", "username has to be 15 characters or shorter");
+            model.addAttribute("userL", "Username has to be 15 characters or shorter.");
             return "register";
         }
         Pattern upperCase = Pattern.compile("[A-Z ]");
         Pattern numbers = Pattern.compile("[0-9 ]");
         Pattern specialChar = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE);
         if (!upperCase.matcher(user.getPassword()).find()){
-            model.addAttribute("uppercase", "password must have an uppercase letter");
+            model.addAttribute("uppercase", "Password must have an uppercase letter.");
             return "register";
         }
         if (!numbers.matcher(user.getPassword()).find()){
-            model.addAttribute("numbers", "password must have a number");
+            model.addAttribute("numbers", "Password must have a number.");
             return "register";
         }
         if (!specialChar.matcher(user.getPassword()).find()){
-            model.addAttribute("special", "password must have a special character");
+            model.addAttribute("special", "Password must have a special character.");
             return "register";
         }
         if (!(user.getPassword().length() >= 8)) {
-            model.addAttribute("length", "password must be at least 8 characters");
+            model.addAttribute("length", "Password must be at least 8 characters.");
             return "register";
         }
         sendEmail(user.getEmail());

@@ -18,7 +18,7 @@
         }
     </style>
 </head>
-<body class="h-100">
+<body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
 <br>
 <div class="title d-flex flex-row justify-content-around">
@@ -172,7 +172,7 @@
         th:src="@{https://maps.googleapis.com/maps/api/js(key=${apiKey}, callback='initMap', libraries='places', v='weekly')}"
         defer
 ></script>
-    </div>
+
 
 
 <footer th:replace="~{partials :: footer}"></footer>

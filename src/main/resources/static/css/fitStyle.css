@@ -8,21 +8,16 @@ body {
 
 }
 
-/*#page-container {
-    position: relative;
-    min-height: 100vh;
+#search-box {
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    font-size: 14px;
+    font-weight: 300;
+    margin-top: 10px;
+    outline: none;
+    padding: 12px 15px;
 }
-
-#content-wrap {
-    padding-bottom: 6rem;    !* insert proper footer height *!
-}
-
-#footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    height: 6rem;            !* insert proper footer height *!
-}*/
 
 .navbar-brand {
     font-family: 'Black Ops One', cursive;
@@ -107,11 +102,6 @@ body {
     max-width: 60%;
 }
 
-/*.pass {
-    margin-left: 8px !important;
-    margin-right: 8px !important;
-}*/
-
 .btn-success {
     background-color: #5beb34 !important;
     /*border-color: black;*/
@@ -130,39 +120,4 @@ a:hover {
 
 .profilePic {
     max-width: 200px;
-}
-
-/*.scroll {
-    height: auto;
-    !*max-height: 1200px;*!
-    overflow-y: auto;
-}*/
-
-
-.calendar-month {
-    display: inline-block;
-    vertical-align: top;
-    width: 20px;
-}
-
-.calendar-day {
-    border: 1px solid black;
-    border-top: none;
-    box-sizing: border-box;
-    height: 20px;
-    width: 20px;
-}
-
-.calendar-month__title {
-    border-bottom: 1px solid black;
-    height: 20px;
-    overflow: hidden;
-    text-align: center;
-    width: 20px;
-}
-
-.calendar-day__number {
-    border-left-color: transparent;
-    text-align: right;
-    margin-right: 5px;
 }
