@@ -4,6 +4,7 @@ import com.codeup.gitfitcrew.fitconnect.models.*;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
 import com.codeup.gitfitcrew.fitconnect.services.FriendService;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -14,12 +15,11 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.time.ZoneOffset;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -120,6 +120,19 @@ public class UserController {
         Gson gson = new Gson();
         List<UserDto> friends = UserDto.getUserDtoListFromUsers(friendService.getFriends());
         return gson.toJson(friends);
+    }
+
+    @GetMapping(value = "/workouts/{id}", produces = "application/json")
+    @ResponseBody
+    public String getWorkoutsByUserIdJSON(@PathVariable Long id) {
+        Gson gson = new GsonBuilder()
+                .excludeFieldsWithoutExposeAnnotation()
+                .create();
+        List<Long> workoutDatesInEpochSeconds = new ArrayList<>();
+        userDao.findById(id).ifPresent(user -> user.getWorkouts().forEach(
+                workout -> workoutDatesInEpochSeconds.add(workout.getWorkoutDate().atStartOfDay().toInstant(ZoneOffset.UTC).getEpochSecond())
+        ));
+        return gson.toJson(workoutDatesInEpochSeconds);
     }
 
     private User getLoggedInUser() {
