@@ -173,7 +173,6 @@ async function addHomeGym(name, address, marker) {
         method: 'GET',
     });
 
-    window.alert('Home gym has been changed');
 
     if (homeGymMarker) {
         homeGymMarker.setIcon("/img/anyGym16.png");
@@ -197,8 +196,6 @@ function createMarker(place) {
         service.getDetails({placeId: place.place_id, fields: ['opening_hours']}, (placeDetails, status) => {
             if (status === google.maps.places.PlacesServiceStatus.OK) {
                 const hours = placeDetails.opening_hours ? placeDetails.opening_hours.weekday_text.join('<br>') : 'Hours not available';
-                const googleMapsUrl = `https://www.google.com/maps/place/?q=place_id:${place.place_id}`;
-
                 const contentString = ` <style>
                  .styled-table {
                     border-collapse: collapse;
@@ -251,12 +248,16 @@ function createMarker(place) {
                 <p><button class="btn btn-success btn-sm mx-auto" id="home-gym-button">Make this my home gym</button></p>
             </div>`;
 
+
+
                 infowindow.setContent(contentString);
                 infowindow.open(map, marker);
+
 
                 google.maps.event.addListenerOnce(infowindow, 'domready', () => {
                     document.getElementById('home-gym-button').addEventListener('click', () => {
                         addHomeGym(place.name, place.vicinity, marker);
+                        alert('You changed your home gym!', 'light')
                     });
                 });
             }
@@ -264,4 +265,6 @@ function createMarker(place) {
     });
 }
 
+
 window.initMap = initMap;
+
