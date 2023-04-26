@@ -107,6 +107,13 @@
 					<li th:each="goal : ${user.getGoals()}" th:text="${goal.name}">Replace with style name</li>
 				</ul>
 			</th:block>
+<!--			This is a placeholder for displaying achievements, replace with badges-->
+			<th:block th:if="${!user.getAchievements().isEmpty()}">
+				<h5 style="color:#5beb34;">Achievements</h5>
+				<ul>
+					<li th:each="achievement : ${user.getAchievements()}" th:text="${achievement.name}">Replace with achievement name</li>
+				</ul>
+			</th:block>
 		</div>
 	</div>
 

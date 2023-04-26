@@ -6,6 +6,7 @@ import com.codeup.gitfitcrew.fitconnect.models.User;
 import com.codeup.gitfitcrew.fitconnect.repositories.FriendRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.PreferencesRepository;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
+import com.codeup.gitfitcrew.fitconnect.services.AchievementService;
 import com.codeup.gitfitcrew.fitconnect.services.FriendService;
 import com.codeup.gitfitcrew.fitconnect.services.WorkoutService;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +30,7 @@ public class ProfileController {
     private final FriendRepository friendDao;
     private final FriendService friendService;
     private final PreferencesRepository preferencesDao;
+    private final AchievementService achievementService;
 
     @Value("${google-maps-api-key}")
     private String googleMapsApiKey;
@@ -42,6 +44,7 @@ public class ProfileController {
     public String profile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getUserById(loggedInUser.getId());
+        achievementService.checkAndSetAchievements(user);
         if (user == null) {
             return "login";
         }
@@ -64,7 +67,6 @@ public class ProfileController {
         boolean isFriend = friendDao.existsByFirstUserAndSecondUser(loggedInUser, user);
         model.addAttribute("user", user);
         model.addAttribute("isLoggedInUser", false);
-        System.out.println("model.getAttribute(\"isLoggedInUser\") = " + model.getAttribute("isLoggedInUser"));
         model.addAttribute("isWorkoutLoggedToday", true);
         model.addAttribute("isFriend", isFriend);
 
