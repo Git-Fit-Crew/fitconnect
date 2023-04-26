@@ -8,6 +8,10 @@ body {
 
 }
 
+.navbar-brand {
+    font-family: 'Black Ops One', cursive;
+}
+
 .navbar-custom {
     background-color: black;
     color: white;
@@ -26,6 +30,28 @@ body {
     background-color: black;
     color: white;
     text-align: center;
+}
+
+.title {
+    font-family: 'Black Ops One', cursive;
+}
+
+.search {
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 990px;
+
+}
+
+#pass-req {
+    display: none;
+}
+
+.passReq {
+    background-color: black;
+    color: white;
+    text-align: left !important;
+    font-size: small;
 }
 
 .modal {

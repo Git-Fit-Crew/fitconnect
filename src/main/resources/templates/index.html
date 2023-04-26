@@ -172,7 +172,7 @@
 <nav th:replace="~{partials :: nav}"></nav>
 
 <br>
-<div class="d-flex flex-row justify-content-around">
+<div class="title d-flex flex-row justify-content-around">
     <div class="card" style="width: 90%;">
         <div class="card-body-i">
             <h1 style="text-align:center; color:#5beb34;">FitConnect</h1>
@@ -219,19 +219,12 @@
 <br>
 <div class="buttons" style="text-align:center">
     <form action="/register">
-        <button type="submit" class="btn btn-success btn-lg">Register now!</button>
+        <button type="submit" class="btn btn-success btn-lg ">Register now!</button>
     </form>
     <br>
     <form action="/login">
-        <button type="submit" class="btn btn-success">Login!</button>
+        <button type="submit" class="btn btn-success btn-lg">Login!</button>
     </form>
-    <br>
-    <br>
-
-    <footer th:replace="~{partials :: footer}"></footer>
-    <th:block th:replace="~{partials :: scripts}"></th:block>
-
-
     <br>
     <br>
 </div>

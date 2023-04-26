@@ -10,7 +10,7 @@
 <nav th:replace="~{partials :: nav}"></nav>
 
 <br>
-<div class="d-flex flex-row justify-content-around">
+<div class="title d-flex flex-row justify-content-around">
     <div class="card" style="width: 90%;">
         <div class="card-body">
             <h1 style="text-align:center; color:#5beb34;">Fitness Connections</h1>
@@ -58,24 +58,23 @@
                     <p class="card-title" th:text="${friend.gender}"></p>
                     <p class="card-title" th:text="${friend.level}"></p>
 
-
-
                     <a th:href="@{/messages/{id}(id=${friend.id})}">
                         <button class="btn btn-success btn-sm"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
                                 title="Chat">
-                        <i class="fa-solid fa-envelope"></i>
+                            <i class="fa-solid fa-message" style="color: #000000;"></i></i>
                         </button>
                     </a>
-
-
                 </div>
+                <hr>
             </div>
         </div>
     </div>
 
 </div>
+
+<br>
 
 
 <footer th:replace="~{partials :: footer}"></footer>

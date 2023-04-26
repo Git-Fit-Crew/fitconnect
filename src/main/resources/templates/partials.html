@@ -17,6 +17,11 @@
     <!-- CSS Sheet-->
     <link rel="stylesheet" href="/css/fitStyle.css">
 
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&display=swap" rel="stylesheet">
+
     <!-- Favicon -->
     <link rel="icon" type="image/x-icon" href="/img/dumbbellGREEN.gif">
 
@@ -72,14 +77,14 @@
 
             <!-- Navbar brand -->
             <a class="navbar-brand mt-2 mt-lg-0 d-flex align-items-center" href="/">
-                <i class="fa-solid fa-dumbbell" style="color:#5beb34;"></i> FitConnect
+                <i class="fa-solid fa-dumbbell" style="color:#5beb34;"></i>  FitConnect
             </a>
 
             <!-- Right elements -->
             <div class="d-flex align-items-center">
 
                 <!-- Avatar -->
-                <div class="dropdown">
+                <div class="dropdown" sec:authorize="isAuthenticated()">
                     <a
                             class="dropdown-toggle d-flex align-items-center hidden-arrow"
                             href="#"
@@ -93,7 +98,7 @@
                     </a>
                     <ul
                             class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
-                        <li sec:authorize="isAnonymous()">
+                        <!--<li sec:authorize="isAnonymous()">
                             <a class="dropdown-item" href="/login">
                                 Login
                             </a>
@@ -102,7 +107,7 @@
                             <a class="dropdown-item" href="/register">
                                 Register
                             </a>
-                        </li>
+                        </li>-->
 
                         <li sec:authorize="isAuthenticated()">
                             <a class="dropdown-item" href="/profile">
@@ -130,6 +135,19 @@
 
 
 <th:block th:fragment="footer">
+
+    <!-- Footer -->
+    <footer class=" text-center text-white" style="background-color:#000000;">
+        <div class="container p-4">
+            <section>
+                <a href="mailto:fitconnectcorp@gmail.com">Contact Us</a>
+            </section>
+        </div>
+        <div class="text-center pb-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            © 2023 Copyright:
+            <a class="text-white navbar-brand" href="/index"><i class="fa-solid fa-dumbbell" style="color:#5beb34;"></i>FitConnect</a>
+        </div>
+    </footer>
 
 </th:block>
 
