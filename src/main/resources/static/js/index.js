@@ -141,14 +141,10 @@ async function initMap() {
         places.forEach((place) => {
             if (!place.geometry || !place.geometry.location) {
                 console.log("Returned place contains no geometry");
-                return;
+
             }
 
-            // Check if the home gym marker is present and if its position is not the same as the new search location.
-            if (!homeGymMarker || !homeGymMarker.getPosition().equals(place.geometry.location)) {
-                // Update the map bounds to include the new search location.
-                bounds.extend(place.geometry.location);
-            }
+            bounds.extend(place.geometry.location);
         });
 
         // Fit the map bounds to include the new search location.

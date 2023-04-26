@@ -29,7 +29,7 @@ async function initMap() {
     infowindow = new google.maps.InfoWindow();
     map = new google.maps.Map(document.getElementById("map"), {
         center: defaultCenter,
-        zoom: 15,
+        zoom: 12,
         styles: [
             {elementType: "geometry", stylers: [{color: "#242f3e"}]},
             {elementType: "labels.text.stroke", stylers: [{color: "#242f3e"}]},
