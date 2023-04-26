@@ -7,6 +7,7 @@
 
 </head>
 <body class="h-100 d-flex flex-column">
+<input th:id="user-id" th:type="hidden" th:value="${user.id}">
 <nav th:replace="~{partials :: nav}"></nav>
 <br>
 <div class="title d-flex flex-row justify-content-around">
@@ -67,22 +68,17 @@
 			<p th:text="${user.level}">(insert gender here)</p>
 
 
-			<div th:id="workout-calendar">
-				<!--<div id="calendar"></div>-->
-				<h5>Workout Tracker</h5>
-				<ul>
-					<th:block th:each="workout : ${user.getWorkouts()}">
-						<li th:text="${workout.workoutDate}"></li>
-					</th:block>
-				</ul>
-			</div>
 		</div>
 
 	</div>
 
 	<div class="card" style="width: 60%;">
 		<!--MAYBE ADD A WORKOUT EQUIP PIC HERE? <img class="card-img-top" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}" />-->
+
 		<div class="card-body" style="text-align:left;">
+			<h5 style="color:#5beb34;">Workout Tracker</h5>
+			<div class="d-flex justify-content-center" id="cal-heatmap"></div>
+
 			<h5 style="color:#5beb34;">Gym</h5>
 			<p class="card-text" th:if="${user.gym != null}" th:text="${user.gym.name}">(insert gym name here)</p>
 
