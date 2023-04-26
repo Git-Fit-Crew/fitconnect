@@ -44,10 +44,11 @@ public class ProfileController {
     public String profile(Model model) {
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User user = userDao.getUserById(loggedInUser.getId());
-        achievementService.checkAndSetAchievements(user);
         if (user == null) {
             return "login";
         }
+        achievementService.checkAndSetAchievements(user);
+
         model.addAttribute("user", user);
         model.addAttribute("isLoggedInUser", true);
         model.addAttribute("isWorkoutLoggedToday", workoutService.didUserLogWorkoutForToday(user));

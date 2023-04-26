@@ -112,36 +112,40 @@
 
     <div class="card d-flex flex-column justify-content-center" style="width: 35%;">
         <div style="text-align: center;">
-        <img class="card-img-top" src="/img/5empty.jpeg" alt="girl" style="max-height: 207px;">
+            <img class="card-img-top" src="/img/5empty.jpeg" alt="girl" style="max-height: 207px;">
         </div>
         <br>
         <div id="results">
 
-        <div class="card-body search">
+            <div class="card-body search">
 
-            <h5 class="card-title" style="color:#5beb34;">Results</h5>
-            <div class="card d-flex flex-column justify-content-center user-result" style="width: 100%;"
-                 th:each="result : ${results}" th:attr="data-user-id=${result.id}">
-                <img class="profilePic" th:src="${result.photo}" alt="profilepic"
-                     style="margin-left:auto; margin-right:auto;">
-                <div class="card-body">
-                    <a th:href="@{/profile/{id}(id=${result.id})}"><h4 class="card-title" th:text="${result.username}">
-                        (insert title here)</h4></a>
-                    <p class="card-title" th:text="${result.gender}"></p>
-                    <p class="card-title" th:text="${result.level}"></p>
+                <h5 class="card-title" style="color:#5beb34;">Results</h5>
+                <div class="card d-flex flex-column justify-content-center user-result" style="width: 100%;"
+                     th:each="result : ${results}" th:attr="data-user-id=${result.id}">
+                    <img class="profilePic" th:src="${result.photo}" alt="profilepic"
+                         style="margin-left:auto; margin-right:auto;">
+                    <div class="card-body">
+                        <a th:href="@{/profile/{id}(id=${result.id})}"><h4
+                                data-bs-toggle="tooltip"
+                                data-bs-placement="top"
+                                title="View Profile" class="card-title" th:text="${result.username}">
+                            (insert title here)</h4></a>
+                        <p class="card-title" th:text="${result.gender}"></p>
+                        <p class="card-title" th:text="${result.level}"></p>
 
-                    <a th:href="@{/profile/{id}/request(id=${result.id})}" class="btn btn-success btn-sm">Send friend
-                        request!</a>
+                        <a th:href="@{/profile/{id}/request(id=${result.id})}" class="btn btn-success btn-sm">Send
+                            friend
+                            request!</a>
+                    </div>
+                    <hr>
                 </div>
-                <hr>
+                <div class="spinner-border d-none" role="status" id="results-spinner">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <div id="results-none" class="d-none">
+                    <p>No results found.</p>
+                </div>
             </div>
-            <div class="spinner-border d-none" role="status" id="results-spinner">
-                <span class="visually-hidden">Loading...</span>
-            </div>
-            <div id="results-none" class="d-none">
-                <p>No results found.</p>
-            </div>
-        </div>
 
         </div>
 
