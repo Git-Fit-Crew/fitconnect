@@ -86,7 +86,8 @@ public class SecurityConfiguration {
                         "/gyms",
                         "/about",
                         "/forgot_password",
-                        "/reset_password")
+                        "/reset_password",
+                        "/workouts/{id}")
                 .permitAll()
 
         ;
