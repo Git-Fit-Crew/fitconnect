@@ -23,15 +23,13 @@
 <div th:if="${!isWorkoutLoggedToday}" id="myModal" class="modal" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" style="color:#5beb34;">Did you workout today?</h5>
-			</div>
 			<div class="modal-body">
+				<h5 class="modal-title" style="color:#5beb34;">Did you workout today?</h5>
+				<br>
 				<img src="/img/plankGirl.jpeg" class="card-img-top">
 				<br>
 				<p>If not, even just 15 minutes of movement can improve mood and health.</p>
-			</div>
-			<div class="modal-footer">
+				<br>
 				<form th:action="@{/profile/workout}" th:method="post" class="card-body">
 					<button type="submit" class="btn btn-success btn-sm">Yes</button>
 					<button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Close</button>

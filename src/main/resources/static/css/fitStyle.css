@@ -8,6 +8,22 @@ body {
 
 }
 
+/*#page-container {
+    position: relative;
+    min-height: 100vh;
+}
+
+#content-wrap {
+    padding-bottom: 6rem;    !* insert proper footer height *!
+}
+
+#footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 6rem;            !* insert proper footer height *!
+}*/
+
 .navbar-brand {
     font-family: 'Black Ops One', cursive;
 }
@@ -39,7 +55,7 @@ body {
 .search {
     overflow: hidden;
     overflow-y: scroll;
-    height: 990px;
+    height: 970px;
 
 }
 
