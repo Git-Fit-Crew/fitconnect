@@ -1,5 +1,6 @@
 package com.codeup.gitfitcrew.fitconnect.models;
 
+import com.google.gson.annotations.Expose;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -14,9 +15,11 @@ import java.time.LocalDate;
 @Table(name="workouts")
 public class Workout {
     @Id
+    @Expose
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Expose
     @Temporal(TemporalType.DATE)
     private LocalDate workoutDate;
 
