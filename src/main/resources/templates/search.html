@@ -49,18 +49,18 @@
             <form th:action="@{/search}" method="get" id="search-form">
                 <input type="hidden" th:value="${zipcode}" th:name="zipcode">
                 <select name="radius" id="radius">
-                    <option value="50" selected>Radius</option>
+                    <option value="50" selected="selected">Radius</option>
                     <option value="5">5</option>
                     <option value="10">10</option>
                     <option value="30">30</option>
                 </select>
-                <select name="gender" id="gender">
-                    <option value="">Gender</option>
+                <select name="gender" id="gender" >
+                    <option value="" selected="selected">Gender</option>
                     <option value="MALE">Male</option>
                     <option value="FEMALE">Female</option>
                 </select>
                 <select name="level" id="level">
-                    <option value="">Experience Level</option>
+                    <option value="" selected="selected">Experience Level</option>
                     <option value="BEGINNER">Beginner</option>
                     <option value="INTERMEDIATE">Intermediate</option>
                     <option value="ADVANCED">Advanced</option>
@@ -74,7 +74,7 @@
                     <div>
                         <p>Workout Styles</p>
                         <th:block th:each="style : ${styles}">
-                            <div th:class="form-check" style="text-align: left">
+                            <div th:class="form-check" style="text-align: left" id="styles">
                                 <input th:class="form-check-input" th:type="checkbox" th:value="${style.id}"
                                        th:id="'style' + ${style.id}" th:name="styles">
                                 <label th:class="form-check-label" th:for="'style' + ${style.id}"
@@ -87,7 +87,7 @@
                     <div>
                         <p>Workout Goals</p>
                         <th:block th:each="goal : ${goals}">
-                            <div th:class="form-check" style="text-align: left">
+                            <div th:class="form-check" style="text-align: left" id="goals">
                                 <input th:class="form-check-input" th:type="checkbox" th:value="${goal.id}"
                                        th:id="'goal' + ${goal.id}" th:name="goals">
                                 <label th:class="form-check-label" th:for="'goal' + ${goal.id}" th:text="${goal.name}">
@@ -142,7 +142,7 @@
                 <div class="spinner-border d-none" role="status" id="results-spinner">
                     <span class="visually-hidden">Loading...</span>
                 </div>
-                <div id="results-none" class="d-none">
+                <div id="results-none" class="d-none" style="color:white;">
                     <p>No results found.</p>
                 </div>
             </div>
@@ -164,6 +164,13 @@
 		<h4 class="card-title" th:text="${result.name}"></h4>
 	</div>
 </div>-->
+
+<script>
+
+
+
+
+</script>
 
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>

@@ -96,7 +96,9 @@
 			<th:block th:if="${!user.getAchievements().isEmpty()}">
 				<!--<h5 style="color:#5beb34;">Achievements</h5>-->
 				<div th:each="achievement : ${user.getAchievements()}" class="achievs">
-					<img th:src="${achievement.badge}" alt="badges" />
+					<img th:src="${achievement.badge}" alt="badges" data-bs-toggle="tooltip"
+						 data-bs-placement="bottom"
+						 th:title="${achievement.description}"/>
 				</div>
 			</th:block>
 			</div>

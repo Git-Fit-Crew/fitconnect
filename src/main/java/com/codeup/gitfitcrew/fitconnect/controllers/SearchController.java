@@ -39,7 +39,7 @@ public class SearchController {
         }
         model.addAttribute("apiKey", googleMapsApiKey);
         model.addAttribute("zipcode", loggedInUser.getZipcode());
-        model.addAttribute("results", userDao.findAll());
+        model.addAttribute("results", userDao.findAllByIdIsNot(loggedInUser.getId()));
         model.addAttribute("styles", preferencesDao.findAllByType(Type.STYLES));
         model.addAttribute("goals", preferencesDao.findAllByType(Type.GOALS));
         return "search";
@@ -76,6 +76,14 @@ public class SearchController {
             zipcodes = zipcodeService.getZipcodesWithinMilesRadiusFrom(zipcode.get(), Double.parseDouble(miles.get()));
             userDtos = getUsersByZipcode(zipcodes, gender, level, preferenceIds);
         }
+        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        loggedInUser = userDao.getUserById(loggedInUser.getId());
+        for (UserDto user : userDtos) {
+            if (loggedInUser.getId() == user.getId()) {
+                userDtos.remove(user);
+            }
+        }
+
         return gson.toJson(userDtos);
     }
 

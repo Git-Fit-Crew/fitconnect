@@ -338,9 +338,18 @@ resetFormButton.addEventListener("click", function () {
         document.querySelectorAll(".user-result").forEach((e) => e.classList.remove("d-none"));
     });
 
+    $('#level').prop('selectedIndex', 0);
+    $('#gender').prop('selectedIndex', 0);
+    $('#radius').prop('selectedIndex', 0);
+    $('.form-check-input').each(function () {
+            this.checked = false;
+    });
+
 });
 
 window.initMap = initMap;
+
+
 
 
 
