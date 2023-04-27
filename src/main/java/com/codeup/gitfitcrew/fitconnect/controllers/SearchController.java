@@ -78,11 +78,8 @@ public class SearchController {
         }
         User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         loggedInUser = userDao.getUserById(loggedInUser.getId());
-        for (UserDto user : userDtos) {
-            if (loggedInUser.getId() == user.getId()) {
-                userDtos.remove(user);
-            }
-        }
+        User finalLoggedInUser = loggedInUser;
+        userDtos.removeIf(user -> user.getId() == finalLoggedInUser.getId());
 
         return gson.toJson(userDtos);
     }
