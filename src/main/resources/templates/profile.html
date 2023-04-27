@@ -4,7 +4,31 @@
 	<th:block th:replace="~{partials :: head}"></th:block>
 	<meta charset="UTF-8">
 	<title>Profile</title>
+	<style>
+		#muscleImage {
+			width: 50%;
+			height: auto;
+			display: none;
+			margin: 0 auto;
+			object-fit: cover; // or object-fit: contain;
+			transition: transform 10.5s ease-in-out;
 
+
+		}
+
+		#muscleImage {
+			animation: bounce 0.5s infinite alternate;
+		}
+
+		@keyframes bounce {
+			from {
+				transform: translateY(0);
+			}
+			to {
+				transform: translateY(-5px);
+			}
+		}
+	</style>
 </head>
 <body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
@@ -19,27 +43,29 @@
 <br>
 
 <th:block th:if="${isLoggedInUser}">
-<div th:if="${!isWorkoutLoggedToday}" id="myModal" class="modal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" style="color:#5beb34;">Did you workout today?</h5>
-			</div>
-			<div class="modal-body">
-				<img src="/img/plankGirl.jpeg" class="card-img-top">
-				<br>
-				<p>If not, even just 15 minutes of movement can improve mood and health.</p>
-			</div>
-			<div class="modal-footer">
-				<form th:action="@{/profile/workout}" th:method="post" class="card-body">
-					<button type="submit" class="btn btn-success btn-sm">Yes</button>
-					<button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Close</button>
-				</form>
+	<div th:if="${!isWorkoutLoggedToday}" id="myModal" class="modal" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" style="color:#5beb34;">Did you workout today?</h5>
+				</div>
+				<div class="modal-body">
+					<img src="/img/plankGirl.jpeg" class="card-img-top" alt="">
+					<img id="muscleImage" src="/img/greatjobYou.png" alt="muscle">
+					<br>
+					<p>If not, even just 15 minutes of movement can improve mood and health.</p>
+				</div>
+				<div class="modal-footer">
+					<form th:action="@{/profile/workout}" th:method="post" class="card-body">
+						<button type="submit" class="btn btn-success btn-sm">Yes</button>
+						<button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Close</button>
+					</form>
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 </th:block>
+
 
 
 
@@ -114,13 +140,25 @@
 </div>
 <br>
 
+<script>
+	window.addEventListener('DOMContentLoaded', (event) => {
+		document.querySelector('.modal-footer form').addEventListener('submit', function(e) {
+			e.preventDefault();  // prevent the form from being submitted immediately
+
+			var muscleImage = document.getElementById('muscleImage');
+			muscleImage.style.display = 'block';
+			muscleImage.src = "/img/greatjobYou.png";
+
+			muscleImage.style.transform = 'scale(1.2)';
+
+			// Submit the form after the animation
+			setTimeout(() => this.submit(), 500);
+		});
+	});
+</script>
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
 
-
-
 </body>
 </html>
-
-
