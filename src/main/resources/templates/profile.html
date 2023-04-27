@@ -23,15 +23,13 @@
 <div th:if="${!isWorkoutLoggedToday}" id="myModal" class="modal" tabindex="-1">
 	<div class="modal-dialog">
 		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" style="color:#5beb34;">Did you workout today?</h5>
-			</div>
 			<div class="modal-body">
-				<img src="/img/plankGirl.jpeg" class="card-img-top">
+				<h5 class="modal-title" style="color:#5beb34;">Did you workout today?</h5>
+				<br>
+				<img src="/img/plankGirl.jpeg" class="card-img-top" alt="plank">
 				<br>
 				<p>If not, even just 15 minutes of movement can improve mood and health.</p>
-			</div>
-			<div class="modal-footer">
+				<br>
 				<form th:action="@{/profile/workout}" th:method="post" class="card-body">
 					<button type="submit" class="btn btn-success btn-sm">Yes</button>
 					<button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Close</button>
@@ -46,11 +44,12 @@
 
 <div class="homeCards d-flex flex-row justify-content-around">
 	<div class="card" style="width: 32%;">
-		<img class="card-img-top pic" th:if="${user.photo != null}" th:src="@{${user.photo}}" />
+		<img class="card-img-top pic" th:if="${user.photo != null}" th:src="@{${user.photo}}"  alt="profilepic"/>
 		<div class="card-body">
 
 			<h5 th:text="${user.username}" style="color:#5beb34;">(insert username here)</h5>
 			<p class="card-text" th:text="${user.name}"></p>
+
 			<!--If logged in user, edit button-->
 			<form th:if="${isLoggedInUser}" th:action="@{|/profile/showFormForUpdate/${user.id}|}">
 				<button type="submit" class="btn btn-success btn-sm">Edit Profile</button>
@@ -67,24 +66,6 @@
 
 			<p th:text="${user.level}">(insert gender here)</p>
 
-
-		</div>
-
-	</div>
-
-	<div class="card" style="width: 60%;">
-		<!--MAYBE ADD A WORKOUT EQUIP PIC HERE? <img class="card-img-top" th:if="${user.photo != null}" th:src="@{${user.photosImagePath}}" />-->
-
-		<div class="card-body" style="text-align:left;">
-			<h5 style="color:#5beb34;">Workout Tracker</h5>
-			<div class="d-flex justify-content-center" id="cal-heatmap"></div>
-
-			<h5 style="color:#5beb34;">Gym</h5>
-			<p class="card-text" th:if="${user.gym != null}" th:text="${user.gym.name}">(insert gym name here)</p>
-
-			<h5 style="color:#5beb34;">Bio</h5>
-			<p class="card-text" th:text="${user.bio}">(insert bio here)</p>
-
 			<th:block th:if="${!user.getStyles().isEmpty()}">
 				<h5 style="color:#5beb34;">Workout Styles</h5>
 				<ul>
@@ -97,13 +78,36 @@
 					<li th:each="goal : ${user.getGoals()}" th:text="${goal.name}">Replace with style name</li>
 				</ul>
 			</th:block>
-<!--			This is a placeholder for displaying achievements, replace with badges-->
+
+
+		</div>
+
+	</div>
+
+	<div class="card" style="width: 60%;">
+
+		<br>
+		<div class="card-body" style="text-align:left;">
+			<!--<h5 style="color:#5beb34;">Workout Tracker</h5>-->
+			<div class="d-flex justify-content-center" id="cal-heatmap"></div>
+			<br>
+
+			<div class="d-flex flex-row justify-content-around flex-wrap">
 			<th:block th:if="${!user.getAchievements().isEmpty()}">
-				<h5 style="color:#5beb34;">Achievements</h5>
-				<ul>
-					<li th:each="achievement : ${user.getAchievements()}" th:text="${achievement.name}">Replace with achievement name</li>
-				</ul>
+				<!--<h5 style="color:#5beb34;">Achievements</h5>-->
+				<div th:each="achievement : ${user.getAchievements()}" class="achievs">
+					<img th:src="${achievement.badge}" alt="badges" />
+				</div>
 			</th:block>
+			</div>
+			<br>
+
+			<h5 style="color:#5beb34;">Gym</h5>
+			<p class="card-text" th:if="${user.gym != null}" th:text="${user.gym.name}">(insert gym name here)</p>
+
+			<h5 style="color:#5beb34;">Bio</h5>
+			<p class="card-text" th:text="${user.bio}">(insert bio here)</p>
+
 		</div>
 	</div>
 
@@ -113,8 +117,6 @@
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
-
-
 
 </body>
 </html>

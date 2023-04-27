@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>Chat with your fitness friends!</title>
 </head>
-<body class="h-100">
+<body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
 
 <!-- minified snippet to load TalkJS without delaying your page -->
@@ -26,16 +26,11 @@
     </div>
 </div>
 <br>
-
 <div class="homeCards d-flex flex-row justify-content-around" style="height: 90%;">
-
-            <br>
-
-            <div id="talkjs-container" style="width: 80%; margin: 30px; height: 80%">
-                <i>Loading chat...</i>
-            </div>
-
-
+    <br>
+    <div id="talkjs-container" style="width: 80%; margin: 30px; height: 80%">
+         <i>Loading chat...</i>
+    </div>
 </div>
 
 <th:block th:if="${friendToChat}">
@@ -44,8 +39,6 @@
     <div id="friendEmail" th:text="${friendToChat.email}" th:class="message-friend" style="display: none;"></div>
     <div id="friendPhoto" th:text="${friendToChat.photo}" th:class="message-friend" style="display: none;"></div>
 </th:block>
-
-
 
 
 <footer th:replace="~{partials :: footer}"></footer>

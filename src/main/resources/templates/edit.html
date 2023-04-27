@@ -4,24 +4,10 @@
 	<meta charset="UTF-8">
 	<title>Edit Your Profile</title>
 	<th:block th:replace="~{partials :: head}"></th:block>
-	<link th:rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
 	<script src="//static.filestackapi.com/filestack-js/3.x.x/filestack.min.js"></script>
-	<style>
-        #search-box {
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 3px;
-            font-size: 14px;
-            font-weight: 300;
-            margin-top: 10px;
-            outline: none;
-            padding: 12px 15px;
-        }
-	</style>
 </head>
-<body>
+<body class="h-100 d-flex flex-column">
 <nav th:replace="~{partials :: nav}"></nav>
-
 <br>
 <div class="title d-flex flex-row justify-content-around">
     <div class="card" style="width: 90%;">
@@ -31,32 +17,18 @@
     </div>
 </div>
 <br>
-
 <div class="homeCards d-flex flex-row justify-content-around">
     <div class="card" style="width: 80%;">
         <div id="map" style="margin-left:auto; margin-right:auto;"></div>
         <input id="search-box" class="controls" type="text" placeholder="Search by zipcode...">
-        <!--
-          The `defer` attribute causes the callback to execute after the full HTML
-          document has been parsed. For non-blocking uses, avoiding race conditions,
-          and consistent behavior across browsers, consider loading using Promises.
-          See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
-          for more information.
-          -->
         <div class="card-body d-flex flex-column justify-content-center">
             <p>Choose your home gym by selecting the gym icon and clicking the "Make this my home gym" button.</p>
             <div id="liveAlertPlaceholder"></div>
-
             <h5 class="card-title" style="color:#5beb34;">Change profile picture</h5>
             <button id="picture" class="btn btn-success btn-sm mx-auto" style="width: 35%;">Upload a profile photo</button>
             <input type="hidden" id="api" th:value="${fileApi}">
-
             <br>
-
             <h5 class="card-title" style="color:#5beb34;">Update your information</h5>
-
-
-
             <div class="">
                 <form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}"
                       enctype="multipart/form-data" style='width: 100%;' class="d-flex flex-column justify-content-center align-items-center">
@@ -65,7 +37,6 @@
                         <label class="w-50" for="name">Name</label>
                         <input class="w-50" id="name" th:field="*{name}"/>
                         <br>
-
 
                         <label class="w-50" for="username">Username</label>
                         <input class="w-50" id="username" th:field="*{username}"/>
@@ -96,7 +67,6 @@
                                     th:value="${level}" th:text="${level}"
                                     th:selected="${user.getLevel() == level}"></option>
                         </select>
-
                         <br>
 
                         <label class="w-50" for="bio">Bio</label>
@@ -140,7 +110,6 @@
 
 </div>
 <br>
-
 
 <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
 <script th:type="module" th:src="@{/js/editMap.js}"></script>

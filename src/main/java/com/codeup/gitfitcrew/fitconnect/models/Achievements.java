@@ -22,4 +22,7 @@ public class Achievements {
 
     @Column(length=255, nullable = true)
     private String description;
+
+    @Column(length = 1000, nullable = true)
+    private String badge;
 }

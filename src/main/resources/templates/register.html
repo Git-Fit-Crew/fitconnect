@@ -13,35 +13,14 @@
 <br>
 <br>
 
-<div th:if="${username != null}">
-    <p class="text-warning">[[${username}]]</p>
-</div>
-<div th:if="${userL != null}">
-    <p class="text-warning">[[${userL}]]</p>
-</div>
-<div th:if="${email != null}">
-    <p class="text-warning">[[${email}]]</p>
-</div>
-<div th:if="${uppercase != null}">
-    <p class="text-warning">[[${uppercase}]]</p>
-</div>
-<div th:if="${numbers != null}">
-    <p class="text-warning">[[${numbers}]]</p>
-</div>
-<div th:if="${special != null}">
-    <p class="text-warning">[[${special}]]</p>
-</div>
-<div th:if="${length != null}">
-    <p class="text-warning">[[${length}]]</p>
-</div>
+
 
 
 <div class="homeCards d-flex flex-row justify-content-around">
-<div class="card" style="width: 75%;">
+<div class="card" style="max-width: 50%;">
     <img class="card-img-top" src="/img/squatrackGuy.jpeg" alt="dude">
     <div class="card-body">
         <h5 class="card-title" style="color:#5beb34;">Register to connect with other fitness enthusiasts!</h5>
-
 
         <form th:action="@{/register}" method="POST" th:object="${user}" class="row g-3 needs-validation" novalidate>
             <div class="col-12">
@@ -82,6 +61,27 @@
                 <div class="invalid-feedback">
                     Please provide a valid zip.
                 </div>
+            </div>
+            <div th:if="${username != null}">
+                <p class="text-warning">[[${username}]]</p>
+            </div>
+            <div th:if="${userL != null}">
+                <p class="text-warning">[[${userL}]]</p>
+            </div>
+            <div th:if="${email != null}">
+                <p class="text-warning">[[${email}]]</p>
+            </div>
+            <div th:if="${uppercase != null}">
+                <p class="text-warning">[[${uppercase}]]</p>
+            </div>
+            <div th:if="${numbers != null}">
+                <p class="text-warning">[[${numbers}]]</p>
+            </div>
+            <div th:if="${special != null}">
+                <p class="text-warning">[[${special}]]</p>
+            </div>
+            <div th:if="${length != null}">
+                <p class="text-warning">[[${length}]]</p>
             </div>
             <div class="col-12">
                 <button class="btn btn-success" type="submit">Submit</button>
