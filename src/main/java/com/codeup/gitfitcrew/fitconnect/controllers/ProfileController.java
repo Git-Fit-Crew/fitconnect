@@ -151,7 +151,9 @@ public class ProfileController {
     public String saveUser(@PathVariable long id, @ModelAttribute("user") User user,
                            @RequestParam("styles") Optional<List<String>> styles,
                            @RequestParam("goals") Optional<List<String>> goals,
-                           @RequestParam("pic-url") String url) {
+                           @RequestParam("pic-url") String url,
+                           @RequestParam("beforePic-url") String beforeUrl,
+                           @RequestParam("progressPic-url") String progressUrl) {
 
         User originalUser = userDao.getUserById(id);
         Collection<Preferences> preferences = new ArrayList<>();
@@ -175,6 +177,8 @@ public class ProfileController {
         originalUser.setBio(user.getBio());
         originalUser.setPreferences(preferences);
         originalUser.setPhoto(url);
+        originalUser.setBeforePhoto(beforeUrl);
+        originalUser.setProgressPhoto(progressUrl);
 
 
         // save employee to database

@@ -36,6 +36,12 @@ public class User {
     @Column(length = 200, nullable = true)
     private String photo;
 
+    @Column(length = 200, nullable = true)
+    private String beforePhoto;
+
+    @Column(length = 200, nullable = true)
+    private String progressPhoto;
+
     @Column(length = 11, nullable = false)
     private Integer zipcode;
 
