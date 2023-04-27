@@ -326,7 +326,7 @@ function createMarker(place) {
         el.addEventListener("change", filterUsersList)
     });
 
-    resetFormButton.addEventListener("click", function () {
+resetFormButton.addEventListener("click", function () {
         document.getElementById("radius").disabled = false;
         isFilteringByGym = false;
         form.querySelectorAll("input, select").forEach(function (el) {
@@ -339,10 +339,18 @@ function createMarker(place) {
             document.querySelectorAll(".user-result").forEach((e) => e.classList.remove("d-none"));
         });
 
+ $('#level').prop('selectedIndex', 0);
+    $('#gender').prop('selectedIndex', 0);
+    $('#radius').prop('selectedIndex', 0);
+    $('.form-check-input').each(function () {
+            this.checked = false;
     });
-}
+
+});
 
 window.initMap = initMap;
+
+
 
 
 
