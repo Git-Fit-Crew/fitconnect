@@ -81,6 +81,7 @@ public class SecurityConfiguration {
                         "/css/fitStyle.css",
                         "/static/**",
                         "/img/**",
+                        "/img/badges/**",
                         "/js/**",
                         "/error",
                         "/gyms",
