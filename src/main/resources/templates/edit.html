@@ -26,6 +26,8 @@
             <div id="liveAlertPlaceholder"></div>
             <h5 class="card-title" style="color:#5beb34;">Change profile picture</h5>
             <button id="picture" class="btn btn-success btn-sm mx-auto" style="width: 35%;">Upload a profile photo</button>
+            <button id="beforePicture" class="btn btn-success btn-sm mx-auto" style="width: 35%;">Upload a before photo</button>
+            <button id="ProgressPicture" class="btn btn-success btn-sm mx-auto" style="width: 35%;">Upload a progress photo</button>
             <input type="hidden" id="api" th:value="${fileApi}">
             <br>
             <h5 class="card-title" style="color:#5beb34;">Update your information</h5>
@@ -101,6 +103,8 @@
                     </div>
 
                     <input type="hidden" th:name="pic-url" th:value="${user.photo}" id="pic-url">
+                    <input type="hidden" th:name="beforePic-url" th:value="${user.photo}" id="beforePic-url">
+                    <input type="hidden" th:name="progressPic-url" th:value="${user.photo}" id="progressPic-url">
                     <input value="Update" type="submit" class="btn btn-success" style="width: 60%;"/>
 
                 </form>
@@ -125,6 +129,28 @@
         const options = {
             onFileUploadFinished(file) {
                 inputForPhotoUrl.value = file.url
+            }
+        }
+
+        client.picker(options).open();
+    })
+    const inputForBeforePhotoUrl = document.getElementById("beforePic-url")
+    document.getElementById("beforePicture").addEventListener("click", function () {
+        const client = filestack.init(fileApi);
+        const options = {
+            onFileUploadFinished(file) {
+               inputForBeforePhotoUrl.value = file.url
+            }
+        }
+
+        client.picker(options).open();
+    })
+    const inputForProgressPhotoUrl = document.getElementById("progressPic-url")
+    document.getElementById("ProgressPicture").addEventListener("click", function () {
+        const client = filestack.init(fileApi);
+        const options = {
+            onFileUploadFinished(file) {
+                inputForProgressPhotoUrl.value = file.url
             }
         }
 

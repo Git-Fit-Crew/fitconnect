@@ -110,6 +110,10 @@
 			<h5 style="color:#5beb34;">Bio</h5>
 			<p class="card-text" th:text="${user.bio}">(insert bio here)</p>
 
+			<br>
+
+			<img th:if="${user.beforePhoto != null}" th:src="@{${user.beforePhoto}}">
+			<img th:if="${user.progressPhoto != null}" th:src="@{${user.progressPhoto}}">
 		</div>
 	</div>
 
