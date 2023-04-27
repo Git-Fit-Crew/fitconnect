@@ -4,7 +4,31 @@
 	<th:block th:replace="~{partials :: head}"></th:block>
 	<meta charset="UTF-8">
 	<title>Profile</title>
+	<style>
+		#muscleImage {
+			width: 50%;
+			height: auto;
+			display: none;
+			margin: 0 auto;
+			object-fit: cover; // or object-fit: contain;
+			transition: transform 10.5s ease-in-out;
 
+
+		}
+
+		#muscleImage {
+			animation: bounce 0.5s infinite alternate;
+		}
+
+		@keyframes bounce {
+			from {
+				transform: translateY(0);
+			}
+			to {
+				transform: translateY(-5px);
+			}
+		}
+	</style>
 </head>
 <body class="h-100 d-flex flex-column">
 <input th:id="user-id" th:type="hidden" th:value="${user.id}">
@@ -27,6 +51,7 @@
 				<h5 class="modal-title" style="color:#5beb34;">Did you workout today?</h5>
 				<br>
 				<img src="/img/plankGirl.jpeg" class="card-img-top" alt="plank">
+                <img id="muscleImage" src="/img/greatjobYou.png" alt="muscle">
 				<br>
 				<p>If not, even just 15 minutes of movement can improve mood and health.</p>
 				<br>
@@ -39,6 +64,7 @@
 	</div>
 </div>
 </th:block>
+
 
 
 
@@ -163,11 +189,25 @@
 </div>
 <br>
 
+<script>
+	window.addEventListener('DOMContentLoaded', (event) => {
+		document.querySelector('.modal-footer form').addEventListener('submit', function(e) {
+			e.preventDefault();  // prevent the form from being submitted immediately
+
+			var muscleImage = document.getElementById('muscleImage');
+			muscleImage.style.display = 'block';
+			muscleImage.src = "/img/greatjobYou.png";
+
+			muscleImage.style.transform = 'scale(1.2)';
+
+			// Submit the form after the animation
+			setTimeout(() => this.submit(), 500);
+		});
+	});
+</script>
 
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
 
 </body>
 </html>
-
-
