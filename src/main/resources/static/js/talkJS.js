@@ -6,8 +6,7 @@ const me = new Talk.User({
 	id: loggedInUser.id,
 	name: loggedInUser.username,
 	email: loggedInUser.email,
-	photoUrl: 'https://talkjs.com/images/avatar-1.jpg',
-	welcomeMessage: 'Hey there! How are you? :-)',
+	photoUrl: loggedInUser.photo,
 });
 const session = new Talk.Session({
 	appId: appId,
@@ -20,7 +19,7 @@ for (const friend of friends) {
 			id: friend.id,
 			name: friend.username,
 			email: friend.email,
-			photoUrl: 'https://talkjs.com/images/avatar-5.jpg',
+			photoUrl: friend.photo,
 		})
 	);
 }
