@@ -18,6 +18,7 @@ public class UserDto {
     private String password;
     private Gender gender;
     private Level level;
+    private String photo;
     private int zipcode;
 
     public UserDto(User copy) {
@@ -29,6 +30,7 @@ public class UserDto {
         zipcode = copy.getZipcode();
         gender = copy.getGender();
         level = copy.getLevel();
+        photo = copy.getPhoto();
     }
     public static List<UserDto> getUserDtoListFromUsers(List<User> users) {
         List<UserDto> userDtos = new ArrayList<>();
