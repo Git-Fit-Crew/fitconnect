@@ -31,7 +31,7 @@ let homeGymMarker = null;
          center: defaultCenter,
          zoom: 12,
          minZoom: 9,
-         maxZoom: 12,
+         maxZoom: 13,
          styles: [
              {elementType: "geometry", stylers: [{color: "#242f3e"}]},
              {elementType: "labels.text.stroke", stylers: [{color: "#242f3e"}]},
