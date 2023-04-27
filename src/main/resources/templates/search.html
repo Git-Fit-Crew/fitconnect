@@ -47,7 +47,7 @@
             <h5 class="card-title" style="color:#5beb34;">Refine search results</h5>
             <br>
             <form th:action="@{/search}" method="get" id="search-form">
-                <input type="hidden" th:value="${zipcode}" th:name="zipcode">
+                <input th:id="zipcode" type="hidden" th:value="${zipcode}" th:name="zipcode">
                 <select name="radius" id="radius">
                     <option value="50" selected="selected">Radius</option>
                     <option value="5">5</option>
