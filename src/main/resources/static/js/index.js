@@ -288,7 +288,7 @@ function createMarker(place) {
         });
     });
 
-// }
+}
 
     function getFilterParams(elements) {
         const params = new URLSearchParams();
@@ -348,7 +348,7 @@ function createMarker(place) {
         el.addEventListener("change", filterUsersList)
     });
 
-resetFormButton.addEventListener("click", function () {
+    resetFormButton.addEventListener("click", function () {
         document.getElementById("radius").disabled = false;
         isFilteringByGym = false;
         form.querySelectorAll("input, select").forEach(function (el) {
