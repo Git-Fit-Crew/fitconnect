@@ -138,7 +138,7 @@ public class UserController {
     private User getLoggedInUser() {
         Object loggedInUser = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (loggedInUser instanceof User) {
-            return (User) loggedInUser;
+            return userDao.getUserById(((User) loggedInUser).getId());
         } else {
             return null;
         }
