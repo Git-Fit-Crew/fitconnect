@@ -370,6 +370,7 @@ function createMarker(place) {
 
 });
 
+
 window.initMap = initMap;
 
 

@@ -64,11 +64,11 @@
 			<!--<p th:text="${user.zipcode}">(insert zipcode here)</p>-->
 			<p th:text="${user.gender}">(insert gender here)</p>
 
-			<p th:text="${user.level}">(insert gender here)</p>
+			<p th:text="${user.level}">(insert level here)</p>
 
 			<th:block th:if="${!user.getStyles().isEmpty()}">
 				<h5 style="color:#5beb34;">Workout Styles</h5>
-				<ul class="nobull">
+				<ul class="nobull align-self-center">
 					<li th:each="style : ${user.getStyles()}" th:text="${style.name}">Replace with style name</li>
 				</ul>
 			</th:block>

@@ -42,7 +42,8 @@ public class User {
     @Column(length = 200, nullable = true)
     private String progressPhoto;
 
-    @Column(length = 11, nullable = false)
+    @Column(length = 5, nullable = false)
+
     private Integer zipcode;
 
     @Enumerated(EnumType.STRING)
