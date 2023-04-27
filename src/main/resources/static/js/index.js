@@ -11,6 +11,7 @@ let isFilteringByGym = false;
 async function initMap() {
     const loggedInUser = await fetch("/loggedInUser").then(response => response.json())
     const google_maps_api = await fetch("/keys").then(response => response.json()).then(response => response.googleMapApi)
+    const geocoder = new google.maps.Geocoder();
 
     let defaultCenter;
 
@@ -133,6 +134,27 @@ async function initMap() {
 
     searchBox.addListener("places_changed", () => {
         const places = searchBox.getPlaces();
+        geocoder.geocode({ "placeId": places[0].place_id}, function (result, status) {
+            console.log(result);
+            let place = result[0];
+            if (status !== "OK") {
+                console.log("Geocode failed with status: " + status);
+                return
+            }
+            if (place.address_components.length === 0 && !place.types.includes("postal_code")) {
+               console.log("Place does not have address components or is not a postal code");
+               return
+            }
+            const components = place.address_components;
+            for (let i = 0; i < components.length; i++) {
+                if (components[i].types.indexOf("postal_code") !== -1) {
+                    document.querySelector("#zipcode").value = components[i].short_name;
+                    filterUsersList();
+                    return;
+                }
+            }
+        })
+
 
         if (places.length === 0) {
             return;
