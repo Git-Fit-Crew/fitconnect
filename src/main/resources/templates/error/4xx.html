@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<th:block th:replace="~{partials :: head}"></th:block>
+	<meta charset="UTF-8">
+	<title th:text="${error}"></title>
+</head>
+<body class="h-100 d-flex flex-column">
+<nav th:replace="~{partials :: nav}"></nav>
+<div class="text-center mt-5">
+	<th:block th:switch="${error}">
+		<div th:case="'Not Found'">
+			<h1>Page not found!</h1>
+		</div>
+		<div th:case="'Forbidden'">
+			<h1>You don't have permission to view this page.</h1>
+		</div>
+		<div th:case="*">
+			<h1 th:text="'Error: ' + ${error}">Default error</h1>
+		</div>
+	</th:block>
+</div>
+<footer th:replace="~{partials :: footer}"></footer>
+<th:block th:replace="~{partials :: scripts}"></th:block>
+</body>
+</html>
