@@ -129,5 +129,18 @@ a:hover {
 
 .nobull {
     list-style-type: none;
-    text-align: left;
+    align-self: center;
+    padding: 0;
+}
+
+.progPics {
+    width: 90%;
+    align-self: center;
+}
+
+.friends {
+    overflow: hidden;
+    overflow-y: scroll;
+    /*height: 970px;*/
+
 }

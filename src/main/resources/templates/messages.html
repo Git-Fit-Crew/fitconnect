@@ -25,13 +25,17 @@
         </div>
     </div>
 </div>
-<br>
-<div class="homeCards d-flex flex-row justify-content-around" style="height: 90%;">
+<div class="homeCards d-flex flex-row justify-content-around" style="height: 100%;">
     <br>
-    <div id="talkjs-container" style="width: 80%; margin: 30px; height: 80%">
+    <div id="talkjs-container" style="width: 90%; margin: 30px; height: 100%">
          <i>Loading chat...</i>
     </div>
+    <br>
+
 </div>
+<br>
+<br>
+
 
 <th:block th:if="${friendToChat}">
     <div id="friendId" th:text="${friendToChat.id}" th:class="message-friend" style="display: none;"></div>
