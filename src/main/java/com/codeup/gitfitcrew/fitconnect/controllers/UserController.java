@@ -134,6 +134,9 @@ public class UserController {
         userDao.findById(id).ifPresent(user -> user.getWorkouts().forEach(
                 workout -> workoutDatesInEpochSeconds.add(workout.getWorkoutDate().atStartOfDay().toInstant(ZoneOffset.of(ZoneId.systemDefault().getRules().getOffset(Instant.now()).getId())).getEpochSecond())
         ));
+        System.out.println("ZoneOffset ID: " + ZoneOffset.of(ZoneId.systemDefault().getRules().getOffset(Instant.now()).getId()));
+        System.out.println("ZoneId.systemDefault().getId() = " + ZoneId.systemDefault().getId());
+        System.out.println("workoutDatesInEpochSeconds = " + workoutDatesInEpochSeconds);
         return gson.toJson(workoutDatesInEpochSeconds);
     }
 
