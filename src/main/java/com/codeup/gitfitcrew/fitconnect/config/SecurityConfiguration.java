@@ -63,8 +63,8 @@ public class SecurityConfiguration {
                         "/profile/showFormForUpdate/{id}",
                         "/search/byGym/{id}",
                         "/filter",
-                        "/messages/{id}"
-
+                        "/messages/{id}",
+                        "/workout"
 
 
 
@@ -88,7 +88,7 @@ public class SecurityConfiguration {
                         "/about",
                         "/forgot_password",
                         "/reset_password",
-                        "/workouts/{id}")
+                        "/workout/{id}")
                 .permitAll()
 
         ;

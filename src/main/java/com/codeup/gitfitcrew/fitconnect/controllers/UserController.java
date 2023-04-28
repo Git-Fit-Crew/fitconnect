@@ -4,7 +4,6 @@ import com.codeup.gitfitcrew.fitconnect.models.*;
 import com.codeup.gitfitcrew.fitconnect.repositories.UserRepository;
 import com.codeup.gitfitcrew.fitconnect.services.FriendService;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
 import lombok.RequiredArgsConstructor;
@@ -18,10 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.time.ZoneOffset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -122,22 +117,6 @@ public class UserController {
         Gson gson = new Gson();
         List<UserDto> friends = UserDto.getUserDtoListFromUsers(friendService.getFriends());
         return gson.toJson(friends);
-    }
-
-    @GetMapping(value = "/workouts/{id}", produces = "application/json")
-    @ResponseBody
-    public String getWorkoutsByUserIdJSON(@PathVariable Long id) {
-        Gson gson = new GsonBuilder()
-                .excludeFieldsWithoutExposeAnnotation()
-                .create();
-        List<Long> workoutDatesInEpochSeconds = new ArrayList<>();
-        userDao.findById(id).ifPresent(user -> user.getWorkouts().forEach(
-                workout -> workoutDatesInEpochSeconds.add(workout.getWorkoutDate().atStartOfDay().toInstant(ZoneOffset.of(ZoneId.systemDefault().getRules().getOffset(Instant.now()).getId())).getEpochSecond())
-        ));
-        System.out.println("ZoneOffset ID: " + ZoneOffset.of(ZoneId.systemDefault().getRules().getOffset(Instant.now()).getId()));
-        System.out.println("ZoneId.systemDefault().getId() = " + ZoneId.systemDefault().getId());
-        System.out.println("workoutDatesInEpochSeconds = " + workoutDatesInEpochSeconds);
-        return gson.toJson(workoutDatesInEpochSeconds);
     }
 
     private User getLoggedInUser() {

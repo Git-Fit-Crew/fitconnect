@@ -185,14 +185,4 @@ public class ProfileController {
         userDao.save(originalUser);
         return "redirect:/profile";
     }
-
-    @PostMapping("/workout")
-    public String logWorkout() {
-        User loggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        User user = userDao.getUserById(loggedInUser.getId());
-        if (!workoutService.didUserLogWorkoutForToday(user)) {
-            workoutService.logCurrentDateToUserWorkouts(user);
-        }
-        return "redirect:/profile";
-    }
 }
