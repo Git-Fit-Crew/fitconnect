@@ -14,7 +14,7 @@ function displayLoadingSpinner(shouldDisplay) {
 
 async function getUserWorkouts() {
 	displayLoadingSpinner(true);
-	const workouts = await fetch("/workouts/" + userId).then(res => res.json());
+	const workouts = await fetch("/workout/" + userId).then(res => res.json());
 	let data = {};
 	workouts.forEach(function (e) {
 		data[`${e}`] = 1;
