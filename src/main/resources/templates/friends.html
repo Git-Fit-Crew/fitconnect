@@ -26,7 +26,7 @@
         <br>
         <h5 class="card-title" style="color:#5beb34;">Friend Requests</h5>
         <br>
-        <div class="card-body">
+        <div class="card-body friends">
             <img class="profilePic" th:src="${request.photo}" alt="profilepic">
             <a th:href="@{/profile/{id}(id=${request.id})}"><h4
                     data-bs-toggle="tooltip"
@@ -50,7 +50,7 @@
     <div class="card" style="width: 60%;">
         <img class="card-img-top" src="/img/5empty.jpeg" alt="girl" style="max-height: 207px">
         <br>
-        <div class="card-body">
+        <div class="card-body friends">
             <h5 class="card-title" style="color:#5beb34;">Friends</h5>
             <!--friends list-->
             <div class="card d-flex flex-row" style="width: 100%;" th:each="friend : ${friends}">

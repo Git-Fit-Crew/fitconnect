@@ -74,7 +74,7 @@
 			</th:block>
 			<th:block th:if="${!user.getGoals().isEmpty()}">
 				<h5 style="color:#5beb34;">Workout Goals</h5>
-				<ul class="nobull">
+				<ul class="nobull d-flex flex-column justify-content-center alight-items-center">
 					<li th:each="goal : ${user.getGoals()}" th:text="${goal.name}">Replace with style name</li>
 				</ul>
 			</th:block>
@@ -88,6 +88,8 @@
 
 		<br>
 		<div class="card-body" style="text-align:left;">
+			<h5 style="color:#5beb34;">Workout Tracker</h5>
+
 			<!--<h5 style="color:#5beb34;">Workout Tracker</h5>-->
 			<div id="calendar-spinner" class="d-flex justify-content-center my-3 d-none">
 				<div class="spinner-border" role="status">
@@ -96,10 +98,10 @@
 			</div>
 			<div class="d-flex justify-content-center" id="cal-heatmap"></div>
 			<br>
-
+			<h5 style="color:#5beb34;">Achievements</h5>
 			<div class="d-flex flex-row justify-content-around flex-wrap">
 			<th:block th:if="${!user.getAchievements().isEmpty()}">
-				<!--<h5 style="color:#5beb34;">Achievements</h5>-->
+
 				<div th:each="achievement : ${user.getAchievements()}" class="achievs">
 					<img th:src="${achievement.badge}" alt="badges" data-bs-toggle="tooltip"
 						 data-bs-placement="bottom"
@@ -116,11 +118,19 @@
 			<p class="card-text" th:text="${user.bio}">(insert bio here)</p>
 
 			<br>
-
-			<img th:if="${user.beforePhoto != null}" th:src="@{${user.beforePhoto}}">
-			<img th:if="${user.progressPhoto != null}" th:src="@{${user.progressPhoto}}">
+	<div class="d-flex flex-row justify-content-around" style="width: 100%">
+		<div class="d-flex flex-column align-items-center">
+			<h5 style="color:#5beb34;">Before Photo</h5>
+			<img th:if="${user.beforePhoto != null}" th:src="@{${user.beforePhoto}}" class="progPics">
+		</div>
+		<div class="d-flex flex-column align-items-center">
+			<h5 style="color:#5beb34;">Progress Photo</h5>
+			<img th:if="${user.progressPhoto != null}" th:src="@{${user.progressPhoto}}" class="progPics">
 		</div>
 	</div>
+		</div>
+	</div>
+
 
 </div>
 <br>
