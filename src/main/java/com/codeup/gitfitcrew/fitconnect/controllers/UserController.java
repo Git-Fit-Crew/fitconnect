@@ -18,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.UnsupportedEncodingException;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.util.ArrayList;
 import java.util.List;
@@ -130,7 +132,7 @@ public class UserController {
                 .create();
         List<Long> workoutDatesInEpochSeconds = new ArrayList<>();
         userDao.findById(id).ifPresent(user -> user.getWorkouts().forEach(
-                workout -> workoutDatesInEpochSeconds.add(workout.getWorkoutDate().atStartOfDay().toInstant(ZoneOffset.UTC).getEpochSecond())
+                workout -> workoutDatesInEpochSeconds.add(workout.getWorkoutDate().atStartOfDay().toInstant(ZoneOffset.of(ZoneId.systemDefault().getRules().getOffset(Instant.now()).getId())).getEpochSecond())
         ));
         return gson.toJson(workoutDatesInEpochSeconds);
     }
