@@ -106,6 +106,13 @@ body {
     background-color: #5beb34 !important;
     /*border-color: black;*/
     color: black;
+    font-weight: bold
+}
+
+.btn-login {
+    height: 60px; /* Adjust this value to make the Login button shorter than the Register now! button */
+    width: 150px; /* Adjust this value to the desired button width */
+    font-weight: bold;
 }
 
 a {
