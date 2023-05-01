@@ -39,43 +39,49 @@
                 <form th:action="@{|/profile/showFormForUpdate/${user.id}|}" method="POST" th:object="${user}"
                       enctype="multipart/form-data" style='width: 100%;' class="d-flex flex-column justify-content-center align-items-center">
 
-                    <div class="text-center" style="width: 100%">
-                        <label class="w-50" for="name">Name</label>
+                    <div style="width: 100%">
+                        <label style="color:#5beb34;" class="w-50 text-start" for="name">Name</label>
                         <input class="w-50" id="name" th:field="*{name}"/>
                         <br>
+                        <br>
 
-                        <label class="w-50" for="username">Username</label>
+                        <label style="color:#5beb34;" class="w-50 text-start" for="username">Username</label>
                         <input class="w-50" id="username" th:field="*{username}"/>
                         <br>
+                        <br>
 
-                        <label class="w-50" for="email">Email</label>
+                        <label style="color:#5beb34;" class="w-50 text-start" for="email">Email</label>
                         <input class="w-50" id="email" th:field="*{email}"/>
                         <br>
-
-                        <label class="w-50" for="zipcode">Zip Code</label>
-                        <input class="w-50" id="zipcode" th:field="*{zipcode}"/>
                         <br>
 
-                        <label hidden for="password">Password</label>
-                        <input hidden id="password" th:field="*{password}"/>
+                        <label style="color:#5beb34;" class="w-50 text-start" for="zipcode">Zip Code</label>
+                        <input class="w-50" id="zipcode" th:field="*{zipcode}"/>
 
-                        <label class="w-50" for="gender">Gender</label>
+                        <label style="color:#5beb34;" class="text-start" hidden for="password">Password</label>
+                        <input hidden id="password" th:field="*{password}"/>
+                        <br>
+                        <br>
+
+                        <label style="color:#5beb34;" class="w-50 text-start" for="gender">Gender</label>
                         <select class="w-50" id="gender" name="gender">
                             <option th:each="gender : ${T(com.codeup.gitfitcrew.fitconnect.models.Gender).values()}"
                                     th:value="${gender}" th:text="${gender}"
                                     th:selected="${user.getGender() == gender}"></option>
                         </select>
                         <br>
+                        <br>
 
-                        <label class="w-50" for="level">Experience Level</label>
+                        <label style="color:#5beb34;" class="w-50 text-start" for="level">Experience Level</label>
                         <select class="w-50" id="level" name="level">
                             <option th:each="level : ${T(com.codeup.gitfitcrew.fitconnect.models.Level).values()}"
                                     th:value="${level}" th:text="${level}"
                                     th:selected="${user.getLevel() == level}"></option>
                         </select>
                         <br>
+                        <br>
 
-                        <label class="w-50" for="bio">Bio</label>
+                        <label style="color:#5beb34;" class="w-50 text-start" for="bio">Bio</label>
                         <textarea class="w-50" id="bio" rows="10" th:field="*{bio}"></textarea>
                     </div>
                     <div>
