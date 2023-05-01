@@ -26,7 +26,14 @@ public class WorkoutService {
 
     public boolean didUserLogWorkoutForToday(User user) {
         Collection<Workout> workouts = user.getWorkouts();
+        System.out.println(workouts.size());
+
+        System.out.println("DATE" + LocalDate.now());
         for (Workout workout : workouts) {
+            if(workout.getWorkoutDate().equals("2023-05-01")){
+                System.out.println(workout);
+            }
+
             if (LocalDate.now().isEqual(workout.getWorkoutDate())) {
                 return true;
             }

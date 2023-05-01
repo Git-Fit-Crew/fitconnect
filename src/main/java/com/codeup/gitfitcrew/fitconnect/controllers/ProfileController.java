@@ -11,6 +11,7 @@ import com.codeup.gitfitcrew.fitconnect.services.FriendService;
 import com.codeup.gitfitcrew.fitconnect.services.WorkoutService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ReactiveAdapterRegistry;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,8 +51,11 @@ public class ProfileController {
         achievementService.checkAndSetAchievements(user);
 
         model.addAttribute("user", user);
+        System.out.println(user);
         model.addAttribute("isLoggedInUser", true);
         model.addAttribute("isWorkoutLoggedToday", workoutService.didUserLogWorkoutForToday(user));
+        System.out.println(workoutService.didUserLogWorkoutForToday(user));
+
         model.addAttribute("isFriend", false);
         return "profile";
 
