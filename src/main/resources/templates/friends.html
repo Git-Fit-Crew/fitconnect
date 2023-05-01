@@ -22,7 +22,7 @@
 <div class="homeCards d-flex flex-row justify-content-around">
     <!--request list style="max-height: 200px"-->
     <div class="card" style="width: 40%;">
-        <img class="card-img-top" src="/img/2dums.jpeg" alt="girl" >
+        <img class="card-img-top" src="/img/friendTop.jpg" alt="girl">
         <br>
         <h5 class="card-title" style="color:#5beb34;">Friend Requests</h5>
         <br>
@@ -48,14 +48,17 @@
     </div>
 
     <div class="card" style="width: 55%;">
-        <img class="card-img-top" src="/img/5empty.jpeg" alt="girl">
+        <img class="card-img-top" src="/img/friends2.jpeg" alt="girl">
+        <br>
+        <h5 class="card-title" style="color:#5beb34;">Friends</h5>
         <br>
         <div class="card-body friends">
-            <h5 class="card-title" style="color:#5beb34;">Friends</h5>
             <!--friends list-->
-            <div class="card d-flex flex-row" style="width: 100%;" th:each="friend : ${friends}">
-                <img class="profilePic" th:src="${friend.photo}" alt="profilepic">
-                <div class="card-body d-flex flex-column justify-content-center">
+            <div class="card border-secondary m-2 col-4 d-flex"
+                 th:each="friend : ${friends}">
+
+                <div class="card-body friends">
+                    <img class="profilePic" th:src="${friend.photo}" alt="profilepic">
                     <a th:href="@{/profile/{id}(id=${friend.id})}"><h4
                             data-bs-toggle="tooltip"
                             data-bs-placement="top"
@@ -73,15 +76,14 @@
                         </button>
                     </a>
                 </div>
-                <hr>
             </div>
+
         </div>
     </div>
 
 </div>
 
 <br>
-
 
 
 <footer th:replace="~{partials :: footer}"></footer>
