@@ -11,7 +11,7 @@
 
 <br>
 <div class="title d-flex flex-row justify-content-around">
-    <div class="card" style="width: 90%;">
+    <div class="card" style="width: auto;">
         <div class="card-body">
             <h1 style="text-align:center; color:#5beb34;">Fitness Connections</h1>
         </div>
@@ -20,13 +20,13 @@
 <br>
 
 <div class="homeCards d-flex flex-row justify-content-around">
-    <!--request list-->
-    <div class="card" style="width: 35%;" th:each="request : ${requests}">
-        <img class="card-img-top" src="/img/2dums.jpeg" alt="girl">
+    <!--request list style="max-height: 200px"-->
+    <div class="card" style="width: 40%;">
+        <img class="card-img-top" src="/img/2dums.jpeg" alt="girl" >
         <br>
         <h5 class="card-title" style="color:#5beb34;">Friend Requests</h5>
         <br>
-        <div class="card-body friends">
+        <div class="card-body friends" th:each="request : ${requests}">
             <img class="profilePic" th:src="${request.photo}" alt="profilepic">
             <a th:href="@{/profile/{id}(id=${request.id})}"><h4
                     data-bs-toggle="tooltip"
@@ -47,8 +47,8 @@
         </div>
     </div>
 
-    <div class="card" style="width: 60%;">
-        <img class="card-img-top" src="/img/5empty.jpeg" alt="girl" style="max-height: 207px">
+    <div class="card" style="width: 55%;">
+        <img class="card-img-top" src="/img/5empty.jpeg" alt="girl">
         <br>
         <div class="card-body friends">
             <h5 class="card-title" style="color:#5beb34;">Friends</h5>
