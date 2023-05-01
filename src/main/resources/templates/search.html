@@ -100,8 +100,8 @@
                 <br>
 
                 <div class="d-flex flex-row justify-content-center">
-                    <button type="submit" class="btn btn-success btn-sm mx-4">Refine</button>
-                    <button type="button" id="reset-form" class="btn btn-success btn-sm mx-4">Reset</button>
+                    <button type="submit" class="btn btn-success btn-lg mx-4">Refine</button>
+                    <button type="button" id="reset-form" class="btn btn-success btn-lg mx-4">Reset</button>
                 </div>
             </form>
 
@@ -133,7 +133,7 @@
                         <p class="card-title" th:text="${result.gender}"></p>
                         <p class="card-title" th:text="${result.level}"></p>
 
-                        <a th:href="@{/profile/{id}(id=${result.id})}" class="btn btn-success btn-sm">View Profile</a>
+                        <a th:href="@{/profile/{id}(id=${result.id})}" class="btn btn-success btn-lg">View Profile</a>
                     </div>
                     <hr>
                 </div>

@@ -27,7 +27,7 @@
         <h5 class="card-title" style="color:#5beb34;">Friend Requests</h5>
         <br>
         <div class="card-body friends" th:each="request : ${requests}">
-            <img class="profilePic" th:src="${request.photo}" alt="profilepic">
+            <img class="card-img-top profilePic" th:src="${request.photo}" alt="profilepic">
             <a th:href="@{/profile/{id}(id=${request.id})}"><h4
                     data-bs-toggle="tooltip"
                     data-bs-placement="top"
@@ -36,12 +36,12 @@
             <a th:href="@{/friends/{id}/accept(id=${request.id})}"
                data-bs-toggle="tooltip"
                data-bs-placement="top"
-               title="Accept Request" class="btn btn-success btn-sm"><i
+               title="Accept Request" class="btn btn-success btn-lg"><i
                     class="fa-solid fa-square-check"></i></a>
             <a th:href="@{/friends/{id}/deny(id=${request.id})}"
                data-bs-toggle="tooltip"
                data-bs-placement="top"
-               title="Deny Request" class="btn btn-success btn-sm"><i
+               title="Deny Request" class="btn btn-success btn-lg"><i
                     class="fa-solid fa-rectangle-xmark"></i></a>
             <hr>
         </div>
@@ -52,13 +52,14 @@
         <br>
         <h5 class="card-title" style="color:#5beb34;">Friends</h5>
         <br>
-        <div class="card-body friends">
+        <div class="card-body friends d-flex justify-content-around flex-wrap">
             <!--friends list-->
-            <div class="card border-secondary m-2 col-4 d-flex"
+            <div class="card m-2 col-5"
                  th:each="friend : ${friends}">
+                <img class="card-img-top" style="height: 50%; width: auto;" th:src="${friend.photo}" alt="profilepic">
 
                 <div class="card-body friends">
-                    <img class="profilePic" th:src="${friend.photo}" alt="profilepic">
+
                     <a th:href="@{/profile/{id}(id=${friend.id})}"><h4
                             data-bs-toggle="tooltip"
                             data-bs-placement="top"
@@ -68,7 +69,7 @@
                     <p class="card-title" th:text="${friend.level}"></p>
 
                     <a th:href="@{/messages/{id}(id=${friend.id})}">
-                        <button class="btn btn-success btn-sm"
+                        <button class="btn btn-success btn-lg"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
                                 title="Chat">
@@ -77,7 +78,7 @@
                     </a>
                 </div>
             </div>
-
+<br>
         </div>
     </div>
 
