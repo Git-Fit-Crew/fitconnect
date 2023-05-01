@@ -264,7 +264,7 @@ function createMarker(place) {
                         <tr>
                             <td>${place.vicinity}</td>
                             <td>${place.rating}</td>
-                            <td>${hours}</td>
+                            <td class="text-start">${hours}</td>
                         </tr>
                     </tbody>
                 </table>
