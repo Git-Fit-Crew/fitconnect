@@ -24,7 +24,7 @@ public class FriendsController {
     }
 
     @GetMapping("/friends")
-    public String showFriendsPage(Model model){
+    public String showFriendsPage(Model model) {
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User currentUser = userDao.getUserById(user.getId());
         if (currentUser == null) {
@@ -43,7 +43,7 @@ public class FriendsController {
     }
 
     @GetMapping("/friends/{id}/accept")
-    public String acceptFriend(@PathVariable long id){
+    public String acceptFriend(@PathVariable long id) {
 
         User firstUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User secondUser = userDao.findById(id);
@@ -54,7 +54,7 @@ public class FriendsController {
     }
 
     @GetMapping("/friends/{id}/deny")
-    public String denyFriend(@PathVariable long id){
+    public String denyFriend(@PathVariable long id) {
 
         User firstUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         User secondUser = userDao.findById(id);
