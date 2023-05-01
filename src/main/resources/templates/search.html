@@ -133,9 +133,7 @@
                         <p class="card-title" th:text="${result.gender}"></p>
                         <p class="card-title" th:text="${result.level}"></p>
 
-                        <a th:href="@{/profile/{id}/request(id=${result.id})}" class="btn btn-success btn-sm">Send
-                            friend
-                            request!</a>
+                        <a th:href="@{/profile/{id}(id=${result.id})}" class="btn btn-success btn-sm">View Profile</a>
                     </div>
                     <hr>
                 </div>
