@@ -35,3 +35,23 @@ body {
     height: auto;
 }
 
+/*For the google maps popup gym info*/
+.gm-ui-hover-effect > span {
+    background-color: white !important;
+}
+
+.gm-style-iw-c {
+    background-color: black !important;
+}
+
+.gm-style .gm-style-iw-d::-webkit-scrollbar-track, .gm-style .gm-style-iw-d::-webkit-scrollbar-track-piece {
+    background-color: black !important;
+}
+
+.gm-style-iw-tc::after {
+    background-color: black !important;
+}
+
+.gm-style .gm-style-iw-c .gm-style-iw-d::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.5);
+}
