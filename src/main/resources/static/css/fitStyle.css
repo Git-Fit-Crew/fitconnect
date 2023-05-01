@@ -104,9 +104,17 @@ body {
 
 .btn-success {
     background-color: #5beb34 !important;
-    /*border-color: black;*/
     color: black;
-    font-weight: bold
+    font-weight: bold;
+
+}
+.btn-success:hover {
+    box-shadow:
+            1.2px 1.1px 4px rgba(243, 236, 236, 0.65),
+            3.3px 3.1px 11px rgba(201, 196, 196, 0.45),
+            7.8px 7.5px 26.5px rgba(136, 132, 132, 0.37),
+            26px 25px 88px rgba(51, 49, 49, 0.3)
+;
 }
 
 .btn-login {
