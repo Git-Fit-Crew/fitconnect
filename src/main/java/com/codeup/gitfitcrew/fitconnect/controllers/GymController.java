@@ -40,6 +40,15 @@ public class GymController {
             gymRepository.save(gym);
             user.setGym(gym);
             userDao.save(user);
+        } else if (gymRepository.getGymByAddress(address) != null && gymRepository.getGymByName(name) == null) {
+            List<User> users = gym.getUsers();
+            gym.setName(name);
+            users.add(user);
+            gym.setUsers(users);
+            gymRepository.save(gym);
+            user.setGym(gym);
+            userDao.save(user);
+
         } else {
             // If the user hasn't clicked the gym, add them to the gym's user list
             List<User> users = gym.getUsers();
