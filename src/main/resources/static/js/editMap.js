@@ -219,16 +219,9 @@ function createMarker(place) {
                 .styled-table tbody tr {
                     border-bottom: 1px solid #dddddd;
                 }
-                
-                .styled-table tbody tr:nth-of-type(even) {
-                    background-color: #f3f3f3;
-                }
-                
-                .styled-table tbody tr:last-of-type {
-                    border-bottom: 2px solid #009879;
-                }
                 </style>
                 <div class="info-window-content">
+                <br>
                 <h2>${place.name}</h2>
                 <table class="styled-table">
                     <thead>
