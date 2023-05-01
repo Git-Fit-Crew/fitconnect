@@ -1,213 +1,228 @@
 <!DOCTYPE html>
 <html class="h-100" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<th:block th:replace="~{partials :: head}"></th:block>
-	<meta charset="UTF-8">
-	<title>Profile</title>
-	<style>
-		#muscleImage {
-			width: 50%;
-			height: auto;
-			display: none;
-			margin: 0 auto;
-			object-fit: cover; // or object-fit: contain;
-			transition: transform 10.5s ease-in-out;
+    <th:block th:replace="~{partials :: head}"></th:block>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+    <style>
+        #muscleImage {
+            width: 50%;
+            height: auto;
+            display: none;
+            margin: 0 auto;
+            object-fit: cover;
+        / / or object-fit: contain;
+            transition: transform 10.5s ease-in-out;
+            animation: colorChange 10s infinite linear, rotate 2s infinite linear, bounce 0.5s infinite alternate, pulse 2s infinite ease-in-out;
+        }
 
+        @keyframes bounce {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-5px);
+            }
+        }
 
-		}
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
 
-		#muscleImage {
-			animation: bounce 0.5s infinite alternate;
-		}
+        @keyframes colorChange {
+            0% {
+                filter: hue-rotate(0deg);
+            }
+            100% {
+                filter: hue-rotate(360deg);
+            }
+        }
 
-		@keyframes bounce {
-			from {
-				transform: translateY(0);
-			}
-			to {
-				transform: translateY(-5px);
-			}
-		}
-	</style>
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+            100% {
+                transform: scale(1);
+            }
+        }
+    </style>
 </head>
 <body class="h-100 d-flex flex-column">
 <input th:id="user-id" th:type="hidden" th:value="${user.id}">
 <nav th:replace="~{partials :: nav}"></nav>
 <br>
 <div class="title d-flex flex-row justify-content-around">
-	<div class="card" style="width: auto;">
-		<div class="card-body">
-			<h1 style="text-align:center; color:#5beb34;">Profile Page</h1>
-		</div>
-	</div>
+    <div class="card" style="width: auto;">
+        <div class="card-body">
+            <h1 style="text-align:center; color:#5beb34;">Profile Page</h1>
+        </div>
+    </div>
 </div>
 <br>
-
 <th:block th:if="${isLoggedInUser}">
-<div th:if="${!isWorkoutLoggedToday}" id="myModal" class="modal" tabindex="-1">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-body">
-				<h5 class="modal-title" style="color:#5beb34;">Did you workout today?</h5>
-				<br>
-				<img src="/img/plankGirl.jpeg" class="card-img-top" alt="plank">
-                <img id="muscleImage" src="/img/greatjobYou.png" alt="muscle">
-				<br>
-				<p>If not, even just 15 minutes of movement can improve mood and health.</p>
-				<br>
-				<form th:action="@{/workout}" th:method="post" class="card-body">
-					<button type="submit" class="btn btn-success btn-sm">Yes</button>
-					<button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Close</button>
-				</form>
-			</div>
-		</div>
-	</div>
-</div>
+    <div th:if="${!isWorkoutLoggedToday}" id="myModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <h5 class="modal-title" style="color:#5beb34;">Did you workout today?</h5>
+                    <br>
+                    <img src="/img/plankGirl.jpeg" class="card-img-top" alt="plank">
+                    <img id="muscleImage" src="/img/greatjobYou.png" alt="muscle">
+                    <br>
+                    <p>If not, even just 15 minutes of movement can improve mood and health.</p>
+                    <br>
+                    <form th:action="@{/workout}" th:method="post" class="card-body">
+                        <button type="submit" class="btn btn-success btn-sm">Yes</button>
+                        <button type="button" class="btn btn-success btn-sm" data-bs-dismiss="modal">Close</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 </th:block>
-
-
-
-
 <div class="homeCards d-flex flex-row justify-content-around">
-	<div class="card" style="width: 32%;">
-		<img class="card-img-top pic" th:if="${user.photo != null}" th:src="@{${user.photo}}"  alt="profilepic"/>
-		<div class="card-body">
+    <div class="card" style="width: 32%;">
+        <img class="card-img-top pic" th:if="${user.photo != null}" th:src="@{${user.photo}}" alt="profilepic"/>
+        <div class="card-body">
 
-			<h5 th:text="${user.username}" style="color:#5beb34;">(insert username here)</h5>
-			<p class="card-text" th:text="${user.name}"></p>
+            <h5 th:text="${user.username}" style="color:#5beb34;">(insert username here)</h5>
+            <p class="card-text" th:text="${user.name}"></p>
 
-			<!--If logged in user, edit button-->
-			<form th:if="${isLoggedInUser}" th:action="@{|/profile/showFormForUpdate/${user.id}|}">
-				<button type="submit" class="btn btn-success btn-sm">Edit Profile</button>
-			</form>
-			<!--If not logged in user, request or remove button-->
-			<th:block th:if="${!isLoggedInUser}">
-				<a th:if="${!isFriend}" th:href="@{/profile/{id}/request(id=${user.id})}" class="btn btn-success btn-sm">Send friend request!</a>
-				<!--	<button type="submit">Block user</button>-->
-				<a th:if="${isFriend}" th:href="@{/profile/{id}/remove(id=${user.id})}" class="btn btn-success btn-sm">Remove friend</a>
-			</th:block>
-			<br>
-			<!--<p th:text="${user.zipcode}">(insert zipcode here)</p>-->
-			<p th:text="${user.gender}">(insert gender here)</p>
+            <!--If logged in user, edit button-->
+            <form th:if="${isLoggedInUser}" th:action="@{|/profile/showFormForUpdate/${user.id}|}">
+                <button type="submit" class="btn btn-success btn-sm">Edit Profile</button>
+            </form>
+            <!--If not logged in user, request or remove button-->
+            <th:block th:if="${!isLoggedInUser}">
+                <a th:if="${!isFriend}" th:href="@{/profile/{id}/request(id=${user.id})}"
+                   class="btn btn-success btn-sm">Send friend request!</a>
+                <!--	<button type="submit">Block user</button>-->
+                <a th:if="${isFriend}" th:href="@{/profile/{id}/remove(id=${user.id})}" class="btn btn-success btn-sm">Remove
+                    friend</a>
+            </th:block>
+            <br>
+            <!--<p th:text="${user.zipcode}">(insert zipcode here)</p>-->
+            <p th:text="${user.gender}">(insert gender here)</p>
 
-			<p th:text="${user.level}">(insert level here)</p>
+            <p th:text="${user.level}">(insert level here)</p>
 
-			<th:block th:if="${!user.getStyles().isEmpty()}">
-				<h5 style="color:#5beb34;">Workout Styles</h5>
-				<ul class="nobull align-self-center">
-					<li th:each="style : ${user.getStyles()}" th:text="${style.name}">Replace with style name</li>
-				</ul>
-			</th:block>
-			<th:block th:if="${!user.getGoals().isEmpty()}">
-				<h5 style="color:#5beb34;">Workout Goals</h5>
-				<ul class="nobull d-flex flex-column justify-content-center alight-items-center">
-					<li th:each="goal : ${user.getGoals()}" th:text="${goal.name}">Replace with style name</li>
-				</ul>
-			</th:block>
+            <th:block th:if="${!user.getStyles().isEmpty()}">
+                <h5 style="color:#5beb34;">Workout Styles</h5>
+                <ul class="nobull align-self-center">
+                    <li th:each="style : ${user.getStyles()}" th:text="${style.name}">Replace with style name</li>
+                </ul>
+            </th:block>
+            <th:block th:if="${!user.getGoals().isEmpty()}">
+                <h5 style="color:#5beb34;">Workout Goals</h5>
+                <ul class="nobull d-flex flex-column justify-content-center alight-items-center">
+                    <li th:each="goal : ${user.getGoals()}" th:text="${goal.name}">Replace with style name</li>
+                </ul>
+            </th:block>
+        </div>
+    </div>
+    <div class="card" style="width: 60%;">
+        <br>
+        <div class="card-body" style="text-align:left;">
+            <h5 style="color:#5beb34;">Workout Tracker</h5>
 
+            <!--<h5 style="color:#5beb34;">Workout Tracker</h5>-->
+            <div id="calendar-spinner" class="d-flex justify-content-center my-3 d-none">
+                <div class="spinner-border" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center" id="cal-heatmap"></div>
+            <br>
+            <h5 style="color:#5beb34;">Achievements</h5>
+            <div class="d-flex flex-row justify-content-around flex-wrap">
+                <th:block th:if="${!user.getAchievements().isEmpty()}">
 
-		</div>
+                    <div th:each="achievement : ${user.getAchievements()}" class="achievs">
+                        <img th:src="${achievement.badge}" alt="badges" data-bs-toggle="tooltip"
+                             data-bs-placement="bottom"
+                             th:title="${achievement.description}"/>
+                    </div>
+                </th:block>
+            </div>
+            <br>
 
-	</div>
+            <h5 style="color:#5beb34;">Gym</h5>
+            <p class="card-text" th:if="${user.gym != null}" th:text="${user.gym.name}">(insert gym name here)</p>
 
-	<div class="card" style="width: 60%;">
+            <h5 style="color:#5beb34;">Bio</h5>
+            <p class="card-text" th:text="${user.bio}">(insert bio here)</p>
 
-		<br>
-		<div class="card-body" style="text-align:left;">
-			<h5 style="color:#5beb34;">Workout Tracker</h5>
+            <br>
+            <div class="d-flex flex-row justify-content-around" style="width: 100%">
 
-			<!--<h5 style="color:#5beb34;">Workout Tracker</h5>-->
-			<div id="calendar-spinner" class="d-flex justify-content-center my-3 d-none">
-				<div class="spinner-border" role="status">
-					<span class="visually-hidden">Loading...</span>
-				</div>
-			</div>
-			<div class="d-flex justify-content-center" id="cal-heatmap"></div>
-			<br>
-			<h5 style="color:#5beb34;">Achievements</h5>
-			<div class="d-flex flex-row justify-content-around flex-wrap">
-			<th:block th:if="${!user.getAchievements().isEmpty()}">
+                <div class="d-flex flex-column align-items-center" style="width: 50%;">
+                    <h5 style="color:#5beb34;">Before Photo</h5>
+                    <div class="card">
+                        <img th:if="${user.beforePhoto != null}" th:src="@{${user.beforePhoto}}" class="card-img-top">
+                        <div class="card-body d-flex flex-column">
+                            <!--<h5 class="card-title" style="color:#5beb34;">Adam Bishop</h5>
+                            <p class="card-text">Caption</p>-->
+                        </div>
+                    </div>
+                </div>
 
-				<div th:each="achievement : ${user.getAchievements()}" class="achievs">
-					<img th:src="${achievement.badge}" alt="badges" data-bs-toggle="tooltip"
-						 data-bs-placement="bottom"
-						 th:title="${achievement.description}"/>
-				</div>
-			</th:block>
-			</div>
-			<br>
+                <div class="d-flex flex-column align-items-center" style="width: 50%;">
+                    <h5 style="color:#5beb34;">Progress Photo</h5>
+                    <div class="card">
+                        <img th:if="${user.progressPhoto != null}" th:src="@{${user.progressPhoto}}"
+                             class="card-img-top">
+                        <div class="card-body d-flex flex-column">
+                            <!--
+                                                <h5 class="card-title" style="color:#5beb34;">Adam Bishop</h5>
+                            -->
+                            <!--
+                                                <p class="card-text">Caption</p>
+                            -->
+                            <!--<div class="d-flex flex-row justify-content-around align-items-end mt-auto">
 
-			<h5 style="color:#5beb34;">Gym</h5>
-			<p class="card-text" th:if="${user.gym != null}" th:text="${user.gym.name}">(insert gym name here)</p>
-
-			<h5 style="color:#5beb34;">Bio</h5>
-			<p class="card-text" th:text="${user.bio}">(insert bio here)</p>
-
-			<br>
-	<div class="d-flex flex-row justify-content-around" style="width: 100%">
-
-		<div class="d-flex flex-column align-items-center" style="width: 50%;">
-			<h5 style="color:#5beb34;">Before Photo</h5>
-			<div class="card">
-				<img th:if="${user.beforePhoto != null}" th:src="@{${user.beforePhoto}}" class="card-img-top">
-				<div class="card-body d-flex flex-column">
-					<!--<h5 class="card-title" style="color:#5beb34;">Adam Bishop</h5>
-					<p class="card-text">Caption</p>-->
-				</div>
-			</div>
-		</div>
-
-		<div class="d-flex flex-column align-items-center" style="width: 50%;">
-			<h5 style="color:#5beb34;">Progress Photo</h5>
-			<div class="card">
-				<img th:if="${user.progressPhoto != null}" th:src="@{${user.progressPhoto}}" class="card-img-top">
-				<div class="card-body d-flex flex-column">
-<!--
-					<h5 class="card-title" style="color:#5beb34;">Adam Bishop</h5>
--->
-<!--
-					<p class="card-text">Caption</p>
--->
-					<!--<div class="d-flex flex-row justify-content-around align-items-end mt-auto">
-
-					</div>-->
-				</div>
-			</div>
-		</div>
+                            </div>-->
+                        </div>
+                    </div>
+                </div>
 
 
-
-		<!--<div class="d-flex flex-column align-items-center">
-			<h5 style="color:#5beb34;">Progress Photo</h5>
-			<img th:if="${user.progressPhoto != null}" th:src="@{${user.progressPhoto}}" class="card-img-top">
-		</div>-->
-	</div>
-		</div>
-	</div>
+                <!--<div class="d-flex flex-column align-items-center">
+                    <h5 style="color:#5beb34;">Progress Photo</h5>
+                    <img th:if="${user.progressPhoto != null}" th:src="@{${user.progressPhoto}}" class="card-img-top">
+                </div>-->
+            </div>
+        </div>
+    </div>
 
 
 </div>
 <br>
-
 <script>
-	window.addEventListener('DOMContentLoaded', (event) => {
-		document.querySelector('.modal-footer form').addEventListener('submit', function(e) {
-			e.preventDefault();  // prevent the form from being submitted immediately
+    window.addEventListener('DOMContentLoaded', (event) => {
+        document.querySelector('.modal-body form').addEventListener('submit', function (e) {
+            e.preventDefault();  // prevent the form from being submitted immediately
 
-			var muscleImage = document.getElementById('muscleImage');
-			muscleImage.style.display = 'block';
-			muscleImage.src = "/img/greatjobYou.png";
+            var muscleImage = document.getElementById('muscleImage');
+            muscleImage.style.display = 'block';
+            muscleImage.src = "/img/greatjobYou.png";
 
-			muscleImage.style.transform = 'scale(1.2)';
+            muscleImage.style.transform = 'scale(1.2)';
 
-			// Submit the form after the animation
-			setTimeout(() => this.submit(), 500);
-		});
-	});
+            // Submit the form after the animation
+            setTimeout(() => this.submit(), 500);
+        });
+    });
 </script>
-
 <footer th:replace="~{partials :: footer}"></footer>
 <th:block th:replace="~{partials :: scripts}"></th:block>
-
 </body>
 </html>
