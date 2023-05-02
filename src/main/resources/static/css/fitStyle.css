@@ -51,7 +51,12 @@ body {
     overflow: hidden;
     overflow-y: scroll;
     height: 770px;
+}
 
+.friendimg {
+    width: 100%;
+    height: 15vw;
+    object-fit: cover;
 }
 
 #pass-req {
@@ -153,9 +158,3 @@ a:hover {
     align-self: center;
 }
 
-.friends {
-    overflow: hidden;
-    overflow-y: scroll;
-    /*height: 970px;*/
-
-}
