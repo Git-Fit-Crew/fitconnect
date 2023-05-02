@@ -122,8 +122,9 @@
                 <h5 class="card-title" style="color:#5beb34;">Results</h5>
                 <div class="card d-flex flex-column justify-content-center user-result" style="width: 100%;"
                      th:each="result : ${results}" th:attr="data-user-id=${result.id}">
-                    <img class="profilePic" th:src="${result.photo}" alt="profilepic"
+                    <img class="profilePic" th:if="${result.photo != null}" th:src="${result.photo}" alt="profilepic"
                          style="margin-left:auto; margin-right:auto;">
+                    <img class="profilePic" th:if="${result.photo == null}" src="/img/profileDefault.jpeg" alt="profilepic"/>
                     <div class="card-body">
                         <a th:href="@{/profile/{id}(id=${result.id})}"><h4
                                 data-bs-toggle="tooltip"
